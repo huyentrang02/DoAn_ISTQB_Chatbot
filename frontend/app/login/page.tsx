@@ -39,7 +39,7 @@ export default function LoginPage() {
             <Auth
               supabaseClient={supabase}
               appearance={{ theme: ThemeSupa }}
-              providers={['google']}
+              providers={[]}
               theme="light"
             />
           </CardContent>
