@@ -1,0 +1,72 @@
+{
+  "description": "Bộ dữ liệu test để đánh giá độ chính xác của chatbot ISTQB",
+  "test_cases": [
+    {
+      "id": 1,
+      "question": "ISTQB là viết tắt của gì?",
+      "type": "multiple_choice",
+      "options": {
+        "A": "International Software Testing Qualifications Board",
+        "B": "International Software Testing Quality Board",
+        "C": "International Software Testing Quality Bureau",
+        "D": "International Software Testing Qualifications Bureau"
+      },
+      "correct_answer": "A",
+      "category": "Basic"
+    },
+    {
+      "id": 2,
+      "question": "Test case là gì?",
+      "type": "multiple_choice",
+      "options": {
+        "A": "Một tập hợp các điều kiện đầu vào, thực thi và kết quả mong đợi",
+        "B": "Một công cụ test tự động",
+        "C": "Một loại bug trong phần mềm",
+        "D": "Một phương pháp test thủ công"
+      },
+      "correct_answer": "A",
+      "category": "Basic"
+    },
+    {
+      "id": 3,
+      "question": "Mức độ ưu tiên (Priority) của test case được xác định bởi ai?",
+      "type": "multiple_choice",
+      "options": {
+        "A": "Tester",
+        "B": "Test Manager",
+        "C": "Business Analyst",
+        "D": "Developer"
+      },
+      "correct_answer": "C",
+      "category": "Test Management"
+    },
+    {
+      "id": 4,
+      "question": "Black-box testing là gì?",
+      "type": "multiple_choice",
+      "options": {
+        "A": "Test dựa trên cấu trúc code bên trong",
+        "B": "Test dựa trên đặc tả chức năng, không cần biết code bên trong",
+        "C": "Test màu đen",
+        "D": "Test tự động"
+      },
+      "correct_answer": "C",
+      "category": "Test Techniques"
+    },
+    {
+      "id": 5,
+      "question": "Regression testing được thực hiện khi nào?",
+      "type": "multiple_choice",
+      "options": {
+        "A": "Sau khi sửa bug",
+        "B": "Sau khi thêm tính năng mới",
+        "C": "Sau khi thay đổi code",
+        "D": "Tất cả các trường hợp trên"
+      },
+      "correct_answer": "D",
+      "category": "Test Types"
+    }
+  ]
+}
+
+

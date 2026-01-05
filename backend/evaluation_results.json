@@ -1,0 +1,91 @@
+{
+  "evaluation_date": "2026-01-04T21:38:11.880829",
+  "total_tests": 5,
+  "correct_answers": 4,
+  "incorrect_answers": 1,
+  "accuracy_percentage": 80.0,
+  "category_statistics": {
+    "Basic": {
+      "total": 2,
+      "correct": 2,
+      "accuracy": 100.0
+    },
+    "Test Management": {
+      "total": 1,
+      "correct": 1,
+      "accuracy": 100.0
+    },
+    "Test Techniques": {
+      "total": 1,
+      "correct": 0,
+      "accuracy": 0.0
+    },
+    "Test Types": {
+      "total": 1,
+      "correct": 1,
+      "accuracy": 100.0
+    }
+  },
+  "detailed_results": [
+    {
+      "test_id": 1,
+      "question": "ISTQB là viết tắt của gì?",
+      "formatted_question": "ISTQB là viết tắt của gì?\n\nCác đáp án:\nA. International Software Testing Qualifications Board\nB. International Software Testing Quality Board\nC. International Software Testing Quality Bureau\nD. International Software Testing Qualifications Bureau\n\nHãy chọn đáp án đúng (chỉ trả lời bằng chữ cái A, B, C hoặc D).",
+      "correct_answer": "A",
+      "chatbot_answer": "A",
+      "extracted_answer": "A",
+      "is_correct": true,
+      "explanation": "Chatbot trả lời: A, Đáp án đúng: A",
+      "category": "Basic",
+      "timestamp": "2026-01-04T21:38:00.263317"
+    },
+    {
+      "test_id": 2,
+      "question": "Test case là gì?",
+      "formatted_question": "Test case là gì?\n\nCác đáp án:\nA. Một tập hợp các điều kiện đầu vào, thực thi và kết quả mong đợi\nB. Một công cụ test tự động\nC. Một loại bug trong phần mềm\nD. Một phương pháp test thủ công\n\nHãy chọn đáp án đúng (chỉ trả lời bằng chữ cái A, B, C hoặc D).",
+      "correct_answer": "A",
+      "chatbot_answer": "A",
+      "extracted_answer": "A",
+      "is_correct": true,
+      "explanation": "Chatbot trả lời: A, Đáp án đúng: A",
+      "category": "Basic",
+      "timestamp": "2026-01-04T21:38:03.018899"
+    },
+    {
+      "test_id": 3,
+      "question": "Mức độ ưu tiên (Priority) của test case được xác định bởi ai?",
+      "formatted_question": "Mức độ ưu tiên (Priority) của test case được xác định bởi ai?\n\nCác đáp án:\nA. Tester\nB. Test Manager\nC. Business Analyst\nD. Developer\n\nHãy chọn đáp án đúng (chỉ trả lời bằng chữ cái A, B, C hoặc D).",
+      "correct_answer": "C",
+      "chatbot_answer": "C",
+      "extracted_answer": "C",
+      "is_correct": true,
+      "explanation": "Chatbot trả lời: C, Đáp án đúng: C",
+      "category": "Test Management",
+      "timestamp": "2026-01-04T21:38:05.575245"
+    },
+    {
+      "test_id": 4,
+      "question": "Black-box testing là gì?",
+      "formatted_question": "Black-box testing là gì?\n\nCác đáp án:\nA. Test dựa trên cấu trúc code bên trong\nB. Test dựa trên đặc tả chức năng, không cần biết code bên trong\nC. Test màu đen\nD. Test tự động\n\nHãy chọn đáp án đúng (chỉ trả lời bằng chữ cái A, B, C hoặc D).",
+      "correct_answer": "C",
+      "chatbot_answer": "B",
+      "extracted_answer": "B",
+      "is_correct": false,
+      "explanation": "Chatbot trả lời: B, Đáp án đúng: C",
+      "category": "Test Techniques",
+      "timestamp": "2026-01-04T21:38:08.195677"
+    },
+    {
+      "test_id": 5,
+      "question": "Regression testing được thực hiện khi nào?",
+      "formatted_question": "Regression testing được thực hiện khi nào?\n\nCác đáp án:\nA. Sau khi sửa bug\nB. Sau khi thêm tính năng mới\nC. Sau khi thay đổi code\nD. Tất cả các trường hợp trên\n\nHãy chọn đáp án đúng (chỉ trả lời bằng chữ cái A, B, C hoặc D).",
+      "correct_answer": "D",
+      "chatbot_answer": "D",
+      "extracted_answer": "D",
+      "is_correct": true,
+      "explanation": "Chatbot trả lời: D, Đáp án đúng: D",
+      "category": "Test Types",
+      "timestamp": "2026-01-04T21:38:10.878629"
+    }
+  ]
+}
