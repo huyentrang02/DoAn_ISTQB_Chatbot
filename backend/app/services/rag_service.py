@@ -15,7 +15,7 @@ from app.core.config import settings
 
 class RAGService:
     def __init__(self):
-        self.embeddings = GoogleGenerativeAIEmbeddings(model="models/text-embedding-004", google_api_key=settings.GOOGLE_API_KEY)
+        self.embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001", google_api_key=settings.GOOGLE_API_KEY, output_dimensionality=768)
         self.llm = ChatGoogleGenerativeAI(model="models/gemini-2.0-flash", temperature=0.7, google_api_key=settings.GOOGLE_API_KEY)
         
         self.supabase: Client = create_client(settings.SUPABASE_URL, settings.SUPABASE_KEY)
