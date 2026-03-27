@@ -12,3 +12,7 @@ python-dotenv==1.2.1
 google-generativeai==0.8.6
 httpx>=0.28.1
 websockets>=13.0.0,<15.1.0
+pdfplumber>=0.11.0
+sentence-transformers>=3.0.0
+llama-parse>=0.4.0
+nest-asyncio>=1.6.0

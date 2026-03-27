@@ -38,16 +38,22 @@ export default function AdminUpload() {
 
     for (let i = 0; i < files.length; i++) {
       const file = files[i]
-      setUploadProgress(`Uploading ${i + 1}/${files.length}: ${file.name}`)
+      setUploadProgress(`Uploading ${i + 1}/${files.length}: ${file.name} — Đang embedding, có thể mất 3–5 phút...`)
       
       const formData = new FormData()
       formData.append('file', file)
+
+      // Timeout 10 phút — cần đủ thời gian cho batching embedding
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 10 * 60 * 1000)
 
       try {
         const res = await fetch(`${API_URL}/api/upload`, {
           method: 'POST',
           body: formData,
+          signal: controller.signal,
         })
+        clearTimeout(timeoutId)
         
         const data = await res.json()
         
@@ -58,6 +64,10 @@ export default function AdminUpload() {
           failCount++
         }
       } catch (error) {
+        clearTimeout(timeoutId)
+        if (error instanceof Error && error.name === 'AbortError') {
+          setMessage('Error: Upload timeout sau 10 phút. Thử lại hoặc kiểm tra server.')
+        }
         failCount++
       }
     }

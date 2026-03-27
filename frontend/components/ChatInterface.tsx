@@ -58,24 +58,57 @@ export default function ChatInterface() {
     // Lưu user message vào DB
     await saveMessage(userMsg);
 
+    // Truyền 4 tin nhắn gần nhất cho ngữ cảnh
+    const recentHistory = messages.slice(-4).map((m) => ({
+      role: m.role,
+      content: m.content,
+    }));
+
     try {
       const res = await fetch(`${API_URL}/api/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query: userMsg.content }),
+        body: JSON.stringify({ 
+          query: userMsg.content,
+          history: recentHistory
+        }),
       });
 
-      const data = await res.json();
+      if (!res.ok) throw new Error("Network response was not ok");
+      if (!res.body) throw new Error("No response body");
 
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder("utf-8");
+      
+      let fullContent = "";
       const assistantMsg: Message = {
         role: "assistant",
-        content: res.ok ? data.answer : "Sorry, I encountered an error.",
+        content: "",
         timestamp: Date.now(),
       };
-
-      setMessages((prev) => [...prev, assistantMsg]);
       
-      // Lưu assistant message vào DB
+      // Hiển thị tin nhắn chờ ban đầu
+      setMessages((prev) => [...prev, assistantMsg]);
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        
+        fullContent += decoder.decode(value, { stream: true });
+        
+        // Cập nhật nội dung stream vào tin nhắn cuối cùng để tạo hiệu ứng gõ chữ
+        setMessages((prev) => {
+          const newMessages = [...prev];
+          newMessages[newMessages.length - 1] = {
+            ...newMessages[newMessages.length - 1],
+            content: fullContent,
+          };
+          return newMessages;
+        });
+      }
+
+      // Lưu tin nhắn hoàn chỉnh vào DB
+      assistantMsg.content = fullContent;
       await saveMessage(assistantMsg);
     } catch (error) {
       const errorMsg: Message = {

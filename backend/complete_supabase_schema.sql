@@ -67,6 +67,20 @@ begin
 end;
 $$;
 
+-- Tạo function tìm kiếm full-text (BM25) dùng PostgreSQL tsvector
+create or replace function match_documents_fulltext(
+  search_query text,
+  match_count int
+) returns table (id uuid, content text, metadata jsonb, rank float)
+language sql stable as $$
+  select id, content, metadata,
+         ts_rank(to_tsvector('english', content), plainto_tsquery('english', search_query)) as rank
+  from documents
+  where to_tsvector('english', content) @@ plainto_tsquery('english', search_query)
+  order by rank desc
+  limit match_count;
+$$;
+
 -- Tạo bảng documents để lưu tài liệu và embeddings
 -- Mỗi document là một chunk text từ file ISTQB
 create table documents (
