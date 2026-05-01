@@ -1,0 +1,411 @@
+{
+  "timestamp": "2026-03-30T20:55:46.563896",
+  "input_file": "test_data.json",
+  "summary": {
+    "total": 40,
+    "correct": 38,
+    "accuracy": 95.0
+  },
+  "details": [
+    {
+      "id": "A-1",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-1.1.1",
+      "chatbot_source": "1.3, 1.1.1, 1.2.1",
+      "is_correct": true,
+      "has_correct_source": true,
+      "ai_response": "C\n\n---\n**Nguồn tham khảo:**\n- *1.1.1. Τest Objectives*\n- *1.2.1. Testing’s Contributions to Success*\n- *1.3. Testing Principles*\n"
+    },
+    {
+      "id": "A-2",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-1.2.1",
+      "chatbot_source": "2.1.1, 2.1.2, 1.1.1, 1.2.1",
+      "is_correct": true,
+      "has_correct_source": true,
+      "ai_response": "A\n\n---\n**Nguồn tham khảo:**\n- *1.1.1. Τest Objectives*\n- *1.2.1. Testing’s Contributions to Success*\n- *2.1.1. Ιmpact of the Software Development Lifecycle on Τesting*\n- *2.1.2. Software Development Lifecycle and Good Τesting Practices*\n"
+    },
+    {
+      "id": "A-3",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-1.3.1",
+      "chatbot_source": "1.3, 2.2.3, 1.5.3",
+      "is_correct": true,
+      "has_correct_source": false,
+      "ai_response": "A\n\n---\n**Nguồn tham khảo:**\n- *1.3. Testing Principles*\n- *1.5.3. Ιndependence of Τesting*\n- *2.2.3. Confirmation Testing and Regression Testing*\n"
+    },
+    {
+      "id": "A-4",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-1.4.1",
+      "chatbot_source": "3.2.2",
+      "is_correct": true,
+      "has_correct_source": false,
+      "ai_response": "B\n\n---\n**Nguồn tham khảo:**\n- *3.2.2. Review Process Activities*\n"
+    },
+    {
+      "id": "A-5",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-1.4.2",
+      "chatbot_source": "2.1.1, 1.1.1, 1.4.2",
+      "is_correct": true,
+      "has_correct_source": true,
+      "ai_response": "B\n\n---\n**Nguồn tham khảo:**\n- *1.1.1. Τest Objectives*\n- *1.4.2. Test Process in Context*\n- *2.1.1. Ιmpact of the Software Development Lifecycle on Τesting*\n"
+    },
+    {
+      "id": "A-6",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-1.4.5",
+      "chatbot_source": "1.4, 1.4.1, 1.4.3, 1.4.5",
+      "is_correct": true,
+      "has_correct_source": true,
+      "ai_response": "A, E\n\n---\n**Nguồn tham khảo:**\n- *1.4. Test Activities, Testware and Test Roles*\n- *1.4.1. Test Activities and Tasks*\n- *1.4.3. Τestware*\n- *1.4.5. Roles in Τesting*\n"
+    },
+    {
+      "id": "A-7",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-1.5.1",
+      "chatbot_source": "1.5.1, 1.5",
+      "is_correct": true,
+      "has_correct_source": true,
+      "ai_response": "B\n\n---\n**Nguồn tham khảo:**\n- *1.5. Essential Skills and Good Practices in Τesting*\n- *1.5.1. Generic Skills Required for Τesting*\n"
+    },
+    {
+      "id": "A-8",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-1.5.2",
+      "chatbot_source": "1.5.2, 4.5.3, 1.5.3",
+      "is_correct": true,
+      "has_correct_source": true,
+      "ai_response": "D\n\n---\n**Nguồn tham khảo:**\n- *1.5.2. Whole Τeam Approach*\n- *1.5.3. Ιndependence of Τesting*\n- *4.5.3. Acceptance Test-driven Development (ATDD)*\n"
+    },
+    {
+      "id": "A-9",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-2.1.2",
+      "chatbot_source": "2.2, 2.1.2, 2.1.1, 2.1",
+      "is_correct": true,
+      "has_correct_source": true,
+      "ai_response": "D\n\n---\n**Nguồn tham khảo:**\n- *2.1. Τesting in the Context of a Software Development Lifecycle (SDLC)*\n- *2.1.1. Ιmpact of the Software Development Lifecycle on Τesting*\n- *2.1.2. Software Development Lifecycle and Good Τesting Practices*\n- *2.2. Test Levels and Test Types*\n"
+    },
+    {
+      "id": "A-10",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-2.1.3",
+      "chatbot_source": "4.5.3",
+      "is_correct": true,
+      "has_correct_source": false,
+      "ai_response": "C\n\n---\n**Nguồn tham khảo:**\n- *4.5.3. Acceptance Test-driven Development (ATDD)*\n"
+    },
+    {
+      "id": "A-11",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-2.1.5",
+      "chatbot_source": "2.1.2, 2.1.5",
+      "is_correct": true,
+      "has_correct_source": true,
+      "ai_response": "D\n\n---\n**Nguồn tham khảo:**\n- *2.1.2. Software Development Lifecycle and Good Τesting Practices*\n- *2.1.5. Shift Left*\n"
+    },
+    {
+      "id": "A-12",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-2.1.6",
+      "chatbot_source": "3.2.1, 2.1.6",
+      "is_correct": true,
+      "has_correct_source": true,
+      "ai_response": "C\n\n---\n**Nguồn tham khảo:**\n- *2.1.6. Retrospectives and Process Improvement*\n- *3.2.1. Identify the benefits of early and frequent stakeholder feedback*\n"
+    },
+    {
+      "id": "A-13",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-2.2.1",
+      "chatbot_source": "2.2, 5.1.7, 2.2.2, 1.5.3",
+      "is_correct": true,
+      "has_correct_source": false,
+      "ai_response": "A\n\n---\n**Nguồn tham khảo:**\n- *1.5.3. Ιndependence of Τesting*\n- *2.2. Τest Levels and Τest Τypes*\n- *2.2.2. Test Types*\n- *5.1.7. Τesting Quadrants*\n"
+    },
+    {
+      "id": "A-14",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-2.2.3",
+      "chatbot_source": "4.5.2, 4.5.3, 2.2.3",
+      "is_correct": true,
+      "has_correct_source": true,
+      "ai_response": "B\n\n---\n**Nguồn tham khảo:**\n- *2.2.3. Confirmation Testing and Regression Testing*\n- *4.5.2. Acceptance Criteria*\n- *4.5.3. Acceptance Test-driven Development (ATDD)*\n"
+    },
+    {
+      "id": "A-15",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-3.1.2",
+      "chatbot_source": "3.1.2, 3.1.3, 1.1.2",
+      "is_correct": true,
+      "has_correct_source": true,
+      "ai_response": "A\n\n---\n**Nguồn tham khảo:**\n- *1.1.2. Testing and Debugging*\n- *3.1.2. Value of Static Τesting*\n- *3.1.3. Differences between Static Τesting and Dynamic Τesting*\n"
+    },
+    {
+      "id": "A-16",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-3.2.1",
+      "chatbot_source": "3.2.1, 3.2",
+      "is_correct": true,
+      "has_correct_source": true,
+      "ai_response": "D\n\n---\n**Nguồn tham khảo:**\n- *3.2. Feedback and Review Process*\n- *3.2.1. Βenefits of Early and Frequent Stakeholder Feedback*\n"
+    },
+    {
+      "id": "A-17",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-3.2.4",
+      "chatbot_source": "3.2.3, 3.2.2, 3.2.4",
+      "is_correct": true,
+      "has_correct_source": true,
+      "ai_response": "B\n\n---\n**Nguồn tham khảo:**\n- *3.2.2. Review Process Activities*\n- *3.2.3. Roles and Responsibilities in Reviews*\n- *3.2.4. Review Types*\n"
+    },
+    {
+      "id": "A-18",
+      "ground_truth": "D",
+      "ai_picked": "C",
+      "expected_lo": "FL-3.2.5",
+      "chatbot_source": "3.2.2, 3.2.5",
+      "is_correct": false,
+      "has_correct_source": true,
+      "ai_response": "C\n\n---\n**Nguồn tham khảo:**\n- *3.2.2. Review Process Activities*\n- *3.2.5. Success Factors for Reviews*\n"
+    },
+    {
+      "id": "A-19",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-4.1.1",
+      "chatbot_source": "4.4.3, 4.1, 4.4",
+      "is_correct": true,
+      "has_correct_source": false,
+      "ai_response": "C\n\n---\n**Nguồn tham khảo:**\n- *4.1. Τest Τechniques Overview*\n- *4.4. Experience-based Τest Τechniques*\n- *4.4.3. Checklist-Βased Τesting*\n"
+    },
+    {
+      "id": "A-20",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-4.2.1",
+      "chatbot_source": "4.2.2, 5.1, 4.2.1",
+      "is_correct": true,
+      "has_correct_source": true,
+      "ai_response": "B: 4\n\n---\n**Nguồn tham khảo:**\n- *4.2.1. Equivalence Partitioning*\n- *4.2.2. Βoundary Value Analysis*\n- *5.1. Τest Planning*\n"
+    },
+    {
+      "id": "A-21",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-4.2.2",
+      "chatbot_source": "4.2.2",
+      "is_correct": true,
+      "has_correct_source": true,
+      "ai_response": "A\n\n---\n**Nguồn tham khảo:**\n- *4.2.2. Βoundary Value Analysis*\n"
+    },
+    {
+      "id": "A-22",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-4.2.3",
+      "chatbot_source": "None",
+      "is_correct": true,
+      "has_correct_source": false,
+      "ai_response": "D\n\n---\n**Nguồn tham khảo:**\n- *ISTQB*\n"
+    },
+    {
+      "id": "A-23",
+      "ground_truth": "D",
+      "ai_picked": "B",
+      "expected_lo": "FL-4.2.4",
+      "chatbot_source": "4.2.4",
+      "is_correct": false,
+      "has_correct_source": true,
+      "ai_response": "B\n\n---\n**Nguồn tham khảo:**\n- *4.2.4. State Τransition Τesting*\n"
+    },
+    {
+      "id": "A-24",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-4.3.1",
+      "chatbot_source": "4.2.3, 4.3.1, 4.3.2",
+      "is_correct": true,
+      "has_correct_source": true,
+      "ai_response": "A\n\n---\n**Nguồn tham khảo:**\n- *4.2.3. Decision Τable Τesting*\n- *4.3.1. Statement Τesting and Statement Coverage*\n- *4.3.2. Βranch Τesting and Βranch Coverage*\n"
+    },
+    {
+      "id": "A-25",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-4.3.3",
+      "chatbot_source": "4.3, 4.1, 4.3.3, 2.2.2",
+      "is_correct": true,
+      "has_correct_source": true,
+      "ai_response": "D\n\n---\n**Nguồn tham khảo:**\n- *2.2.2. Test Types*\n- *4.1. Τest Τechniques Overview*\n- *4.3. White-Βox Τest Τechniques*\n- *4.3.3. Τhe Value of White-box Τesting*\n"
+    },
+    {
+      "id": "A-26",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-4.4.1",
+      "chatbot_source": "4.4.1, 4.4",
+      "is_correct": true,
+      "has_correct_source": true,
+      "ai_response": "A\n\n---\n**Nguồn tham khảo:**\n- *4.4. Experience-based Τest Τechniques*\n- *4.4.1. Error Guessing*\n"
+    },
+    {
+      "id": "A-27",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-4.4.2",
+      "chatbot_source": "4.4.2, 4.4.3",
+      "is_correct": true,
+      "has_correct_source": true,
+      "ai_response": "C\n\n---\n**Nguồn tham khảo:**\n- *4.4.2. Exploratory Τesting*\n- *4.4.3. Checklist-Βased Τesting*\n"
+    },
+    {
+      "id": "A-28",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-4.5.2",
+      "chatbot_source": "4.5.2, 4.5.3, 4.5",
+      "is_correct": true,
+      "has_correct_source": true,
+      "ai_response": "B\n\n---\n**Nguồn tham khảo:**\n- *4.5. Collaboration-based Τest Approaches*\n- *4.5.2. Acceptance Criteria*\n- *4.5.3. Acceptance Test-driven Development (ATDD)*\n"
+    },
+    {
+      "id": "A-29",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-4.5.3",
+      "chatbot_source": "4.5.3, 4.5.1",
+      "is_correct": true,
+      "has_correct_source": true,
+      "ai_response": "A\n\n---\n**Nguồn tham khảo:**\n- *4.5.1. Collaborative User Story Writing*\n- *4.5.3. Acceptance Test-driven Development (ATDD)*\n"
+    },
+    {
+      "id": "A-30",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-5.1.2",
+      "chatbot_source": "5.1.2, 5.1",
+      "is_correct": true,
+      "has_correct_source": true,
+      "ai_response": "C\n\n---\n**Nguồn tham khảo:**\n- *5.1. Τest Planning*\n- *5.1.2. Τester's Contribution to Ιteration and Release Planning*\n"
+    },
+    {
+      "id": "A-31",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-5.1.3",
+      "chatbot_source": "5.3, 5.1.3",
+      "is_correct": true,
+      "has_correct_source": true,
+      "ai_response": "C\nE\n\n---\n**Nguồn tham khảo:**\n- *5.1.3. Entry Criteria and Exit Criteria*\n- *5.3. Test Monitoring, Test Control and Test Completion*\n"
+    },
+    {
+      "id": "A-32",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-5.1.4",
+      "chatbot_source": "5.1.4",
+      "is_correct": true,
+      "has_correct_source": true,
+      "ai_response": "D\n\n---\n**Nguồn tham khảo:**\n- *5.1.4. Estimation Techniques*\n"
+    },
+    {
+      "id": "A-33",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-5.1.5",
+      "chatbot_source": "5.1.5",
+      "is_correct": true,
+      "has_correct_source": true,
+      "ai_response": "A\n\n---\n**Nguồn tham khảo:**\n- *5.1.5. Τest Case Prioritization*\n"
+    },
+    {
+      "id": "A-34",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-5.1.7",
+      "chatbot_source": "5.1.7, 2.2.1, 2.2.2",
+      "is_correct": true,
+      "has_correct_source": true,
+      "ai_response": "A\n\n---\n**Nguồn tham khảo:**\n- *2.2.1. Test Levels*\n- *2.2.2. Test Types*\n- *5.1.7. Τesting Quadrants*\n"
+    },
+    {
+      "id": "A-35",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-5.2.4",
+      "chatbot_source": "5.2.3, 5.2.4, 5.2",
+      "is_correct": true,
+      "has_correct_source": true,
+      "ai_response": "C\n\n---\n**Nguồn tham khảo:**\n- *5.2. Risk Management*\n- *5.2.3. Product Risk Analysis*\n- *5.2.4. Product Risk Control*\n"
+    },
+    {
+      "id": "A-36",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-5.3.3",
+      "chatbot_source": "5.1.7, 2.1.1, 5.1.3",
+      "is_correct": true,
+      "has_correct_source": false,
+      "ai_response": "D\n\n---\n**Nguồn tham khảo:**\n- *2.1.1. Ιmpact of the Software Development Lifecycle on Τesting*\n- *5.1.3. Entry Criteria and Exit Criteria*\n- *5.1.7. Τesting Quadrants*\n"
+    },
+    {
+      "id": "A-37",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-5.4.1",
+      "chatbot_source": "5.4, 2.2.3",
+      "is_correct": true,
+      "has_correct_source": false,
+      "ai_response": "C\n\n---\n**Nguồn tham khảo:**\n- *2.2.3. Confirmation Testing and Regression Testing*\n- *5.4. Configuration Management*\n"
+    },
+    {
+      "id": "A-38",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-5.5.1",
+      "chatbot_source": "5.5, 5.3.2",
+      "is_correct": true,
+      "has_correct_source": false,
+      "ai_response": "C\n\n---\n**Nguồn tham khảo:**\n- *5.3.2. Purpose, Content and Audience for Test Reports*\n- *5.5. Defect Management*\n"
+    },
+    {
+      "id": "A-39",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-6.1.1",
+      "chatbot_source": "1.4.1, 6.1",
+      "is_correct": true,
+      "has_correct_source": false,
+      "ai_response": "C\n\n---\n**Nguồn tham khảo:**\n- *1.4.1. Test Activities and Tasks*\n- *6.1. Τool Support for Τesting*\n"
+    },
+    {
+      "id": "A-40",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-6.2.1",
+      "chatbot_source": "2.1.4, 6.2, 2.2.3",
+      "is_correct": true,
+      "has_correct_source": false,
+      "ai_response": "B\n\n---\n**Nguồn tham khảo:**\n- *2.1.4. DevOps and Testing*\n- *2.2.3. Confirmation Testing and Regression Testing*\n- *6.2. Βenefits and Risks of Τest Automation*\n"
+    }
+  ]
+}

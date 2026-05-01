@@ -8,12 +8,14 @@ class Settings:
     GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
     SUPABASE_URL = os.getenv("SUPABASE_URL")
     SUPABASE_KEY = os.getenv("SUPABASE_KEY")
+    LLAMA_CLOUD_API_KEY = os.getenv("LLAMA_CLOUD_API_KEY")
     
     def validate(self):
         missing = []
         if not self.GOOGLE_API_KEY: missing.append("GOOGLE_API_KEY")
         if not self.SUPABASE_URL: missing.append("SUPABASE_URL")
         if not self.SUPABASE_KEY: missing.append("SUPABASE_KEY")
+        if not self.LLAMA_CLOUD_API_KEY: missing.append("LLAMA_CLOUD_API_KEY")
         
         if missing:
             raise ValueError(f"Missing environment variables: {', '.join(missing)}. Please check your backend/.env file.")

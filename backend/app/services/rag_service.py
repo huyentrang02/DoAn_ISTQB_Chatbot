@@ -5,7 +5,6 @@ import time
 from datetime import datetime
 from typing import List
 from fastapi import UploadFile
-import pdfplumber
 from langchain_google_genai import GoogleGenerativeAIEmbeddings, ChatGoogleGenerativeAI
 from langchain_community.vectorstores import SupabaseVectorStore
 from langchain_core.documents import Document
@@ -46,77 +45,6 @@ class RAGService:
             print(f"[RAGService] Lỗi khi xóa documents: {e}")
             raise
 
-    def _clean_text(self, text: str) -> str:
-        """Clean PDF text from noise"""
-        # Remove page numbers (e.g., "Page 123", "- 23 -")
-        text = re.sub(r'Page\s+\d+', '', text, flags=re.IGNORECASE)
-        text = re.sub(r'-\s*\d+\s*-', '', text)
-        
-        # Remove excessive whitespace and newlines
-        text = re.sub(r'\n\s*\n\s*\n+', '\n\n', text)  # Max 2 consecutive newlines
-        text = re.sub(r' +', ' ', text)  # Multiple spaces to single
-        
-        # Remove common PDF artifacts
-        text = re.sub(r'[\x00-\x08\x0b-\x0c\x0e-\x1f\x7f-\x9f]', '', text)  # Control characters
-        
-        return text.strip()
-
-    def _extract_and_convert_to_markdown(self, pdf_path: str) -> tuple[str, int]:
-        """
-        Extract text từ PDF bằng pdfplumber và chuyển đổi heading số
-        thành Markdown (# ## ###) để dùng với MarkdownHeaderTextSplitter.
-
-        Nhận diện heading theo pattern:
-          1.2.3 Title  → ### (H3 / subsection)
-          1.2 Title    → ## (H2 / section)
-          1 Title      → #  (H1 / chapter)
-
-        Returns: (markdown_text, heading_count)
-        """
-        pages_text = []
-        with pdfplumber.open(pdf_path) as pdf:
-            for page in pdf.pages:
-                text = page.extract_text()
-                if text:
-                    pages_text.append(text)
-
-        full_text = "\n".join(pages_text)
-        lines = full_text.split("\n")
-        md_lines = []
-        heading_count = 0
-
-        for line in lines:
-            stripped = line.strip()
-            if not stripped:
-                md_lines.append("")
-                continue
-
-            # Bỏ qua các dòng Table of Contents (có chuỗi "...." kéo dài)
-            if re.search(r'\.{4,}', stripped):
-                continue
-
-            # H3: "1.2.3. Title" hoặc "1.2.3.4. Title" (dấu chấm sau số cuối bắt buộc)
-            if re.match(r'^\d+\.\d+\.\d+\.?\s+[^\s]', stripped):
-                md_lines.append(f"### {stripped}")
-                heading_count += 1
-            # H2: "1.2. Title" (không phải 1.2.3)
-            elif re.match(r'^\d+\.\d+\.?\s+[^\s]', stripped) and not re.match(r'^\d+\.\d+\.', stripped):
-                # Loại bỏ pattern "1.2.3" bằng cách check có đúng 1 dấu chấm không
-                parts = stripped.split(' ')[0].rstrip('.')
-                if parts.count('.') == 1:
-                    md_lines.append(f"## {stripped}")
-                    heading_count += 1
-                else:
-                    md_lines.append(stripped)
-            # H1: "1. Title" hoặc "0. Introduction" (số đơn + dấu chấm)
-            elif re.match(r'^\d+\.\s+[^\s]', stripped) and not re.match(r'^\d+\.\d', stripped):
-                md_lines.append(f"# {stripped}")
-                heading_count += 1
-            else:
-                md_lines.append(stripped)
-
-        return "\n".join(md_lines), heading_count
-
     async def process_pdf(self, file: UploadFile):
         # Save temp file
         temp_file_path = f"temp_{file.filename}"
@@ -124,103 +52,120 @@ class RAGService:
             shutil.copyfileobj(file.file, buffer)
 
         try:
-            # ── Bước 0: Xóa toàn bộ vector DB cũ ─────────────────────────
-            self._clear_all_documents()
+            # ── Bước 1: Extract text bằng LlamaParse ──────────────────────
+            import nest_asyncio
+            try:
+                from llama_parse import LlamaParse
+            except ImportError:
+                raise RuntimeError("Chưa cài đặt llama-parse. Hãy chạy: pip install llama-parse")
+                
+            nest_asyncio.apply()
+            
+            print(f"[RAGService] Đang dùng LlamaParse để phân tích file: {file.filename}")
+            parser = LlamaParse(
+                api_key=settings.LLAMA_CLOUD_API_KEY,
+                result_type="markdown",
+                verbose=True,
+                num_workers=4
+            )
+            
+            import asyncio
+            # Load_data là hàm đồng bộ (chạy mất vài phút), cần bỏ vào to_thread để không nghẽn Server
+            documents = await asyncio.to_thread(parser.load_data, temp_file_path)
+            if not documents:
+                raise ValueError("LlamaParse không trả về kết quả nào.")
+                
+            markdown_text = "\n\n".join([doc.text for doc in documents])
 
-            # ── Bước 1: Extract text bằng pdfplumber ──────────────────────
-            markdown_text, heading_count = self._extract_and_convert_to_markdown(temp_file_path)
-            markdown_text = self._clean_text(markdown_text)
+            # ── Bước 2: Chunk theo cấu trúc heading ─────────────
+            from langchain_text_splitters import MarkdownHeaderTextSplitter, RecursiveCharacterTextSplitter
+            from langchain_core.documents import Document
 
-            # ── Bước 2: Chunk theo cấu trúc heading (nếu có) ─────────────
-            use_markdown_splitter = heading_count >= 3  # PDF có cấu trúc rõ ràng
+            headers_to_split_on = [
+                ("#",   "chapter"),
+                ("##",  "section"),
+                ("###", "subsection"),
+            ]
+            md_splitter = MarkdownHeaderTextSplitter(
+                headers_to_split_on=headers_to_split_on,
+                strip_headers=False,
+            )
+            md_splits = md_splitter.split_text(markdown_text)
 
-            if use_markdown_splitter:
-                # Split theo Heading Markdown (#, ##, ###)
-                headers_to_split_on = [
-                    ("#",   "chapter"),
-                    ("##",  "section"),
-                    ("###", "subsection"),
-                ]
-                md_splitter = MarkdownHeaderTextSplitter(
-                    headers_to_split_on=headers_to_split_on,
-                    strip_headers=False,  # Giữ lại header trong nội dung chunk
-                )
-                md_splits = md_splitter.split_text(markdown_text)
-
-                # Với các section lớn, tiếp tục chia nhỏ không vượt quá chunk_size
-                text_splitter = RecursiveCharacterTextSplitter(
-                    chunk_size=1200,
-                    chunk_overlap=150,
-                    separators=["\n\n", "\n", ". ", " ", ""],
-                )
-                splits = text_splitter.split_documents(md_splits)
-            else:
-                # Fallback: PDF không có cấu trúc heading (ví dụ: scan/image PDF)
-                fallback_splitter = RecursiveCharacterTextSplitter(
-                    chunk_size=1000,
-                    chunk_overlap=200,
-                    separators=["\n\n", "\n", ". ", " ", ""],
-                )
-                splits = fallback_splitter.split_documents(
-                    [Document(page_content=markdown_text)]
-                )
+            text_splitter = RecursiveCharacterTextSplitter(
+                chunk_size=1200,
+                chunk_overlap=150,
+                separators=["\n\n", "\n", ". ", " ", ""],
+            )
+            splits = text_splitter.split_documents(md_splits)
 
             # ── Bước 3: Enrich metadata ────────────────────────────────────
             upload_timestamp = datetime.now().isoformat()
             for i, split in enumerate(splits):
                 split.metadata.update({
                     "source": file.filename,
-                    # Heading metadata từ MarkdownHeaderTextSplitter (nếu có)
                     "chapter":    split.metadata.get("chapter", ""),
                     "section":    split.metadata.get("section", ""),
                     "subsection": split.metadata.get("subsection", ""),
-                    # Metadata chung
                     "chunk_index":       i,
                     "total_chunks":      len(splits),
                     "upload_date":       upload_timestamp,
-                    "chunking_strategy": "markdown_header" if use_markdown_splitter else "recursive",
+                    "chunking_strategy": "llamaparse_markdown_header",
                     "content_length":    len(split.page_content),
                 })
 
-            # ── Bước 4: Embed & Store theo batch (tránh rate limit 100 req/phút) ──
-            # Gemini free tier: 100 embed requests/phút
-            # Mỗi batch = 80 chunks, chờ 65 giây giữa các batch
+            # ── Bước 4: Embed & Store theo batch (rate limit Gemini) ───────
             BATCH_SIZE = 80
             BATCH_DELAY = 65  # giây
 
+            import asyncio
             total_batches = (len(splits) + BATCH_SIZE - 1) // BATCH_SIZE
             for batch_idx in range(total_batches):
                 batch = splits[batch_idx * BATCH_SIZE : (batch_idx + 1) * BATCH_SIZE]
                 print(f"[RAGService] Embedding batch {batch_idx + 1}/{total_batches} ({len(batch)} chunks)...")
 
-                # Retry tối đa 3 lần nếu vẫn gặp 429
                 for attempt in range(3):
                     try:
-                        self.vector_store.add_documents(batch)
+                        # Vector_store add_documents có thể là hàm đồng bộ, an toàn đẩy vào thread
+                        await asyncio.to_thread(self.vector_store.add_documents, batch)
                         break
                     except Exception as e:
                         if "429" in str(e) or "RESOURCE_EXHAUSTED" in str(e):
                             wait = BATCH_DELAY * (attempt + 1)
                             print(f"[RAGService] Rate limit hit, chờ {wait}s rồi thử lại...")
-                            time.sleep(wait)
+                            await asyncio.sleep(wait)
                         else:
                             raise
 
-                # Chờ giữa các batch (trừ batch cuối)
                 if batch_idx < total_batches - 1:
                     print(f"[RAGService] Đã xong batch {batch_idx + 1}, chờ {BATCH_DELAY}s...")
-                    time.sleep(BATCH_DELAY)
+                    await asyncio.sleep(BATCH_DELAY)
+
+            # ── Bước 5: Atomic Swap - Xoá dữ liệu cũ sau khi nạp thành công ──
+            print(f"[RAGService] Nạp xong {len(splits)} chunks. Đang dọn dẹp dữ liệu cũ...")
+            self._cleanup_old_documents(upload_timestamp)
 
             return {
                 "status": "success",
-                "message": f"File processed successfully ({total_batches} batches)",
+                "message": f"File processed successfully ({total_batches} batches). Old data cleaned.",
                 "chunks_added": len(splits),
             }
             
         finally:
-            # Cleanup
+            # Cleanup temp file
             if os.path.exists(temp_file_path):
                 os.remove(temp_file_path)
+
+    def _cleanup_old_documents(self, current_timestamp: str):
+        """Xoá toàn bộ documents có upload_date cũ hơn timestamp hiện tại"""
+        try:
+            # Dùng rpc hoặc query trực tiếp để xoá
+            # Ở đây ta dùng meta->>upload_date để so sánh
+            res = self.supabase.table("documents").delete().lt("metadata->>upload_date", current_timestamp).execute()
+            print(f"[RAGService] Đã xoá các bản ghi cũ lỗi thời.")
+        except Exception as e:
+            print(f"[RAGService] Lỗi khi dọn dẹp dữ liệu cũ: {e}")
+            # Không raise lỗi ở đây vì dữ liệu mới đã vào rồi, chỉ là chưa dọn được cái cũ (có thể dọn sau)
 
     async def _bm25_search(self, query: str, k: int) -> List[Document]:
         """Tìm kiếm full-text bằng BM25 qua Supabase"""
@@ -434,28 +379,31 @@ class RAGService:
         response = await self.llm_strict.ainvoke([HumanMessage(content=prompt)])
         return "CHITCHAT" in response.content.upper()
 
-    async def chat_stream(self, query: str, history: List[dict] = None):
+    async def chat_stream(self, query: str, history: List[dict] = None, skip_routing: bool = False, skip_rewrite: bool = False):
         """Hàm trò chuyện chính dạng Stream"""
         from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
 
         # 1. Định tuyến (Query Router)
-        is_chitchat = await self._route_query(query)
-        if is_chitchat:
-            print("[RAG] Routing: Câu hỏi bâng quơ (CHITCHAT). Xử lý ngay...")
-            messages = [SystemMessage(content="Bạn là trợ lý ảo thân thiện do chủ trang web tạo ra. Hãy trả lời ngắn gọn và tự nhiên các câu giao tiếp cơ bản từ người dùng.")]
-            for msg in (history or []):
-                role = msg.get("role", "user")
-                if role == "user": messages.append(HumanMessage(content=msg.get("content", "")))
-                else: messages.append(AIMessage(content=msg.get("content", "")))
-            messages.append(HumanMessage(content=query))
-            
-            async for chunk in self.llm.astream(messages):
-                if chunk.content:
-                    yield chunk.content
-            return
+        if not skip_routing:
+            is_chitchat = await self._route_query(query)
+            if is_chitchat:
+                print("[RAG] Routing: Câu hỏi bâng quơ (CHITCHAT). Xử lý ngay...")
+                messages = [SystemMessage(content="Bạn là trợ lý ảo thân thiện do chủ trang web tạo ra. Hãy trả lời ngắn gọn và tự nhiên các câu giao tiếp cơ bản từ người dùng.")]
+                for msg in (history or []):
+                    role = msg.get("role", "user")
+                    if role == "user": messages.append(HumanMessage(content=msg.get("content", "")))
+                    else: messages.append(AIMessage(content=msg.get("content", "")))
+                messages.append(HumanMessage(content=query))
+                
+                async for chunk in self.llm.astream(messages):
+                    if chunk.content:
+                        yield chunk.content
+                return
 
         # 2. Xử lý logic theo ngữ cảnh cũ
-        search_query = await self._rewrite_query(query, history or [])
+        search_query = query
+        if not skip_rewrite:
+            search_query = await self._rewrite_query(query, history or [])
         
         # 3. Tìm kiếm
         docs = await self.search_similar(search_query, k=15, final_k=4)
@@ -468,7 +416,7 @@ class RAGService:
         context_str = "\n\n".join([doc.page_content for doc in docs])
 
         # 5. Khởi tạo mảng LLM Native History
-        system_msg = SystemMessage(content="Bạn là một trợ lý ảo chuyên nghiệp về kiểm thử phần mềm (ISTQB). Hãy trả lời câu hỏi chi tiết, rõ ràng và mạch lạc dựa trên thông tin (Context) được cung cấp bên dưới.\n\nQUY TẮC BẮT BUỘC: Bạn phải giữ nguyên các thuật ngữ chuyên ngành kiểm thử bằng Tiếng Anh (ví dụ: Error, Defect, Failure, Test Case, Test Suite, Black-box, Equivalence Partitioning...) ở dạng nguyên bản gốc, hoặc dùng định dạng 'Tiếng Việt (Tiếng Anh)'. Tuyệt đối không dịch sai lệch các từ khoá chuyên môn sang tiếng Việt.\n\nĐừng tự ý bịa đặt kiến thức ngoài lề nếu không có trong Context.")
+        system_msg = SystemMessage(content="Bạn là một trợ lý ảo chuyên nghiệp về kiểm thử phần mềm (ISTQB). Hãy trả lời câu hỏi rõ ràng và mạch lạc dựa trên thông tin (Context) được cung cấp bên dưới.\n\nQUY TẮC BẮT BUỘC:\n1. Thuật ngữ Tiếng Anh: Giữ nguyên các thuật ngữ chuyên ngành kiểm thử (ví dụ: Error, Defect, Failure, Test Case, Equivalence Partitioning...) ở dạng nguyên bản gốc hoặc dùng định dạng 'Tiếng Việt (Tiếng Anh)'.\n2. Câu hỏi trắc nghiệm: Nếu nhận được câu hỏi trắc nghiệm (gồm các đáp án A, B, C, D...), bạn BẮT BUỘC phải đưa ra kết luận ĐÁP ÁN ĐÚNG NGAY Ở DÒNG ĐẦU TIÊN. Sau đó, phần giải thích từng lựa chọn phải viết cực kỳ NGẮN GỌN, tóm tắt trực diện lý do đúng/sai. \n3. Trích dẫn: Trong phần giải thích cho đáp án ĐÚNG, hãy cố gắng nhắc tên mã chương/mục (ví dụ: 'Theo mục 1.4.1...') mà bạn căn cứ vào. TUYỆT ĐỐI KHÔNG tự tạo mục 'Nguồn tham khảo' ở cuối câu trả lời, hệ thống sẽ tự động chèn phần này.\n4. Tính trung thực: Tuyệt đối không tự ý bịa đặt kiến thức ngoài lề nếu không có trong Context.")
         
         messages = [system_msg]
         for msg in (history or []):
@@ -479,15 +427,18 @@ class RAGService:
         final_prompt = f"Context:\n{context_str}\n\nQuestion:\n{query}"
         messages.append(HumanMessage(content=final_prompt))
 
+        full_ai_response = ""
         # 6. Generator sinh chữ từ LLM
         async for chunk in self.llm.astream(messages):
             if chunk.content:
+                full_ai_response += chunk.content
                 yield chunk.content
                 
         # 7. Tự động chèn Nguồn tham khảo vào cuối câu trả lời
-        yield "\n\n---\n**Nguồn tham khảo:**\n"
-        
         import re
+        # Tìm các mã chương (vd: 1.1, 2.3.1) được AI nhắc đến trong câu trả lời
+        referenced_chapters = set(re.findall(r'(\d+(?:\.\d+)+)', full_ai_response))
+        
         unique_num_mapping = {}
         fallback_sources = set()
         
@@ -505,8 +456,9 @@ class RAGService:
                 # Dọn dẹp thẻ HTML rác
                 text = re.sub(r'<[^>]+>', '', text).strip()
                 
-                if '.' in num:
-                    # Dùng num làm ID duy nhất để chống lại lỗi OCR font chữ của LlamaParse (T vs Τ)
+                # CHỈ giữ những nguồn mà AI thực sự nhắc đến số chương đó
+                # Nếu AI không nhắc mã nào cụ thể, ta vẫn giữ lại các nguồn top
+                if not referenced_chapters or any(ref in num for ref in referenced_chapters):
                     if num not in unique_num_mapping:
                         unique_num_mapping[num] = text
             else:
@@ -517,14 +469,17 @@ class RAGService:
             # Sắp xếp số học (1.2 < 1.10)
             for num in sorted(unique_num_mapping.keys(), key=lambda s: [int(x) for x in s.split('.')]):
                 final_list.append(f"- *{num}. {unique_num_mapping[num]}*")
-        else:
-            # Fallback
-            for ch in fallback_sources:
+        
+        # Nếu vẫn không có mã chương nào trùng khớp, hiển thị nguồn đầu tiên (fallback)
+        if not final_list and fallback_sources:
+            for ch in list(fallback_sources)[:1]: # Chỉ lấy 1 cái liên quan nhất
                 ch_clean = re.sub(r'<[^>]+>', '', ch).strip()
                 if ch_clean and not any(noise in ch_clean.lower() for noise in ["chapter ", "learning", "level"]):
                     final_list.append(f"- *{ch_clean}*")
 
-        for src in final_list:
-            yield src + "\n"
+        if final_list:
+            yield "\n\n---\n**Nguồn tham khảo:**\n"
+            for src in final_list:
+                yield src + "\n"
 
 rag_service = RAGService()
