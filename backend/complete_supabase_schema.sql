@@ -196,6 +196,7 @@ create table if not exists public.chat_history (
   role text not null check (role in ('user', 'assistant')),           -- Người gửi
   content text not null,                                              -- Nội dung
   message_timestamp bigint not null,                                  -- Timestamp (milliseconds)
+  image_url text,                                                     -- URL ảnh đính kèm (nếu có)
   created_at timestamp with time zone default timezone('utc'::text, now()) not null  -- Thời gian tạo
 );
 
@@ -241,7 +242,8 @@ returns table (
   id uuid,
   role text,
   content text,
-  message_timestamp bigint
+  message_timestamp bigint,
+  image_url text
 ) language plpgsql security definer as $$
 begin
   return query
@@ -249,7 +251,8 @@ begin
     ch.id,
     ch.role,
     ch.content,
-    ch.message_timestamp
+    ch.message_timestamp,
+    ch.image_url
   from public.chat_history ch
   where ch.user_id = auth.uid()           -- Chỉ lấy của user hiện tại
   order by ch.message_timestamp asc       -- Cũ → mới

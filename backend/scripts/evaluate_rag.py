@@ -90,6 +90,9 @@ async def run_evaluation(input_file, limit=10, exam_filter=None):
         # Kiểm tra xem mã LO có nằm trong chatbot_sources không
         lo_num = expected_lo.replace("FL-", "")
         has_correct_source = any(lo_num in s for s in chatbot_sources)
+        
+        # Kết quả tổng: Đúng cả đáp án và đúng cả nguồn
+        total_success = is_correct and has_correct_source
 
         if is_correct:
             correct_count += 1
@@ -102,30 +105,33 @@ async def run_evaluation(input_file, limit=10, exam_filter=None):
             "chatbot_source": chatbot_source_str,
             "is_correct": is_correct,
             "has_correct_source": has_correct_source,
+            "total_success": total_success,
             "ai_response": ai_response or f"Error: {error_msg}"
         })
 
     accuracy = (correct_count / len(test_cases)) * 100 if test_cases else 0
+    source_accuracy = (sum(1 for r in results if r["has_correct_source"]) / len(test_cases)) * 100 if test_cases else 0
+    total_accuracy = (sum(1 for r in results if r["total_success"]) / len(test_cases)) * 100 if test_cases else 0
 
     # --- HIỂN THỊ BẢNG KẾT QUẢ ---
-    print("\n\n" + "="*110)
-    print(f"{'ID':<6} | {'Đáp án':<8} | {'AI Chọn':<10} | {'Nguồn (Chuẩn)':<15} | {'Nguồn (Chatbot)':<18} | {'Kết quả'}")
-    print("-" * 110)
+    print("\n\n" + "="*145)
+    print(f"{'ID':<6} | {'Đáp án':<8} | {'AI Chọn':<8} | {'Kết quả':<10} | {'Nguồn Chuẩn':<15} | {'Nguồn Bot':<15} | {'Nguồn Đúng?':<12} | {'Tổng kết'}")
+    print("-" * 145)
     for res in results:
-        status = "✅ ĐÚNG" if res["is_correct"] else "❌ SAI"
-        if not res["has_correct_source"] and res["chatbot_source"] != "None":
-            source_display = f"⚠️ {res['chatbot_source']}"
-        elif res["has_correct_source"]:
-            source_display = f"✅ {res['chatbot_source']}"
-        else:
-            source_display = "❌ None"
-            
+        ans_status = "✅ ĐÚNG" if res["is_correct"] else "❌ SAI"
+        src_status = "✅ ĐÚNG" if res["has_correct_source"] else "❌ SAI"
+        total_status = "🌟 ĐẠT" if res["total_success"] else "⭕ KHÔNG ĐẠT"
+        
         if res["ai_picked"] == "ERROR":
-            status = "⚠️ LỖI API"
+            ans_status = "⚠️ LỖI API"
+            total_status = "⚠️ LỖI"
             
-        print(f"{res['id']:<6} | {res['ground_truth']:<8} | {res['ai_picked']:<10} | {res['expected_lo']:<15} | {source_display:<18} | {status}")
-    print("="*110)
-    print(f"📊 TỔNG KẾT: {correct_count}/{len(test_cases)} câu đúng ({accuracy:.2f}%)")
+        print(f"{res['id']:<6} | {res['ground_truth']:<8} | {res['ai_picked']:<8} | {ans_status:<10} | {res['expected_lo']:<15} | {res['chatbot_source']:<15} | {src_status:<12} | {total_status}")
+    
+    print("="*145)
+    print(f"📊 ĐÁP ÁN: {correct_count}/{len(test_cases)} câu đúng ({accuracy:.2f}%)")
+    print(f"📊 NGUỒN:  {sum(1 for r in results if r['has_correct_source'])}/{len(test_cases)} nguồn đúng ({source_accuracy:.2f}%)")
+    print(f"📊 TỔNG:   {sum(1 for r in results if r['total_success'])}/{len(test_cases)} câu đạt tuyệt đối ({total_accuracy:.2f}%)")
 
     # --- XUẤT RA FILE MARKDOWN ---
     md_path = os.path.join(os.path.dirname(__file__), "evaluation_results.md")
@@ -133,15 +139,20 @@ async def run_evaluation(input_file, limit=10, exam_filter=None):
         f.write(f"# Kết quả Đánh giá RAG - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
         f.write(f"- **File nguồn:** `{os.path.basename(input_file)}`\n")
         f.write(f"- **Tổng số câu:** {len(test_cases)}\n")
-        f.write(f"- **Số câu đúng:** {correct_count}\n")
-        f.write(f"- **Độ chính xác:** {accuracy:.2f}%\n\n")
-        f.write("| ID | Đáp án | AI Chọn | Nguồn (Chuẩn) | Nguồn (Chatbot) | Kết quả |\n")
-        f.write("|----|--------|---------|---------------|-----------------|---------|\n")
+        f.write(f"- **Độ chính xác đáp án:** {accuracy:.2f}%\n")
+        f.write(f"- **Độ chính xác nguồn:** {source_accuracy:.2f}%\n")
+        f.write(f"- **Độ chính xác tổng hợp:** {total_accuracy:.2f}%\n\n")
+        f.write("| ID | Đáp án | AI Chọn | Kết quả Đáp án | Nguồn Chuẩn | Nguồn Bot | Nguồn Đúng? | Kết quả Tổng |\n")
+        f.write("|----|--------|---------|----------------|-------------|-----------|-------------|--------------|\n")
         for res in results:
-            status = "✅ ĐÚNG" if res["is_correct"] else "❌ SAI"
+            ans_status = "✅ ĐÚNG" if res["is_correct"] else "❌ SAI"
+            src_status = "✅ ĐÚNG" if res["has_correct_source"] else "❌ SAI"
+            total_status = "🌟 ĐẠT" if res["total_success"] else "⭕ KHÔNG ĐẠT"
             if res["ai_picked"] == "ERROR":
-                status = "⚠️ LỖI API"
-            f.write(f"| {res['id']} | {res['ground_truth']} | {res['ai_picked']} | {res['expected_lo']} | {res['chatbot_source']} | {status} |\n")
+                ans_status = "⚠️ LỖI API"
+                total_status = "⚠️ LỖI"
+            f.write(f"| {res['id']} | {res['ground_truth']} | {res['ai_picked']} | {ans_status} | {res['expected_lo']} | {res['chatbot_source']} | {src_status} | {total_status} |\n")
+
     
     print(f"📝 Báo cáo Markdown: {md_path}")
     

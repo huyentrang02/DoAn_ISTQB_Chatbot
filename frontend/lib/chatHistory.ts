@@ -5,6 +5,7 @@ export interface Message {
   role: 'user' | 'assistant'
   content: string
   timestamp: number
+  image_url?: string
 }
 
 /**
@@ -14,7 +15,7 @@ export async function getChatHistory(): Promise<Message[]> {
   try {
     const { data, error } = await supabase
       .from('chat_history')
-      .select('id, role, content, message_timestamp')
+      .select('id, role, content, message_timestamp, image_url')
       .order('message_timestamp', { ascending: true })
 
     if (error) {
@@ -25,7 +26,8 @@ export async function getChatHistory(): Promise<Message[]> {
     // Map message_timestamp to timestamp for compatibility
     return (data || []).map(msg => ({
       ...msg,
-      timestamp: msg.message_timestamp
+      timestamp: msg.message_timestamp,
+      image_url: msg.image_url
     }))
   } catch (error) {
     console.error('Error fetching chat history:', error)
@@ -51,7 +53,8 @@ export async function saveMessage(message: Message): Promise<boolean> {
         user_id: user.id,
         role: message.role,
         content: message.content,
-        message_timestamp: message.timestamp
+        message_timestamp: message.timestamp,
+        image_url: message.image_url
       })
 
     if (error) {
@@ -117,6 +120,44 @@ export async function clearChatHistory(): Promise<boolean> {
   } catch (error) {
     console.error('Error clearing chat history:', error)
     return false
+  }
+}
+
+/**
+ * Upload ảnh lên Supabase Storage và trả về public URL
+ */
+export async function uploadImage(file: File): Promise<string | null> {
+  try {
+    const { data: { user } } = await supabase.auth.getUser()
+    
+    if (!user) {
+      console.error('No authenticated user for image upload')
+      return null
+    }
+
+    // Path pattern: {user_id}/{timestamp}.{ext}
+    const ext = file.name.split('.').pop() || 'png'
+    const fileName = `${Date.now()}.${ext}`
+    const filePath = `${user.id}/${fileName}`
+
+    const { error: uploadError } = await supabase.storage
+      .from('chat-images')
+      .upload(filePath, file)
+
+    if (uploadError) {
+      console.error('Error uploading image to Supabase:', uploadError)
+      return null
+    }
+
+    // Lấy public URL
+    const { data } = supabase.storage
+      .from('chat-images')
+      .getPublicUrl(filePath)
+
+    return data.publicUrl
+  } catch (error) {
+    console.error('Error uploading image:', error)
+    return null
   }
 }
 

@@ -452,6 +452,8 @@ class RAGService:
         history: List[dict] = None,
         skip_routing: bool = False,
         skip_rewrite: bool = False,
+        image_base64: str = None,
+        image_mime: str = "image/png",
     ):
         """Hàm trò chuyện chính dạng Stream"""
         # 1. Định tuyến (Query Router)
@@ -525,7 +527,23 @@ class RAGService:
                 messages.append(AIMessage(content=msg.get("content", "")))
 
         final_prompt = f"Context:\n{context_str}\n\nQuestion:\n{query}"
-        messages.append(HumanMessage(content=final_prompt))
+
+        # Nếu có ảnh đính kèm → dùng multimodal content (Gemini Vision)
+        if image_base64:
+            mime = image_mime or "image/png"
+            messages.append(
+                HumanMessage(
+                    content=[
+                        {"type": "text", "text": final_prompt},
+                        {
+                            "type": "image_url",
+                            "image_url": {"url": f"data:{mime};base64,{image_base64}"},
+                        },
+                    ]
+                )
+            )
+        else:
+            messages.append(HumanMessage(content=final_prompt))
 
         full_ai_response = ""
         # 6. Generator sinh chữ từ LLM
@@ -535,53 +553,64 @@ class RAGService:
                 yield chunk.content
 
         # 7. Tự động chèn Nguồn tham khảo vào cuối câu trả lời
-        # Tìm các mã chương (vd: 1.1, 2.3.1) được AI nhắc đến trong câu trả lời
-        referenced_chapters = set(re.findall(r"(\d+(?:\.\d+)+)", full_ai_response))
+        # Tìm xem đây có phải câu hỏi trắc nghiệm và có ĐÁP ÁN ĐÚNG không
+        correct_match = re.search(r"ĐÁP ÁN ĐÚNG:\s*(?:\*\*)?\[?([A-D])\]?(?:\*\*)?", full_ai_response, re.IGNORECASE)
+        referenced_chapters = set()
+
+        if correct_match:
+            correct_opt = correct_match.group(1).upper()
+            # Lấy đoạn giải thích của đáp án đúng (từ [X]: đến đáp án tiếp theo hoặc Bước 2)
+            pattern = rf"\[{correct_opt}\]:.*?(?=\n\s*\[[A-D]\]:|\n\s*Bước 2|$)"
+            explanation_match = re.search(pattern, full_ai_response, re.IGNORECASE | re.DOTALL)
+            if explanation_match:
+                referenced_chapters = set(re.findall(r"(\d+(?:\.\d+)+)", explanation_match.group(0)))
+        
+        # Nếu không phải câu trắc nghiệm, hoặc đoạn giải thích đáp án đúng không chứa mã chương nào
+        if not referenced_chapters:
+            referenced_chapters = set(re.findall(r"(\d+(?:\.\d+)+)", full_ai_response))
 
         unique_num_mapping = {}
-        fallback_sources = set()
+        fallback_sources = []
 
         for doc in docs:
-            ch = doc.metadata.get("chapter", "").strip()
+            meta = doc.metadata
+            # Ưu tiên lấy tiêu đề chi tiết nhất: subsection (###) > section (##) > chapter (#)
+            headings = [meta.get("subsection", ""), meta.get("section", ""), meta.get("chapter", "")]
+            ch = next((h.strip() for h in headings if h and h.strip()), "")
+
             if not ch:
                 continue
 
-            # Chuẩn hoá các chuỗi lặp (VD: "1.3" và "1.3." về chung 1 chuẩn "1.3. Testing Principles")
+            # Chuẩn hoá (VD: "1.2.1." -> "1.2.1")
             match = re.search(r"^(\d+(?:\.\d+)*)\.?\s+(.*)$", ch)
             if match:
                 num = match.group(1)  # Lấy phần số (1.3, 1.2.1)
                 text = match.group(2)
-
-                # Dọn dẹp thẻ HTML rác
                 text = re.sub(r"<[^>]+>", "", text).strip()
 
-                # CHỈ giữ những nguồn mà AI thực sự nhắc đến số chương đó
-                # Nếu AI không nhắc mã nào cụ thể, ta vẫn giữ lại các nguồn top
-                if not referenced_chapters or any(
-                    ref in num for ref in referenced_chapters
-                ):
+                if not referenced_chapters or any(ref in num for ref in referenced_chapters):
                     if num not in unique_num_mapping:
                         unique_num_mapping[num] = text
             else:
-                fallback_sources.add(ch)
+                if ch not in fallback_sources:
+                    fallback_sources.append(ch)
 
         final_list = []
         if len(unique_num_mapping) > 0:
-            # Sắp xếp số học (1.2 < 1.10)
-            for num in sorted(
-                unique_num_mapping.keys(), key=lambda s: [int(x) for x in s.split(".")]
-            ):
-                final_list.append(f"- *{num}. {unique_num_mapping[num]}*")
+            # Lọc các nguồn có dạng x.y.z (có ít nhất 2 dấu chấm)
+            xyz_keys = [k for k in unique_num_mapping.keys() if k.count('.') >= 2]
+            # Nếu có dạng x.y.z thì ưu tiên cái đầu tiên (liên quan nhất), nếu không thì lấy cái đầu tiên của mapping
+            best_num = xyz_keys[0] if xyz_keys else list(unique_num_mapping.keys())[0]
+            final_list.append(f"- *{best_num}. {unique_num_mapping[best_num]}*")
 
-        # Nếu vẫn không có mã chương nào trùng khớp, hiển thị nguồn đầu tiên (fallback)
+        # Nếu vẫn không có mã chương nào trùng khớp, lấy nguồn fallback đầu tiên (liên quan nhất)
         if not final_list and fallback_sources:
-            for ch in list(fallback_sources)[:1]:  # Chỉ lấy 1 cái liên quan nhất
+            for ch in fallback_sources:
                 ch_clean = re.sub(r"<[^>]+>", "", ch).strip()
-                if ch_clean and not any(
-                    noise in ch_clean.lower()
-                    for noise in ["chapter ", "learning", "level"]
-                ):
+                if ch_clean and not any(noise in ch_clean.lower() for noise in ["chapter ", "learning", "level"]):
                     final_list.append(f"- *{ch_clean}*")
+                    break  # Chỉ lấy 1 nguồn
+
 
         if final_list:
             yield "\n\n---\n**Nguồn tham khảo:**\n"
