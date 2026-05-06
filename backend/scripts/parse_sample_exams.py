@@ -8,12 +8,11 @@ Xử lý 4 bộ đề (A, B, C, D), mỗi bộ gồm:
 Output: backend/test_data.json
 """
 
-import re
 import json
-import glob
-import pdfplumber
+import re
 from pathlib import Path
-from typing import Optional
+
+import pdfplumber
 
 # ─── Mapping Learning Objective → Category ────────────────────────────────────
 LO_CATEGORY_MAP = {
@@ -35,6 +34,7 @@ def lo_to_category(lo: str) -> str:
 
 # ─── Helpers ──────────────────────────────────────────────────────────────────
 
+
 def extract_full_text(pdf_path: str, start_page: int = 0) -> str:
     """Extract toàn bộ text từ PDF (từ start_page trở đi), nối các trang bằng dấu phân cách."""
     pages_text = []
@@ -52,11 +52,12 @@ def normalize_answer_letters(raw: str) -> list[str]:
     'b'     → ['B']
     'c, e'  → ['C', 'E']
     """
-    letters = re.findall(r'[a-eA-E]', raw)
+    letters = re.findall(r"[a-eA-E]", raw)
     return sorted(set(l.upper() for l in letters))
 
 
 # ─── Parse Answer Key Table ────────────────────────────────────────────────────
+
 
 def parse_answer_key(answers_pdf: str) -> dict:
     """
@@ -76,12 +77,12 @@ def parse_answer_key(answers_pdf: str) -> dict:
     # Format: <num> <answer(s)> <LO> <K-level> <points>
     # Ví dụ: "1 c FL-1.1.1 K1 1" hoặc "31 c, e FL-5.1.3 K2 1"
     row_pattern = re.compile(
-        r'\b(A?\d+)\s+'                   # question number (1, A1, A12, ...)
-        r'([a-e](?:,\s*[a-e])*)\s+'      # answer(s): a / a, e / c, e
-        r'(FL-[\d.]+)\s+'                 # LO: FL-1.1.1
-        r'(K\d)\s+'                       # K-level: K1, K2, K3
-        r'(\d)',                           # points: 1
-        re.IGNORECASE
+        r"\b(A?\d+)\s+"  # question number (1, A1, A12, ...)
+        r"([a-e](?:,\s*[a-e])*)\s+"  # answer(s): a / a, e / c, e
+        r"(FL-[\d.]+)\s+"  # LO: FL-1.1.1
+        r"(K\d)\s+"  # K-level: K1, K2, K3
+        r"(\d)",  # points: 1
+        re.IGNORECASE,
     )
 
     with pdfplumber.open(answers_pdf) as pdf:
@@ -96,7 +97,7 @@ def parse_answer_key(answers_pdf: str) -> dict:
                 q_num_raw, ans_raw, lo, k_level, points = match.groups()
                 q_num = q_num_raw.strip()
                 # Bỏ qua các số giả (page numbers, version numbers)
-                if int(re.sub(r'[^\d]', '', q_num) or 0) > 200:
+                if int(re.sub(r"[^\d]", "", q_num) or 0) > 200:
                     continue
                 answer_key[q_num] = {
                     "correct_answer": normalize_answer_letters(ans_raw),
@@ -109,6 +110,7 @@ def parse_answer_key(answers_pdf: str) -> dict:
 
 
 # ─── Parse Detailed Rationale ──────────────────────────────────────────────────
+
 
 def parse_rationale(answers_pdf: str) -> dict:
     """
@@ -133,7 +135,11 @@ def parse_rationale(answers_pdf: str) -> dict:
             if "Table of Contents" in text or "table of contents" in text.lower():
                 continue
             # Chỉ lấy trang có section "Answers" hoặc "Explanation"
-            if "Explanation" in text or "Is correct" in text or "Is not correct" in text:
+            if (
+                "Explanation" in text
+                or "Is correct" in text
+                or "Is not correct" in text
+            ):
                 all_pages_text.append(text)
 
     full_text = "\n".join(all_pages_text)
@@ -141,8 +147,8 @@ def parse_rationale(answers_pdf: str) -> dict:
     # Split theo block câu hỏi
     # Pattern: dòng bắt đầu bằng số câu (1, A1) + khoảng trắng + đáp án (a-e hoặc "a, e")
     block_pattern = re.compile(
-        r'(?m)^(A?\d+)\s+([a-e](?:,\s*[a-e])*)\s+(.+?)(?=\n(?:A?\d+)\s+[a-e]|\Z)',
-        re.DOTALL
+        r"(?m)^(A?\d+)\s+([a-e](?:,\s*[a-e])*)\s+(.+?)(?=\n(?:A?\d+)\s+[a-e]|\Z)",
+        re.DOTALL,
     )
 
     for match in block_pattern.finditer(full_text):
@@ -151,31 +157,31 @@ def parse_rationale(answers_pdf: str) -> dict:
         body = body.strip()
 
         # Loại bỏ footer lines (Version, ©, Page X of Y)
-        body = re.sub(r'Version[\s\S]*?© International Software.*?\n', '', body)
-        body = re.sub(r'Certified Tester.*?\n', '', body)
-        body = re.sub(r'Sample Exam.*?Answers\n', '', body)
-        body = re.sub(r'Question.*?Objective.*?\n', '', body)
-        body = re.sub(r'\(#\)\s*\(LO\).*?\n', '', body)
-        body = re.sub(r'FL-[\d.]+\s+K\d\s+\d\s*$', '', body, flags=re.MULTILINE)
+        body = re.sub(r"Version[\s\S]*?© International Software.*?\n", "", body)
+        body = re.sub(r"Certified Tester.*?\n", "", body)
+        body = re.sub(r"Sample Exam.*?Answers\n", "", body)
+        body = re.sub(r"Question.*?Objective.*?\n", "", body)
+        body = re.sub(r"\(#\)\s*\(LO\).*?\n", "", body)
+        body = re.sub(r"FL-[\d.]+\s+K\d\s+\d\s*$", "", body, flags=re.MULTILINE)
         body = body.strip()
 
         # Extract rationale per option: "a) Is correct/not correct..."
         per_option = {}
         option_pattern = re.compile(
-            r'([a-e])\)\s+(.*?)(?=\n[a-e]\)|Thus:|Therefore:|$)',
-            re.DOTALL | re.IGNORECASE
+            r"([a-e])\)\s+(.*?)(?=\n[a-e]\)|Thus:|Therefore:|$)",
+            re.DOTALL | re.IGNORECASE,
         )
         footer_noise = re.compile(
-            r'\n?(?:Version|Certified Tester|Sample Exam|Question\s+Correct|Number|\(#\)|© International).*',
-            re.DOTALL | re.IGNORECASE
+            r"\n?(?:Version|Certified Tester|Sample Exam|Question\s+Correct|Number|\(#\)|© International).*",
+            re.DOTALL | re.IGNORECASE,
         )
         for opt_match in option_pattern.finditer(body):
             opt_letter, opt_text = opt_match.groups()
-            clean = footer_noise.sub('', opt_text).strip()
+            clean = footer_noise.sub("", opt_text).strip()
             per_option[opt_letter.upper()] = clean
 
         # Summary: lấy phần đầu trước option a) nếu có, hoặc toàn bộ body
-        summary_match = re.split(r'\n[a-e]\)', body, maxsplit=1)
+        summary_match = re.split(r"\n[a-e]\)", body, maxsplit=1)
         summary = summary_match[0].strip() if len(summary_match) > 1 else body[:300]
 
         rationale[q_num] = {
@@ -187,6 +193,7 @@ def parse_rationale(answers_pdf: str) -> dict:
 
 
 # ─── Parse Questions ───────────────────────────────────────────────────────────
+
 
 def parse_questions(questions_pdf: str) -> list[dict]:
     """
@@ -215,7 +222,7 @@ def parse_questions(questions_pdf: str) -> list[dict]:
 
     # Split theo header câu hỏi
     # "Question #1 (1 Point)" hoặc "Question #A3 (1 Point)"
-    q_header = re.compile(r'Question #(A?\d+)\s+\(\d+ Point\w*\)', re.IGNORECASE)
+    q_header = re.compile(r"Question #(A?\d+)\s+\(\d+ Point\w*\)", re.IGNORECASE)
     splits = q_header.split(full_text)
 
     # splits = [text_before_q1, "1", q1_body, "2", q2_body, ...]
@@ -228,53 +235,68 @@ def parse_questions(questions_pdf: str) -> list[dict]:
         is_additional = q_num_raw.startswith("A")
 
         # Loại bỏ footer/header noise
-        body = re.sub(r'Version[\s\S]*?© International Software.*?\n', '', body)
-        body = re.sub(r'Certified Tester.*?\n', '', body)
-        body = re.sub(r'Sample Exam.*?\n', '', body)
+        body = re.sub(r"Version[\s\S]*?© International Software.*?\n", "", body)
+        body = re.sub(r"Certified Tester.*?\n", "", body)
+        body = re.sub(r"Sample Exam.*?\n", "", body)
         body = body.strip()
 
         # Xác định select_count
-        select_count = 2 if re.search(r'Select TWO', body, re.IGNORECASE) else 1
+        select_count = 2 if re.search(r"Select TWO", body, re.IGNORECASE) else 1
 
         # Tách body thành question_text và options
         # Options bắt đầu bằng "a)" hoặc "a. " ở đầu dòng
-        options_start = re.search(r'\n[a-e][).]\s', body)
+        options_start = re.search(r"\n[a-e][).]\s", body)
         if options_start:
-            question_text = body[:options_start.start()].strip()
-            options_block = body[options_start.start():]
+            question_text = body[: options_start.start()].strip()
+            options_block = body[options_start.start() :]
         else:
             question_text = body
             options_block = ""
 
         # Loại bỏ "Select ONE/TWO options." khỏi question_text
-        question_text = re.sub(r'\s*Select (ONE|TWO) options?\.\s*$', '', question_text, flags=re.IGNORECASE).strip()
+        question_text = re.sub(
+            r"\s*Select (ONE|TWO) options?\.\s*$",
+            "",
+            question_text,
+            flags=re.IGNORECASE,
+        ).strip()
 
         # Parse từng option
         options = {}
         opt_matches = re.findall(
-            r'([a-e])[).]\s+(.*?)(?=\n[a-e][).]|\nSelect|\Z)',
+            r"([a-e])[).]\s+(.*?)(?=\n[a-e][).]|\nSelect|\Z)",
             options_block,
-            re.DOTALL | re.IGNORECASE
+            re.DOTALL | re.IGNORECASE,
         )
         for opt_letter, opt_text in opt_matches:
             clean_text = opt_text.strip()
-            clean_text = re.sub(r'\s*Select (ONE|TWO) options?\.\s*$', '', clean_text, flags=re.IGNORECASE).strip()
+            clean_text = re.sub(
+                r"\s*Select (ONE|TWO) options?\.\s*$",
+                "",
+                clean_text,
+                flags=re.IGNORECASE,
+            ).strip()
             options[opt_letter.upper()] = clean_text
 
-        questions.append({
-            "q_num": q_num_raw,
-            "is_additional": is_additional,
-            "question": question_text,
-            "options": options,
-            "select_count": select_count,
-        })
+        questions.append(
+            {
+                "q_num": q_num_raw,
+                "is_additional": is_additional,
+                "question": question_text,
+                "options": options,
+                "select_count": select_count,
+            }
+        )
 
     return questions
 
 
 # ─── Build Test Cases ──────────────────────────────────────────────────────────
 
-def build_test_cases(exam_label: str, questions: list, answer_key: dict, rationale: dict) -> list[dict]:
+
+def build_test_cases(
+    exam_label: str, questions: list, answer_key: dict, rationale: dict
+) -> list[dict]:
     """Kết hợp questions + answer_key + rationale thành final test cases."""
     test_cases = []
 
@@ -305,6 +327,7 @@ def build_test_cases(exam_label: str, questions: list, answer_key: dict, rationa
 
 # ─── Main ──────────────────────────────────────────────────────────────────────
 
+
 def main():
     materials_dir = Path(__file__).parent.parent / "materials" / "Sample Exams"
     output_path = Path(__file__).parent.parent / "test_data.json"
@@ -326,7 +349,7 @@ def main():
         q_path = str(q_files[0])
         a_path = str(a_files[0])
 
-        print(f"\n{'='*60}")
+        print(f"\n{'=' * 60}")
         print(f"[Exam {label}] Parsing...")
         print(f"  Questions: {Path(q_path).name}")
         print(f"  Answers:   {Path(a_path).name}")
@@ -347,13 +370,17 @@ def main():
 
         main_count = sum(1 for tc in test_cases if not tc["is_additional"])
         add_count = sum(1 for tc in test_cases if tc["is_additional"])
-        exam_stats.append({
-            "exam": label,
-            "main_questions": main_count,
-            "additional_questions": add_count,
-            "total": len(test_cases),
-        })
-        print(f"  → Built: {main_count} main + {add_count} additional = {len(test_cases)} test cases")
+        exam_stats.append(
+            {
+                "exam": label,
+                "main_questions": main_count,
+                "additional_questions": add_count,
+                "total": len(test_cases),
+            }
+        )
+        print(
+            f"  → Built: {main_count} main + {add_count} additional = {len(test_cases)} test cases"
+        )
 
     # Phân loại
     main_cases = [tc for tc in all_test_cases if not tc["is_additional"]]
@@ -376,7 +403,7 @@ def main():
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(output, f, ensure_ascii=False, indent=2)
 
-    print(f"\n{'='*60}")
+    print(f"\n{'=' * 60}")
     print(f"✅ Xuất thành công: {output_path}")
     print(f"   Main questions    : {len(main_cases)}")
     print(f"   Additional        : {len(additional_cases)}")

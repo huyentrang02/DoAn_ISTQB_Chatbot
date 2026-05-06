@@ -88,14 +88,14 @@ export default function AdminUpload() {
   return (
     <div className="flex flex-col h-full bg-white">
       {/* Header - giống ChatInterface */}
-      <div className="flex items-center justify-between px-6 py-4 border-b bg-white">
+      <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-white">
         <h2 className="text-xl font-semibold text-gray-800">Upload ISTQB Documents</h2>
       </div>
 
       {/* Content Area - centered */}
-      <div className="flex-1 flex items-center justify-center px-6 py-8 bg-gray-50/30">
+      <div className="flex-1 flex items-center justify-center px-6 py-8 bg-white">
         <div className="w-full max-w-2xl">
-          <div className="border rounded-lg p-8 bg-white shadow-sm space-y-6">
+          <div className="border border-gray-200 rounded-lg p-8 bg-gray-50 shadow-sm space-y-6">
             {/* File Input */}
             <div className="space-y-3">
               <Label htmlFor="pdf" className="text-sm font-medium text-gray-700">

@@ -93,6 +93,19 @@ Frontend chạy tại: http://localhost:3000
 - Hiển thị Markdown formatting
 - Lưu lịch sử chat (LocalStorage)
 
+## Đánh giá chất lượng RAG (Evaluation)
+
+Hệ thống cung cấp kịch bản đánh giá tự động độ chính xác của RAG dựa trên bộ câu hỏi Sample Exams của ISTQB.
+
+1. **Chuẩn bị file câu hỏi**: (Đã có sẵn tại `backend/materials/Sample_Exams/`)
+2. **Chạy script đánh giá**:
+```bash
+cd backend
+python scripts/evaluate_rag.py
+```
+3. **Kết quả**:
+Script sẽ tạo ra file `backend/scripts/evaluation_results.md` chứa bảng thống kê số câu trả lời đúng, sai và tỷ lệ chính xác (Accuracy). Đồng thời sinh ra file `backend/scripts/evaluation_report.json` lưu trữ chi tiết câu trả lời của LLM.
+
 ## Kiến trúc RAG
 
 ```
@@ -102,8 +115,8 @@ Query:  User Question → Embed → Vector Search → Context + LLM → Answer
 
 ## Lưu ý
 
-- Model sử dụng: `gemini-2.0-flash` (chat), `text-embedding-004` (embedding)
-- Gói Free của Google có giới hạn quota, nếu hết hạn mức cần đợi reset hoặc nâng cấp
+- Model sử dụng: `gemini-2.5-flash` (chat), `gemini-embedding-001` (embedding)
+- API Google Gemini sử dụng bản trả phí để đảm bảo tốc độ và không bị giới hạn quota như bản Free
 - Supabase Free tier: 500MB database, đủ cho demo
 
 ## License

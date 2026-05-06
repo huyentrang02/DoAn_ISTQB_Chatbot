@@ -1,25 +1,27 @@
+import asyncio
 import os
 import sys
-import asyncio
 import time
-from dotenv import load_dotenv
 from datetime import datetime
+
+from dotenv import load_dotenv
 
 base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(base_dir)
 load_dotenv(os.path.join(base_dir, ".env"))
-
-from supabase import create_client, Client
-from langchain_text_splitters import MarkdownHeaderTextSplitter, RecursiveCharacterTextSplitter
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
-from langchain_community.vectorstores import SupabaseVectorStore
-from app.core.config import settings
-
+from app.core.config import settings  # noqa: E402
+from app.core.custom_embeddings import NativeGoogleEmbeddings  # noqa: E402
+from langchain_community.vectorstores import SupabaseVectorStore  # noqa: E402
+from langchain_text_splitters import (  # noqa: E402
+    MarkdownHeaderTextSplitter,
+    RecursiveCharacterTextSplitter,
+)
+from supabase import Client, create_client  # noqa: E402
 supabase: Client = create_client(settings.SUPABASE_URL, settings.SUPABASE_KEY)
-embeddings = GoogleGenerativeAIEmbeddings(
+embeddings = NativeGoogleEmbeddings(
     model="models/gemini-embedding-001",
-    google_api_key=settings.GOOGLE_API_KEY,
-    output_dimensionality=768
+    api_key=settings.GOOGLE_API_KEY,
+    output_dimensionality=768,
 )
 
 vector_store = SupabaseVectorStore(
@@ -29,26 +31,37 @@ vector_store = SupabaseVectorStore(
     query_name="match_documents_v2",
 )
 
-md_path = os.path.join(base_dir, "materials", "Syllabus", "ISTQB_CTFL_Syllabus_v4.0.1.md")
+md_path = os.path.join(
+    base_dir, "materials", "Syllabus", "ISTQB_CTFL_Syllabus_v4.0.1.md"
+)
 # Dummy source name since the app expects PDF source
 source_name = "ISTQB_CTFL_Syllabus_v4.0.1.pdf"
 
+
 async def main():
     if not os.path.exists(md_path):
-        print(f"ERROR: Không tìm thấy file {md_path}. Vui lòng chạy parse_syllabus.py trước.")
+        print(
+            f"ERROR: Không tìm thấy file {md_path}. Vui lòng chạy parse_syllabus.py trước."
+        )
         return
 
     with open(md_path, "r", encoding="utf-8") as f:
         markdown_text = f.read()
 
-    print(f"✅ Đã tải nội dung Markdown thành công (Kích thước: {len(markdown_text)} chars).")
+    print(
+        f"✅ Đã tải nội dung Markdown thành công (Kích thước: {len(markdown_text)} chars)."
+    )
 
     # 1. Clear database
     print("🗑️ Đang xoá dữ liệu cũ trong bảng 'documents'...")
     try:
-        supabase.table("documents").delete().neq("id", "00000000-0000-0000-0000-000000000000").execute()
+        supabase.table("documents").delete().neq(
+            "id", "00000000-0000-0000-0000-000000000000"
+        ).execute()
     except Exception as e:
-        print(f"Cảnh báo khi xóa dữ liệu (có thể do lỗi UUID cast nhưng data vẫn bị xoá): {e}")
+        print(
+            f"Cảnh báo khi xóa dữ liệu (có thể do lỗi UUID cast nhưng data vẫn bị xoá): {e}"
+        )
 
     # 2. Chunking
     print("✂️ Đang chia tách văn bản dựa theo các thẻ H1, H2, H3...")
@@ -75,40 +88,49 @@ async def main():
     # 3. Add metadata
     upload_time = datetime.now().isoformat()
     for i, split in enumerate(splits):
-        split.metadata.update({
-            "source": source_name,
-            "upload_date": upload_time,
-            "chunk_index": i,
-            "total_chunks": len(splits),
-            "chunking_strategy": "llamaparse_markdown_header" # New strategy tag
-        })
+        split.metadata.update(
+            {
+                "source": source_name,
+                "upload_date": upload_time,
+                "chunk_index": i,
+                "total_chunks": len(splits),
+                "chunking_strategy": "llamaparse_markdown_header",  # New strategy tag
+            }
+        )
 
     # 4. Batch Upload (rate limit handling)
     batch_size = 50
     delay_seconds = 65
 
-    print(f"🚀 Bắt đầu Push Vector embeddings lên Supabase...")
-    print(f"   (Lưu ý: API Gemini giới hạn 100 requests/phút, hệ thống chia batch={batch_size} và delay={delay_seconds}s)")
-    
+    print("🚀 Bắt đầu Push Vector embeddings lên Supabase...")
+    print(
+        f"   (Lưu ý: API Gemini giới hạn 100 requests/phút, hệ thống chia batch={batch_size} và delay={delay_seconds}s)"
+    )
+
     total_batches = (len(splits) + batch_size - 1) // batch_size
 
     for i in range(0, len(splits), batch_size):
-        batch = splits[i:i + batch_size]
+        batch = splits[i : i + batch_size]
         batch_num = i // batch_size + 1
-        print(f"   -> Đang upload batch {batch_num}/{total_batches} ({len(batch)} chunks)...")
-        
+        print(
+            f"   -> Đang upload batch {batch_num}/{total_batches} ({len(batch)} chunks)..."
+        )
+
         try:
             # Sync call for add_documents
             vector_store.add_documents(batch)
             print(f"      ✅ Thành công batch {batch_num}.")
         except Exception as e:
             print(f"      ❌ Lỗi ở batch {batch_num}: {e}")
-            
+
         if i + batch_size < len(splits):
             print(f"      ⏳ Nghỉ {delay_seconds} giây để tránh Rate Limit Quota...")
-            time.sleep(delay_seconds) # using time.sleep instead of asyncio.sleep because add_documents is blocking
+            time.sleep(
+                delay_seconds
+            )  # using time.sleep instead of asyncio.sleep because add_documents is blocking
 
     print("\n🎉 Hoàn tất quá trình Ingestion! Dữ liệu ISTQB đã lên VectorDB.")
+
 
 if __name__ == "__main__":
     asyncio.run(main())

@@ -68,7 +68,7 @@ export default function ChatInterface() {
       const res = await fetch(`${API_URL}/api/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           query: userMsg.content,
           history: recentHistory
         }),
@@ -79,23 +79,23 @@ export default function ChatInterface() {
 
       const reader = res.body.getReader();
       const decoder = new TextDecoder("utf-8");
-      
+
       let fullContent = "";
       const assistantMsg: Message = {
         role: "assistant",
         content: "",
         timestamp: Date.now(),
       };
-      
+
       // Hiển thị tin nhắn chờ ban đầu
       setMessages((prev) => [...prev, assistantMsg]);
 
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
-        
+
         fullContent += decoder.decode(value, { stream: true });
-        
+
         // Cập nhật nội dung stream vào tin nhắn cuối cùng để tạo hiệu ứng gõ chữ
         setMessages((prev) => {
           const newMessages = [...prev];
@@ -116,9 +116,9 @@ export default function ChatInterface() {
         content: "Error connecting to server.",
         timestamp: Date.now(),
       };
-      
+
       setMessages((prev) => [...prev, errorMsg]);
-      
+
       // Lưu error message vào DB
       await saveMessage(errorMsg);
     } finally {
@@ -151,7 +151,7 @@ export default function ChatInterface() {
   return (
     <div className="flex flex-col h-full bg-white">
       {/* Header */}
-      <div className="flex items-center justify-between px-6 py-4 border-b bg-white">
+      <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-white">
         <h2 className="text-xl font-semibold text-gray-800">ISTQB Chat Assistant</h2>
         {messages.length > 0 && (
           <Button
@@ -166,7 +166,7 @@ export default function ChatInterface() {
       </div>
 
       {/* Messages Area */}
-      <div className={`flex-1 px-6 py-4 bg-gray-50/30 ${messages.length > 0 ? 'overflow-y-auto space-y-4' : 'overflow-hidden flex items-center justify-center'}`}>
+      <div className={`flex-1 px-6 py-4 bg-white ${messages.length > 0 ? 'overflow-y-auto space-y-4' : 'overflow-hidden flex items-center justify-center'}`}>
         {messages.length === 0 && (
           <div className="text-center text-gray-500">
             <p className="text-lg font-medium">Welcome to ISTQB Assistant!</p>
@@ -174,95 +174,95 @@ export default function ChatInterface() {
           </div>
         )}
 
-        {messages.map((m, i) => (
-          <div
-            key={i}
-            className={`flex ${
-              m.role === "user" ? "justify-end" : "justify-start"
-            }`}
-          >
+        {messages.map((m, i) => {
+          if (!m.content) return null;
+          return (
             <div
-              className={`max-w-[80%] rounded-lg p-3 ${
-                m.role === "user"
-                  ? "bg-blue-600 text-white"
-                  : "bg-white border text-gray-900 shadow-sm"
-              }`}
+              key={i}
+              className={`flex ${m.role === "user" ? "justify-end" : "justify-start"
+                }`}
             >
-              {m.role === "user" ? (
-                // User message: plain text with line breaks preserved
-                <div className="whitespace-pre-wrap">{m.content}</div>
-              ) : (
-                // Assistant message: render as markdown
-                <div className="prose prose-sm max-w-none">
-                  <ReactMarkdown
-                    remarkPlugins={[remarkGfm]}
-                    components={{
-                      // Custom styling for markdown elements
-                      p: ({ node, ...props }) => (
-                        <p className="mb-2 last:mb-0" {...props} />
-                      ),
-                      ul: ({ node, ...props }) => (
-                        <ul className="list-disc list-inside mb-2" {...props} />
-                      ),
-                      ol: ({ node, ...props }) => (
-                        <ol
-                          className="list-decimal list-inside mb-2"
-                          {...props}
-                        />
-                      ),
-                      li: ({ node, ...props }) => (
-                        <li className="ml-2" {...props} />
-                      ),
-                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                      code: ({ node, inline, ...props }: any) =>
-                        inline ? (
-                          <code
-                            className="bg-gray-100 px-1 py-0.5 rounded text-sm font-mono"
-                            {...props}
-                          />
-                        ) : (
-                          <code
-                            className="block bg-gray-100 p-2 rounded text-sm font-mono overflow-x-auto"
+              <div
+                className={`max-w-[80%] rounded-lg p-3 ${m.role === "user"
+                  ? "bg-blue-100 border border-blue-200 text-blue-900 shadow-sm"
+                  : "bg-gray-100 border border-gray-200 text-gray-900 shadow-sm"
+                  }`}
+              >
+                {m.role === "user" ? (
+                  // User message: plain text with line breaks preserved
+                  <div className="whitespace-pre-wrap">{m.content}</div>
+                ) : (
+                  // Assistant message: render as markdown
+                  <div className="prose prose-sm max-w-none">
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm]}
+                      components={{
+                        // Custom styling for markdown elements
+                        p: ({ node, ...props }) => (
+                          <p className="mb-2 last:mb-0" {...props} />
+                        ),
+                        ul: ({ node, ...props }) => (
+                          <ul className="list-disc list-inside mb-2" {...props} />
+                        ),
+                        ol: ({ node, ...props }) => (
+                          <ol
+                            className="list-decimal list-inside mb-2"
                             {...props}
                           />
                         ),
-                      strong: ({ node, ...props }) => (
-                        <strong className="font-bold" {...props} />
-                      ),
-                      em: ({ node, ...props }) => (
-                        <em className="italic" {...props} />
-                      ),
-                      h1: ({ node, ...props }) => (
-                        <h1 className="text-xl font-bold mb-2" {...props} />
-                      ),
-                      h2: ({ node, ...props }) => (
-                        <h2 className="text-lg font-bold mb-2" {...props} />
-                      ),
-                      h3: ({ node, ...props }) => (
-                        <h3 className="text-base font-bold mb-1" {...props} />
-                      ),
-                      blockquote: ({ node, ...props }) => (
-                        <blockquote
-                          className="border-l-4 border-gray-300 pl-3 italic"
-                          {...props}
-                        />
-                      ),
-                    }}
-                  >
-                    {m.content}
-                  </ReactMarkdown>
+                        li: ({ node, ...props }) => (
+                          <li className="ml-2" {...props} />
+                        ),
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                        code: ({ node, inline, ...props }: any) =>
+                          inline ? (
+                            <code
+                              className="bg-gray-100 px-1 py-0.5 rounded text-sm font-mono"
+                              {...props}
+                            />
+                          ) : (
+                            <code
+                              className="block bg-gray-100 p-2 rounded text-sm font-mono overflow-x-auto"
+                              {...props}
+                            />
+                          ),
+                        strong: ({ node, ...props }) => (
+                          <strong className="font-bold" {...props} />
+                        ),
+                        em: ({ node, ...props }) => (
+                          <em className="italic" {...props} />
+                        ),
+                        h1: ({ node, ...props }) => (
+                          <h1 className="text-xl font-bold mb-2" {...props} />
+                        ),
+                        h2: ({ node, ...props }) => (
+                          <h2 className="text-lg font-bold mb-2" {...props} />
+                        ),
+                        h3: ({ node, ...props }) => (
+                          <h3 className="text-base font-bold mb-1" {...props} />
+                        ),
+                        blockquote: ({ node, ...props }) => (
+                          <blockquote
+                            className="border-l-4 border-gray-300 pl-3 italic"
+                            {...props}
+                          />
+                        ),
+                      }}
+                    >
+                      {m.content}
+                    </ReactMarkdown>
+                  </div>
+                )}
+                <div
+                  className={`text-[10px] mt-1 ${m.role === "user" ? "text-blue-500" : "text-gray-400"
+                    }`}
+                >
+                  {new Date(m.timestamp).toLocaleTimeString()}
                 </div>
-              )}
-              <div
-                className={`text-[10px] mt-1 ${
-                  m.role === "user" ? "text-blue-100" : "text-gray-400"
-                }`}
-              >
-                {new Date(m.timestamp).toLocaleTimeString()}
               </div>
             </div>
-          </div>
-        ))}
+          )
+        })}
 
         {loading && (
           <div className="flex justify-start">
@@ -285,7 +285,7 @@ export default function ChatInterface() {
       </div>
 
       {/* Input Area */}
-      <div className="border-t bg-white px-6 py-4">
+      <div className="border-t border-gray-200 bg-white px-6 py-4">
         <div className="relative flex items-center">
           <Textarea
             value={input}

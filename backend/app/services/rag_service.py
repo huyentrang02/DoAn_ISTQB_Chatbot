@@ -1,26 +1,48 @@
+import asyncio
 import os
 import re
 import shutil
 import time
 from datetime import datetime
 from typing import List
+
+from app.core.config import settings
+from app.core.custom_embeddings import NativeGoogleEmbeddings
 from fastapi import UploadFile
-from langchain_google_genai import GoogleGenerativeAIEmbeddings, ChatGoogleGenerativeAI
 from langchain_community.vectorstores import SupabaseVectorStore
 from langchain_core.documents import Document
-from langchain_core.prompts import PromptTemplate
-from supabase.client import create_client, Client
-from app.core.config import settings
+from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
+from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_text_splitters import (
+    MarkdownHeaderTextSplitter,
+    RecursiveCharacterTextSplitter,
+)
 from sentence_transformers import CrossEncoder
+from supabase.client import Client, create_client
+
 
 class RAGService:
     def __init__(self):
-        self.embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001", google_api_key=settings.GOOGLE_API_KEY, output_dimensionality=768)
-        self.llm = ChatGoogleGenerativeAI(model="models/gemini-2.5-flash", temperature=0.7, google_api_key=settings.GOOGLE_API_KEY)
-        self.llm_strict = ChatGoogleGenerativeAI(model="models/gemini-2.5-flash", temperature=0.0, google_api_key=settings.GOOGLE_API_KEY)
-        
-        self.supabase: Client = create_client(settings.SUPABASE_URL, settings.SUPABASE_KEY)
-        # We still keep vector_store for "add_documents" convenience, 
+        self.embeddings = NativeGoogleEmbeddings(
+            model="models/gemini-embedding-001",
+            api_key=settings.GOOGLE_API_KEY,
+            output_dimensionality=768,
+        )
+        self.llm = ChatGoogleGenerativeAI(
+            model="models/gemini-2.5-pro",
+            temperature=0.7,
+            google_api_key=settings.GOOGLE_API_KEY,
+        )
+        self.llm_strict = ChatGoogleGenerativeAI(
+            model="models/gemini-2.5-pro",
+            temperature=0.0,
+            google_api_key=settings.GOOGLE_API_KEY,
+        )
+
+        self.supabase: Client = create_client(
+            settings.SUPABASE_URL, settings.SUPABASE_KEY
+        )
+        # We still keep vector_store for "add_documents" convenience,
         # but we will implement custom search to avoid LangChain RPC issues
         self.vector_store = SupabaseVectorStore(
             client=self.supabase,
@@ -28,7 +50,7 @@ class RAGService:
             table_name="documents",
             query_name="match_documents_v2",
         )
-        
+
         print("[RAGService] Đang tải mô hình CrossEncoder (Re-ranking)...")
         # Load nhỏ, nhanh, ~80MB
         self.reranker = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
@@ -54,36 +76,37 @@ class RAGService:
         try:
             # ── Bước 1: Extract text bằng LlamaParse ──────────────────────
             import nest_asyncio
+
             try:
                 from llama_parse import LlamaParse
             except ImportError:
-                raise RuntimeError("Chưa cài đặt llama-parse. Hãy chạy: pip install llama-parse")
-                
+                raise RuntimeError(
+                    "Chưa cài đặt llama-parse. Hãy chạy: pip install llama-parse"
+                )
+
             nest_asyncio.apply()
-            
-            print(f"[RAGService] Đang dùng LlamaParse để phân tích file: {file.filename}")
+
+            print(
+                f"[RAGService] Đang dùng LlamaParse để phân tích file: {file.filename}"
+            )
             parser = LlamaParse(
                 api_key=settings.LLAMA_CLOUD_API_KEY,
                 result_type="markdown",
                 verbose=True,
-                num_workers=4
+                num_workers=4,
             )
-            
-            import asyncio
+
             # Load_data là hàm đồng bộ (chạy mất vài phút), cần bỏ vào to_thread để không nghẽn Server
             documents = await asyncio.to_thread(parser.load_data, temp_file_path)
             if not documents:
                 raise ValueError("LlamaParse không trả về kết quả nào.")
-                
+
             markdown_text = "\n\n".join([doc.text for doc in documents])
 
             # ── Bước 2: Chunk theo cấu trúc heading ─────────────
-            from langchain_text_splitters import MarkdownHeaderTextSplitter, RecursiveCharacterTextSplitter
-            from langchain_core.documents import Document
-
             headers_to_split_on = [
-                ("#",   "chapter"),
-                ("##",  "section"),
+                ("#", "chapter"),
+                ("##", "section"),
                 ("###", "subsection"),
             ]
             md_splitter = MarkdownHeaderTextSplitter(
@@ -102,27 +125,30 @@ class RAGService:
             # ── Bước 3: Enrich metadata ────────────────────────────────────
             upload_timestamp = datetime.now().isoformat()
             for i, split in enumerate(splits):
-                split.metadata.update({
-                    "source": file.filename,
-                    "chapter":    split.metadata.get("chapter", ""),
-                    "section":    split.metadata.get("section", ""),
-                    "subsection": split.metadata.get("subsection", ""),
-                    "chunk_index":       i,
-                    "total_chunks":      len(splits),
-                    "upload_date":       upload_timestamp,
-                    "chunking_strategy": "llamaparse_markdown_header",
-                    "content_length":    len(split.page_content),
-                })
+                split.metadata.update(
+                    {
+                        "source": file.filename,
+                        "chapter": split.metadata.get("chapter", ""),
+                        "section": split.metadata.get("section", ""),
+                        "subsection": split.metadata.get("subsection", ""),
+                        "chunk_index": i,
+                        "total_chunks": len(splits),
+                        "upload_date": upload_timestamp,
+                        "chunking_strategy": "llamaparse_markdown_header",
+                        "content_length": len(split.page_content),
+                    }
+                )
 
             # ── Bước 4: Embed & Store theo batch (rate limit Gemini) ───────
             BATCH_SIZE = 80
             BATCH_DELAY = 65  # giây
 
-            import asyncio
             total_batches = (len(splits) + BATCH_SIZE - 1) // BATCH_SIZE
             for batch_idx in range(total_batches):
                 batch = splits[batch_idx * BATCH_SIZE : (batch_idx + 1) * BATCH_SIZE]
-                print(f"[RAGService] Embedding batch {batch_idx + 1}/{total_batches} ({len(batch)} chunks)...")
+                print(
+                    f"[RAGService] Embedding batch {batch_idx + 1}/{total_batches} ({len(batch)} chunks)..."
+                )
 
                 for attempt in range(3):
                     try:
@@ -132,37 +158,55 @@ class RAGService:
                     except Exception as e:
                         if "429" in str(e) or "RESOURCE_EXHAUSTED" in str(e):
                             wait = BATCH_DELAY * (attempt + 1)
-                            print(f"[RAGService] Rate limit hit, chờ {wait}s rồi thử lại...")
+                            print(
+                                f"[RAGService] Rate limit hit, chờ {wait}s rồi thử lại..."
+                            )
                             await asyncio.sleep(wait)
                         else:
                             raise
 
                 if batch_idx < total_batches - 1:
-                    print(f"[RAGService] Đã xong batch {batch_idx + 1}, chờ {BATCH_DELAY}s...")
+                    print(
+                        f"[RAGService] Đã xong batch {batch_idx + 1}, chờ {BATCH_DELAY}s..."
+                    )
                     await asyncio.sleep(BATCH_DELAY)
 
             # ── Bước 5: Atomic Swap - Xoá dữ liệu cũ sau khi nạp thành công ──
-            print(f"[RAGService] Nạp xong {len(splits)} chunks. Đang dọn dẹp dữ liệu cũ...")
-            self._cleanup_old_documents(upload_timestamp)
+            print(
+                f"[RAGService] Nạp xong {len(splits)} chunks. Đang dọn dẹp dữ liệu cũ..."
+            )
+            await self._cleanup_old_documents(file.filename, upload_timestamp)
 
             return {
                 "status": "success",
                 "message": f"File processed successfully ({total_batches} batches). Old data cleaned.",
                 "chunks_added": len(splits),
             }
-            
+
         finally:
             # Cleanup temp file
             if os.path.exists(temp_file_path):
                 os.remove(temp_file_path)
 
-    def _cleanup_old_documents(self, current_timestamp: str):
-        """Xoá toàn bộ documents có upload_date cũ hơn timestamp hiện tại"""
+    async def _cleanup_old_documents(self, source_name: str, current_timestamp: str):
+        """Xoá các bản ghi cũ của cùng một tài liệu (dựa trên upload_date và source)"""
         try:
-            # Dùng rpc hoặc query trực tiếp để xoá
-            # Ở đây ta dùng meta->>upload_date để so sánh
-            res = self.supabase.table("documents").delete().lt("metadata->>upload_date", current_timestamp).execute()
-            print(f"[RAGService] Đã xoá các bản ghi cũ lỗi thời.")
+
+            def delete_sync():
+                return (
+                    self.supabase.table("documents")
+                    .delete()
+                    .eq("metadata->>source", source_name)
+                    .lt("metadata->>upload_date", current_timestamp)
+                    .execute()
+                )
+
+            # Chạy tác vụ I/O đồng bộ trong thread pool để không block event loop
+            res = await asyncio.to_thread(delete_sync)
+            deleted_count = len(res.data) if res.data else 0
+            print(
+                f"[RAGService] Đã xoá {deleted_count} bản ghi cũ lỗi thời của '{source_name}'."
+            )
         except Exception as e:
             print(f"[RAGService] Lỗi khi dọn dẹp dữ liệu cũ: {e}")
             # Không raise lỗi ở đây vì dữ liệu mới đã vào rồi, chỉ là chưa dọn được cái cũ (có thể dọn sau)
@@ -170,25 +214,22 @@ class RAGService:
     async def _bm25_search(self, query: str, k: int) -> List[Document]:
         """Tìm kiếm full-text bằng BM25 qua Supabase"""
         response = self.supabase.rpc(
-            "match_documents_fulltext",
-            {
-                "search_query": query,
-                "match_count": k
-            }
+            "match_documents_fulltext", {"search_query": query, "match_count": k}
         ).execute()
 
         documents = []
         for item in response.data:
             doc = Document(
-                page_content=item.get("content"),
-                metadata=item.get("metadata")
+                page_content=item.get("content"), metadata=item.get("metadata")
             )
             doc.metadata["bm25_rank"] = item.get("rank")
             documents.append(doc)
 
         return documents
 
-    def _rrf_merge(self, semantic_docs: List[Document], bm25_docs: List[Document], k=60) -> List[Document]:
+    def _rrf_merge(
+        self, semantic_docs: List[Document], bm25_docs: List[Document], k=60
+    ) -> List[Document]:
         """Kết hợp kết quả bằng Reciprocal Rank Fusion"""
         doc_scores = {}
         docs_dict = {}
@@ -204,7 +245,9 @@ class RAGService:
             docs_dict[doc_key] = doc
 
         # Sắp xếp theo RRF score giảm dần
-        sorted_keys = sorted(doc_scores.keys(), key=lambda x: doc_scores[x], reverse=True)
+        sorted_keys = sorted(
+            doc_scores.keys(), key=lambda x: doc_scores[x], reverse=True
+        )
         return [docs_dict[key] for key in sorted_keys]
 
     def _rerank(self, query: str, docs: List[Document], top_n: int) -> List[Document]:
@@ -228,7 +271,6 @@ class RAGService:
 
         expanded_docs = []
         processed_sections = set()
-        import re
 
         for doc in docs:
             meta = doc.metadata
@@ -242,25 +284,29 @@ class RAGService:
             if not group_key:
                 expanded_docs.append(doc)
                 continue
-                
+
             # Rút trích tiền tố số học (VD: "1.3", "4.2.2") để gom nhóm thông minh hơn
-            num_match = re.search(r'^(\d+(?:\.\d+)*)', group_key)
+            num_match = re.search(r"^(\d+(?:\.\d+)*)", group_key)
             if num_match:
                 search_prefix = num_match.group(1)
             else:
                 search_prefix = group_key
 
             sec_key = f"{source}_{search_prefix}"
-            
+
             if sec_key in processed_sections:
                 continue
-                
+
             processed_sections.add(sec_key)
 
             try:
                 # Kéo toàn bộ chunk của section/chapter này từ CSDL một cách linh hoạt
-                query = self.supabase.table("documents").select("content, metadata").eq("metadata->>source", source)
-                
+                query = (
+                    self.supabase.table("documents")
+                    .select("content, metadata")
+                    .eq("metadata->>source", source)
+                )
+
                 if num_match:
                     # Dùng ilike để gom tất tuốt các chunk bị lỗi OCR font (VD: "1.3." vs "1.3") hoặc chunk con
                     if section:
@@ -272,20 +318,25 @@ class RAGService:
                         query = query.eq("metadata->>section", section)
                     else:
                         query = query.eq("metadata->>chapter", chapter)
-                
+
                 response = query.execute()
 
                 if response.data:
                     # Sắp xếp theo chunk_index để văn bản liền mạch
-                    sorted_chunks = sorted(response.data, key=lambda x: x.get("metadata", {}).get("chunk_index", 0))
-                    
+                    sorted_chunks = sorted(
+                        response.data,
+                        key=lambda x: x.get("metadata", {}).get("chunk_index", 0),
+                    )
+
                     # Giữa các cục được nối với nhau có thể có khoảng trống
-                    full_text = "\n".join([chunk.get("content", "") for chunk in sorted_chunks])
-                    
+                    full_text = "\n".join(
+                        [chunk.get("content", "") for chunk in sorted_chunks]
+                    )
+
                     new_meta = meta.copy()
                     new_meta["expanded"] = True
                     new_meta["total_expanded_chunks"] = len(sorted_chunks)
-                    
+
                     super_doc = Document(page_content=full_text, metadata=new_meta)
                     expanded_docs.append(super_doc)
                 else:
@@ -306,7 +357,7 @@ class RAGService:
         use_rerank: bool = True,
     ) -> List[Document]:
         print(f"\n[RAG] Query: '{query}'")
-        
+
         # 1. Semantic Search
         query_embedding = self.embeddings.embed_query(query)
         response = self.supabase.rpc(
@@ -314,13 +365,15 @@ class RAGService:
             {
                 "query_embedding": query_embedding,
                 "match_threshold": match_threshold,
-                "match_count": k
-            }
+                "match_count": k,
+            },
         ).execute()
 
         semantic_docs = []
         for item in response.data:
-            doc = Document(page_content=item.get("content"), metadata=item.get("metadata"))
+            doc = Document(
+                page_content=item.get("content"), metadata=item.get("metadata")
+            )
             doc.metadata["semantic_similarity"] = item.get("similarity")
             semantic_docs.append(doc)
 
@@ -330,71 +383,95 @@ class RAGService:
         if use_hybrid:
             bm25_docs = await self._bm25_search(query, k)
             final_docs = self._rrf_merge(semantic_docs, bm25_docs)
-            print(f"[RAG] Semantic: {len(semantic_docs)}, BM25: {len(bm25_docs)} -> Merge: {len(final_docs)} chunks")
+            print(
+                f"[RAG] Semantic: {len(semantic_docs)}, BM25: {len(bm25_docs)} -> Merge: {len(final_docs)} chunks"
+            )
 
         # 3. Re-ranking
         final_docs = final_docs[:k]  # Giới hạn đưa vào rerank
         if use_rerank and final_docs:
-            import time
             t0 = time.time()
             final_docs = self._rerank(query, final_docs, top_n=final_k)
-            print(f"[RAG] Reranking took {time.time()-t0:.2f}s")
+            print(f"[RAG] Reranking took {time.time() - t0:.2f}s")
         else:
             final_docs = final_docs[:final_k]
-            
+
         # 4. Context Expansion (Mở rộng ngữ cảnh)
-        import time
         t1 = time.time()
         final_docs = self._expand_context(final_docs)
-        print(f"[RAG] Context Expansion took {time.time()-t1:.2f}s, resulted in {len(final_docs)} super-chunks")
-            
+        print(
+            f"[RAG] Context Expansion took {time.time() - t1:.2f}s, resulted in {len(final_docs)} super-chunks"
+        )
+
         return final_docs
 
     async def _rewrite_query(self, query: str, history: List[dict]) -> str:
         """Sử dụng LLM độc lập (temp=0) để viết lại câu hỏi hoàn chỉnh từ lịch sử"""
         if not history:
             return query
-            
-        from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
 
-        system_msg = SystemMessage(content="Bạn là một AI phân tích ngữ cảnh. Dựa vào lịch sử dưới đây, hãy viết lại câu hỏi mới nhất thành một câu hỏi ĐỘC LẬP (standalone question) đầy đủ ngữ cảnh để tìm kiếm thông tin.\nNếu câu hỏi đã rõ và không chứa đại từ phụ thuộc (\"nó\", \"phần đó\"...), hãy GIỮ NGUYÊN câu hỏi gốc.\nCHỈ TRẢ VỀ CÂU HỎI, KHÔNG GIẢI THÍCH, KHÔNG TRẢ LỜI.")
-        
+        system_msg = SystemMessage(
+            content=(
+                "Bạn là một AI phân tích ngữ cảnh. Dựa vào lịch sử dưới đây, "
+                "hãy viết lại câu hỏi mới nhất thành một câu hỏi ĐỘC LẬP (standalone question) "
+                "đầy đủ ngữ cảnh để tìm kiếm thông tin.\n"
+                'Nếu câu hỏi đã rõ và không chứa đại từ phụ thuộc ("nó", "phần đó"...), '
+                "hãy GIỮ NGUYÊN câu hỏi gốc.\n"
+                "CHỈ TRẢ VỀ CÂU HỎI, KHÔNG GIẢI THÍCH, KHÔNG TRẢ LỜI."
+            )
+        )
+
         messages = [system_msg]
         for msg in history:
             role = msg.get("role", "user")
-            if role == "user": messages.append(HumanMessage(content=msg.get("content", "")))
-            else: messages.append(AIMessage(content=msg.get("content", "")))
-            
-        messages.append(HumanMessage(content=f"Câu hỏi mới nhất: {query}\n\nCâu hỏi Standalone:"))
-        
+            if role == "user":
+                messages.append(HumanMessage(content=msg.get("content", "")))
+            else:
+                messages.append(AIMessage(content=msg.get("content", "")))
+
+        messages.append(
+            HumanMessage(content=f"Câu hỏi mới nhất: {query}\n\nCâu hỏi Standalone:")
+        )
+
         response = await self.llm_strict.ainvoke(messages)
         standalone = response.content.strip()
-        print(f"\n[RAG] Rewrite query:\n  Original: '{query}'\n  Rewritten: '{standalone}'")
+        print(
+            f"\n[RAG] Rewrite query:\n  Original: '{query}'\n  Rewritten: '{standalone}'"
+        )
         return standalone
 
     async def _route_query(self, query: str) -> bool:
         """Định tuyến tin nhắn: Kích hoạt True nếu đây là câu chào hỏi bâng quơ"""
-        from langchain_core.messages import HumanMessage
         prompt = f"Phân loại tin nhắn sau. Nếu đây chỉ là câu giao tiếp chào hỏi, cảm ơn, khen ngợi bâng quơ, hãy trả lời 'CHITCHAT'. Nếu là các câu hỏi cần tìm kiếm thông tin/tư vấn chuyên môn, dữ liệu, bài tập, hãy trả lời 'RAG'.\nTin nhắn: '{query}'"
         response = await self.llm_strict.ainvoke([HumanMessage(content=prompt)])
         return "CHITCHAT" in response.content.upper()
 
-    async def chat_stream(self, query: str, history: List[dict] = None, skip_routing: bool = False, skip_rewrite: bool = False):
+    async def chat_stream(
+        self,
+        query: str,
+        history: List[dict] = None,
+        skip_routing: bool = False,
+        skip_rewrite: bool = False,
+    ):
         """Hàm trò chuyện chính dạng Stream"""
-        from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
-
         # 1. Định tuyến (Query Router)
         if not skip_routing:
             is_chitchat = await self._route_query(query)
             if is_chitchat:
                 print("[RAG] Routing: Câu hỏi bâng quơ (CHITCHAT). Xử lý ngay...")
-                messages = [SystemMessage(content="Bạn là trợ lý ảo thân thiện do chủ trang web tạo ra. Hãy trả lời ngắn gọn và tự nhiên các câu giao tiếp cơ bản từ người dùng.")]
-                for msg in (history or []):
+                messages = [
+                    SystemMessage(
+                        content="Bạn là trợ lý ảo thân thiện do chủ trang web tạo ra. Hãy trả lời ngắn gọn và tự nhiên các câu giao tiếp cơ bản từ người dùng."
+                    )
+                ]
+                for msg in history or []:
                     role = msg.get("role", "user")
-                    if role == "user": messages.append(HumanMessage(content=msg.get("content", "")))
-                    else: messages.append(AIMessage(content=msg.get("content", "")))
+                    if role == "user":
+                        messages.append(HumanMessage(content=msg.get("content", "")))
+                    else:
+                        messages.append(AIMessage(content=msg.get("content", "")))
                 messages.append(HumanMessage(content=query))
-                
+
                 async for chunk in self.llm.astream(messages):
                     if chunk.content:
                         yield chunk.content
@@ -404,10 +481,10 @@ class RAGService:
         search_query = query
         if not skip_rewrite:
             search_query = await self._rewrite_query(query, history or [])
-        
+
         # 3. Tìm kiếm
         docs = await self.search_similar(search_query, k=15, final_k=4)
-        
+
         if not docs:
             yield "Xin lỗi, tôi không tìm thấy thông tin liên quan trong tài liệu ISTQB để trả lời câu hỏi của bạn."
             return
@@ -416,14 +493,37 @@ class RAGService:
         context_str = "\n\n".join([doc.page_content for doc in docs])
 
         # 5. Khởi tạo mảng LLM Native History
-        system_msg = SystemMessage(content="Bạn là một trợ lý ảo chuyên nghiệp về kiểm thử phần mềm (ISTQB). Hãy trả lời câu hỏi rõ ràng và mạch lạc dựa trên thông tin (Context) được cung cấp bên dưới.\n\nQUY TẮC BẮT BUỘC:\n1. Thuật ngữ Tiếng Anh: Giữ nguyên các thuật ngữ chuyên ngành kiểm thử (ví dụ: Error, Defect, Failure, Test Case, Equivalence Partitioning...) ở dạng nguyên bản gốc hoặc dùng định dạng 'Tiếng Việt (Tiếng Anh)'.\n2. Câu hỏi trắc nghiệm: Nếu nhận được câu hỏi trắc nghiệm (gồm các đáp án A, B, C, D...), bạn BẮT BUỘC phải đưa ra kết luận ĐÁP ÁN ĐÚNG NGAY Ở DÒNG ĐẦU TIÊN. Sau đó, phần giải thích từng lựa chọn phải viết cực kỳ NGẮN GỌN, tóm tắt trực diện lý do đúng/sai. \n3. Trích dẫn: Trong phần giải thích cho đáp án ĐÚNG, hãy cố gắng nhắc tên mã chương/mục (ví dụ: 'Theo mục 1.4.1...') mà bạn căn cứ vào. TUYỆT ĐỐI KHÔNG tự tạo mục 'Nguồn tham khảo' ở cuối câu trả lời, hệ thống sẽ tự động chèn phần này.\n4. Tính trung thực: Tuyệt đối không tự ý bịa đặt kiến thức ngoài lề nếu không có trong Context.")
-        
+        system_msg = SystemMessage(
+            content=(
+                "Bạn là một trợ lý ảo chuyên nghiệp về kiểm thử phần mềm (ISTQB). "
+                "Hãy trả lời dựa trên thông tin (Context) được cung cấp bên dưới.\n\n"
+                "QUY TẮC BẮT BUỘC:\n"
+                "1. Câu hỏi thường: Trả lời NGẮN GỌN, SÚC TÍCH. Dùng gạch đầu dòng nếu cần liệt kê.\n"
+                "2. Thuật ngữ Tiếng Anh: Giữ nguyên thuật ngữ chuyên ngành "
+                "(Error, Defect, Failure, Test Case...) hoặc dùng 'Tiếng Việt (Tiếng Anh)'.\n"
+                "3. Câu hỏi trắc nghiệm — BẮT BUỘC theo đúng 2 bước sau:\n"
+                "   Bước 1 - Phân tích từng đáp án theo format:\n"
+                "   [A]: ĐÚNG/SAI — <lý do 1 câu dựa trên Context>\n"
+                "   [B]: ĐÚNG/SAI — <lý do 1 câu dựa trên Context>\n"
+                "   [C]: ĐÚNG/SAI — <lý do 1 câu dựa trên Context>\n"
+                "   [D]: ĐÚNG/SAI — <lý do 1 câu dựa trên Context>\n"
+                "   Bước 2 - Kết luận: **ĐÁP ÁN ĐÚNG: [X]**\n"
+                "   Lưu ý: Với câu hỏi NOT/EXCEPT — đáp án nào ĐÚNG theo câu hỏi là đáp án chứa thông tin SAI/không có trong Context. "
+                "Phải đọc kỹ từng từ, không được suy luận 'gần đúng'.\n"
+                "4. Trích dẫn: Lồng ghép mã chương vào lý do (ví dụ: 'Theo mục 3.2.5...'). "
+                "TUYỆT ĐỐI KHÔNG tạo danh sách trích dẫn cuối bài.\n"
+                "5. Tính trung thực: Không bịa đặt kiến thức ngoài Context."
+            )
+        )
+
         messages = [system_msg]
-        for msg in (history or []):
+        for msg in history or []:
             role = msg.get("role", "user")
-            if role == "user": messages.append(HumanMessage(content=msg.get("content", "")))
-            else: messages.append(AIMessage(content=msg.get("content", "")))
-            
+            if role == "user":
+                messages.append(HumanMessage(content=msg.get("content", "")))
+            else:
+                messages.append(AIMessage(content=msg.get("content", "")))
+
         final_prompt = f"Context:\n{context_str}\n\nQuestion:\n{query}"
         messages.append(HumanMessage(content=final_prompt))
 
@@ -433,53 +533,60 @@ class RAGService:
             if chunk.content:
                 full_ai_response += chunk.content
                 yield chunk.content
-                
+
         # 7. Tự động chèn Nguồn tham khảo vào cuối câu trả lời
-        import re
         # Tìm các mã chương (vd: 1.1, 2.3.1) được AI nhắc đến trong câu trả lời
-        referenced_chapters = set(re.findall(r'(\d+(?:\.\d+)+)', full_ai_response))
-        
+        referenced_chapters = set(re.findall(r"(\d+(?:\.\d+)+)", full_ai_response))
+
         unique_num_mapping = {}
         fallback_sources = set()
-        
+
         for doc in docs:
-            ch = doc.metadata.get('chapter', '').strip()
+            ch = doc.metadata.get("chapter", "").strip()
             if not ch:
                 continue
-                
+
             # Chuẩn hoá các chuỗi lặp (VD: "1.3" và "1.3." về chung 1 chuẩn "1.3. Testing Principles")
-            match = re.search(r'^(\d+(?:\.\d+)*)\.?\s+(.*)$', ch)
+            match = re.search(r"^(\d+(?:\.\d+)*)\.?\s+(.*)$", ch)
             if match:
-                num = match.group(1) # Lấy phần số (1.3, 1.2.1)
+                num = match.group(1)  # Lấy phần số (1.3, 1.2.1)
                 text = match.group(2)
-                
+
                 # Dọn dẹp thẻ HTML rác
-                text = re.sub(r'<[^>]+>', '', text).strip()
-                
+                text = re.sub(r"<[^>]+>", "", text).strip()
+
                 # CHỈ giữ những nguồn mà AI thực sự nhắc đến số chương đó
                 # Nếu AI không nhắc mã nào cụ thể, ta vẫn giữ lại các nguồn top
-                if not referenced_chapters or any(ref in num for ref in referenced_chapters):
+                if not referenced_chapters or any(
+                    ref in num for ref in referenced_chapters
+                ):
                     if num not in unique_num_mapping:
                         unique_num_mapping[num] = text
             else:
                 fallback_sources.add(ch)
-                
+
         final_list = []
         if len(unique_num_mapping) > 0:
             # Sắp xếp số học (1.2 < 1.10)
-            for num in sorted(unique_num_mapping.keys(), key=lambda s: [int(x) for x in s.split('.')]):
+            for num in sorted(
+                unique_num_mapping.keys(), key=lambda s: [int(x) for x in s.split(".")]
+            ):
                 final_list.append(f"- *{num}. {unique_num_mapping[num]}*")
-        
+
         # Nếu vẫn không có mã chương nào trùng khớp, hiển thị nguồn đầu tiên (fallback)
         if not final_list and fallback_sources:
-            for ch in list(fallback_sources)[:1]: # Chỉ lấy 1 cái liên quan nhất
-                ch_clean = re.sub(r'<[^>]+>', '', ch).strip()
-                if ch_clean and not any(noise in ch_clean.lower() for noise in ["chapter ", "learning", "level"]):
+            for ch in list(fallback_sources)[:1]:  # Chỉ lấy 1 cái liên quan nhất
+                ch_clean = re.sub(r"<[^>]+>", "", ch).strip()
+                if ch_clean and not any(
+                    noise in ch_clean.lower()
+                    for noise in ["chapter ", "learning", "level"]
+                ):
                     final_list.append(f"- *{ch_clean}*")
 
         if final_list:
             yield "\n\n---\n**Nguồn tham khảo:**\n"
             for src in final_list:
                 yield src + "\n"
+
 
 rag_service = RAGService()
