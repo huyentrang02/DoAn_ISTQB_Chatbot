@@ -172,18 +172,13 @@ export default function ChatInterface() {
       image_url: imageUrl
     });
 
-    const recentHistory = messages.slice(-4).map((m) => ({
-      role: m.role,
-      content: m.content,
-    }));
-
     try {
       const res = await fetch(`${API_URL}/api/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           query: userMsg.content,
-          history: recentHistory,
+          history: [],
           image_base64: imageToSend ?? null,
           image_mime: imageToSend ? mimeToSend : null,
         }),

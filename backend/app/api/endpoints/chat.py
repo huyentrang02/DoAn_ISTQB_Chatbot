@@ -14,7 +14,6 @@ class ChatMessage(BaseModel):
 
 class ChatRequest(BaseModel):
     query: str
-    history: Optional[List[ChatMessage]] = []
     image_base64: Optional[str] = None   # base64 ảnh đính kèm (không có prefix data:...)
     image_mime: Optional[str] = None     # vd: "image/png", "image/jpeg"
 
@@ -25,15 +24,9 @@ class ChatResponse(BaseModel):
 
 @router.post("/chat")
 async def chat(request: ChatRequest):
-    history_dicts = (
-        [{"role": m.role, "content": m.content} for m in request.history]
-        if request.history
-        else []
-    )
     return StreamingResponse(
         rag_service.chat_stream(
             request.query,
-            history=history_dicts,
             image_base64=request.image_base64,
             image_mime=request.image_mime,
         ),

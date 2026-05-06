@@ -29,12 +29,12 @@ class RAGService:
             output_dimensionality=768,
         )
         self.llm = ChatGoogleGenerativeAI(
-            model="models/gemini-2.5-pro",
+            model="models/gemini-2.5-flash",
             temperature=0.7,
             google_api_key=settings.GOOGLE_API_KEY,
         )
         self.llm_strict = ChatGoogleGenerativeAI(
-            model="models/gemini-2.5-pro",
+            model="models/gemini-2.5-flash",
             temperature=0.0,
             google_api_key=settings.GOOGLE_API_KEY,
         )
@@ -405,41 +405,6 @@ class RAGService:
 
         return final_docs
 
-    async def _rewrite_query(self, query: str, history: List[dict]) -> str:
-        """Sử dụng LLM độc lập (temp=0) để viết lại câu hỏi hoàn chỉnh từ lịch sử"""
-        if not history:
-            return query
-
-        system_msg = SystemMessage(
-            content=(
-                "Bạn là một AI phân tích ngữ cảnh. Dựa vào lịch sử dưới đây, "
-                "hãy viết lại câu hỏi mới nhất thành một câu hỏi ĐỘC LẬP (standalone question) "
-                "đầy đủ ngữ cảnh để tìm kiếm thông tin.\n"
-                'Nếu câu hỏi đã rõ và không chứa đại từ phụ thuộc ("nó", "phần đó"...), '
-                "hãy GIỮ NGUYÊN câu hỏi gốc.\n"
-                "CHỈ TRẢ VỀ CÂU HỎI, KHÔNG GIẢI THÍCH, KHÔNG TRẢ LỜI."
-            )
-        )
-
-        messages = [system_msg]
-        for msg in history:
-            role = msg.get("role", "user")
-            if role == "user":
-                messages.append(HumanMessage(content=msg.get("content", "")))
-            else:
-                messages.append(AIMessage(content=msg.get("content", "")))
-
-        messages.append(
-            HumanMessage(content=f"Câu hỏi mới nhất: {query}\n\nCâu hỏi Standalone:")
-        )
-
-        response = await self.llm_strict.ainvoke(messages)
-        standalone = response.content.strip()
-        print(
-            f"\n[RAG] Rewrite query:\n  Original: '{query}'\n  Rewritten: '{standalone}'"
-        )
-        return standalone
-
     async def _route_query(self, query: str) -> bool:
         """Định tuyến tin nhắn: Kích hoạt True nếu đây là câu chào hỏi bâng quơ"""
         prompt = f"Phân loại tin nhắn sau. Nếu đây chỉ là câu giao tiếp chào hỏi, cảm ơn, khen ngợi bâng quơ, hãy trả lời 'CHITCHAT'. Nếu là các câu hỏi cần tìm kiếm thông tin/tư vấn chuyên môn, dữ liệu, bài tập, hãy trả lời 'RAG'.\nTin nhắn: '{query}'"
@@ -449,9 +414,7 @@ class RAGService:
     async def chat_stream(
         self,
         query: str,
-        history: List[dict] = None,
         skip_routing: bool = False,
-        skip_rewrite: bool = False,
         image_base64: str = None,
         image_mime: str = "image/png",
     ):
@@ -464,28 +427,17 @@ class RAGService:
                 messages = [
                     SystemMessage(
                         content="Bạn là trợ lý ảo thân thiện do chủ trang web tạo ra. Hãy trả lời ngắn gọn và tự nhiên các câu giao tiếp cơ bản từ người dùng."
-                    )
+                    ),
+                    HumanMessage(content=query),
                 ]
-                for msg in history or []:
-                    role = msg.get("role", "user")
-                    if role == "user":
-                        messages.append(HumanMessage(content=msg.get("content", "")))
-                    else:
-                        messages.append(AIMessage(content=msg.get("content", "")))
-                messages.append(HumanMessage(content=query))
 
                 async for chunk in self.llm.astream(messages):
                     if chunk.content:
                         yield chunk.content
                 return
 
-        # 2. Xử lý logic theo ngữ cảnh cũ
-        search_query = query
-        if not skip_rewrite:
-            search_query = await self._rewrite_query(query, history or [])
-
-        # 3. Tìm kiếm
-        docs = await self.search_similar(search_query, k=15, final_k=4)
+        # 2. Tìm kiếm
+        docs = await self.search_similar(query, k=15, final_k=4)
 
         if not docs:
             yield "Xin lỗi, tôi không tìm thấy thông tin liên quan trong tài liệu ISTQB để trả lời câu hỏi của bạn."
@@ -519,12 +471,6 @@ class RAGService:
         )
 
         messages = [system_msg]
-        for msg in history or []:
-            role = msg.get("role", "user")
-            if role == "user":
-                messages.append(HumanMessage(content=msg.get("content", "")))
-            else:
-                messages.append(AIMessage(content=msg.get("content", "")))
 
         final_prompt = f"Context:\n{context_str}\n\nQuestion:\n{query}"
 
@@ -554,17 +500,25 @@ class RAGService:
 
         # 7. Tự động chèn Nguồn tham khảo vào cuối câu trả lời
         # Tìm xem đây có phải câu hỏi trắc nghiệm và có ĐÁP ÁN ĐÚNG không
-        correct_match = re.search(r"ĐÁP ÁN ĐÚNG:\s*(?:\*\*)?\[?([A-D])\]?(?:\*\*)?", full_ai_response, re.IGNORECASE)
+        correct_match = re.search(
+            r"ĐÁP ÁN ĐÚNG:\s*(?:\*\*)?\[?([A-D])\]?(?:\*\*)?",
+            full_ai_response,
+            re.IGNORECASE,
+        )
         referenced_chapters = set()
 
         if correct_match:
             correct_opt = correct_match.group(1).upper()
             # Lấy đoạn giải thích của đáp án đúng (từ [X]: đến đáp án tiếp theo hoặc Bước 2)
             pattern = rf"\[{correct_opt}\]:.*?(?=\n\s*\[[A-D]\]:|\n\s*Bước 2|$)"
-            explanation_match = re.search(pattern, full_ai_response, re.IGNORECASE | re.DOTALL)
+            explanation_match = re.search(
+                pattern, full_ai_response, re.IGNORECASE | re.DOTALL
+            )
             if explanation_match:
-                referenced_chapters = set(re.findall(r"(\d+(?:\.\d+)+)", explanation_match.group(0)))
-        
+                referenced_chapters = set(
+                    re.findall(r"(\d+(?:\.\d+)+)", explanation_match.group(0))
+                )
+
         # Nếu không phải câu trắc nghiệm, hoặc đoạn giải thích đáp án đúng không chứa mã chương nào
         if not referenced_chapters:
             referenced_chapters = set(re.findall(r"(\d+(?:\.\d+)+)", full_ai_response))
@@ -575,7 +529,11 @@ class RAGService:
         for doc in docs:
             meta = doc.metadata
             # Ưu tiên lấy tiêu đề chi tiết nhất: subsection (###) > section (##) > chapter (#)
-            headings = [meta.get("subsection", ""), meta.get("section", ""), meta.get("chapter", "")]
+            headings = [
+                meta.get("subsection", ""),
+                meta.get("section", ""),
+                meta.get("chapter", ""),
+            ]
             ch = next((h.strip() for h in headings if h and h.strip()), "")
 
             if not ch:
@@ -588,7 +546,9 @@ class RAGService:
                 text = match.group(2)
                 text = re.sub(r"<[^>]+>", "", text).strip()
 
-                if not referenced_chapters or any(ref in num for ref in referenced_chapters):
+                if not referenced_chapters or any(
+                    ref in num for ref in referenced_chapters
+                ):
                     if num not in unique_num_mapping:
                         unique_num_mapping[num] = text
             else:
@@ -598,7 +558,7 @@ class RAGService:
         final_list = []
         if len(unique_num_mapping) > 0:
             # Lọc các nguồn có dạng x.y.z (có ít nhất 2 dấu chấm)
-            xyz_keys = [k for k in unique_num_mapping.keys() if k.count('.') >= 2]
+            xyz_keys = [k for k in unique_num_mapping.keys() if k.count(".") >= 2]
             # Nếu có dạng x.y.z thì ưu tiên cái đầu tiên (liên quan nhất), nếu không thì lấy cái đầu tiên của mapping
             best_num = xyz_keys[0] if xyz_keys else list(unique_num_mapping.keys())[0]
             final_list.append(f"- *{best_num}. {unique_num_mapping[best_num]}*")
@@ -607,10 +567,12 @@ class RAGService:
         if not final_list and fallback_sources:
             for ch in fallback_sources:
                 ch_clean = re.sub(r"<[^>]+>", "", ch).strip()
-                if ch_clean and not any(noise in ch_clean.lower() for noise in ["chapter ", "learning", "level"]):
+                if ch_clean and not any(
+                    noise in ch_clean.lower()
+                    for noise in ["chapter ", "learning", "level"]
+                ):
                     final_list.append(f"- *{ch_clean}*")
                     break  # Chỉ lấy 1 nguồn
-
 
         if final_list:
             yield "\n\n---\n**Nguồn tham khảo:**\n"
