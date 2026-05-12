@@ -187,31 +187,16 @@ export default function ChatInterface() {
       if (!res.ok) throw new Error("Network response was not ok");
       if (!res.body) throw new Error("No response body");
 
-      const reader = res.body.getReader();
-      const decoder = new TextDecoder("utf-8");
+      const data = await res.json();
+      const fullContent = data.answer;
 
-      let fullContent = "";
       const assistantMsg: MessageWithImage = {
         role: "assistant",
-        content: "",
+        content: fullContent,
         timestamp: Date.now(),
       };
 
       setMessages((prev) => [...prev, assistantMsg]);
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        fullContent += decoder.decode(value, { stream: true });
-        setMessages((prev) => {
-          const newMessages = [...prev];
-          newMessages[newMessages.length - 1] = {
-            ...newMessages[newMessages.length - 1],
-            content: fullContent,
-          };
-          return newMessages;
-        });
-      }
 
       assistantMsg.content = fullContent;
       await saveMessage({ role: assistantMsg.role, content: assistantMsg.content, timestamp: assistantMsg.timestamp });

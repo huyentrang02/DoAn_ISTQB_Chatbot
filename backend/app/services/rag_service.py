@@ -1,6 +1,5 @@
 import asyncio
 import os
-import re
 import shutil
 import time
 from datetime import datetime
@@ -11,12 +10,14 @@ from app.core.custom_embeddings import NativeGoogleEmbeddings
 from fastapi import UploadFile
 from langchain_community.vectorstores import SupabaseVectorStore
 from langchain_core.documents import Document
-from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
+from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_text_splitters import (
     MarkdownHeaderTextSplitter,
     RecursiveCharacterTextSplitter,
 )
+
+# pyrefly: ignore [missing-import]
 from sentence_transformers import CrossEncoder
 from supabase.client import Client, create_client
 
@@ -29,12 +30,12 @@ class RAGService:
             output_dimensionality=768,
         )
         self.llm = ChatGoogleGenerativeAI(
-            model="models/gemini-2.5-flash",
-            temperature=0.7,
+            model="models/gemini-2.5-pro",
+            temperature=0.1,
             google_api_key=settings.GOOGLE_API_KEY,
         )
         self.llm_strict = ChatGoogleGenerativeAI(
-            model="models/gemini-2.5-flash",
+            model="models/gemini-2.5-pro",
             temperature=0.0,
             google_api_key=settings.GOOGLE_API_KEY,
         )
@@ -265,94 +266,90 @@ class RAGService:
         return [doc for score, doc in ranked[:top_n]]
 
     def _expand_context(self, docs: List[Document]) -> List[Document]:
-        """Mở rộng ngữ cảnh: Nối tất cả các chunk cùng section/chapter để tạo thành văn bản hoàn chỉnh"""
-        if not docs:
-            return []
-
-        expanded_docs = []
-        processed_sections = set()
-
-        for doc in docs:
-            meta = doc.metadata
-            source = meta.get("source", "")
-            chapter = meta.get("chapter", "")
-            section = meta.get("section", "")
-
-            group_key = section if section else chapter
-
-            # Bỏ qua nếu không có thông tin section hoặc chapter để nhóm
-            if not group_key:
-                expanded_docs.append(doc)
-                continue
-
-            # Rút trích tiền tố số học (VD: "1.3", "4.2.2") để gom nhóm thông minh hơn
-            num_match = re.search(r"^(\d+(?:\.\d+)*)", group_key)
-            if num_match:
-                search_prefix = num_match.group(1)
-            else:
-                search_prefix = group_key
-
-            sec_key = f"{source}_{search_prefix}"
-
-            if sec_key in processed_sections:
-                continue
-
-            processed_sections.add(sec_key)
-
-            try:
-                # Kéo toàn bộ chunk của section/chapter này từ CSDL một cách linh hoạt
-                query = (
-                    self.supabase.table("documents")
-                    .select("content, metadata")
-                    .eq("metadata->>source", source)
-                )
-
-                if num_match:
-                    # Dùng ilike để gom tất tuốt các chunk bị lỗi OCR font (VD: "1.3." vs "1.3") hoặc chunk con
-                    if section:
-                        query = query.ilike("metadata->>section", f"{search_prefix}%")
-                    else:
-                        query = query.ilike("metadata->>chapter", f"{search_prefix}%")
-                else:
-                    if section:
-                        query = query.eq("metadata->>section", section)
-                    else:
-                        query = query.eq("metadata->>chapter", chapter)
-
-                response = query.execute()
-
-                if response.data:
-                    # Sắp xếp theo chunk_index để văn bản liền mạch
-                    sorted_chunks = sorted(
-                        response.data,
-                        key=lambda x: x.get("metadata", {}).get("chunk_index", 0),
-                    )
-
-                    # Giữa các cục được nối với nhau có thể có khoảng trống
-                    full_text = "\n".join(
-                        [chunk.get("content", "") for chunk in sorted_chunks]
-                    )
-
-                    new_meta = meta.copy()
-                    new_meta["expanded"] = True
-                    new_meta["total_expanded_chunks"] = len(sorted_chunks)
-
-                    super_doc = Document(page_content=full_text, metadata=new_meta)
-                    expanded_docs.append(super_doc)
-                else:
-                    expanded_docs.append(doc)
-            except Exception as e:
-                print(f"[RAGService] Lỗi khi mở rộng context cho {sec_key}: {e}")
-                expanded_docs.append(doc)
-
-        return expanded_docs
+        """
+        Mở rộng ngữ cảnh: Nối tất cả các chunk cùng section/chapter để tạo thành văn bản hoàn chỉnh.
+        Hiện tại đang comment để tiết kiệm token.
+        """
+        # if not docs:
+        #     return []
+        #
+        # expanded_docs = []
+        # processed_sections = set()
+        #
+        # for doc in docs:
+        #     meta = doc.metadata
+        #     source = meta.get("source", "")
+        #     chapter = meta.get("chapter", "")
+        #     section = meta.get("section", "")
+        #
+        #     group_key = section if section else chapter
+        #
+        #     if not group_key:
+        #         expanded_docs.append(doc)
+        #         continue
+        #
+        #     num_match = re.search(r"^(\d+(?:\.\d+)*)", group_key)
+        #     if num_match:
+        #         search_prefix = num_match.group(1)
+        #     else:
+        #         search_prefix = group_key
+        #
+        #     sec_key = f"{source}_{search_prefix}"
+        #
+        #     if sec_key in processed_sections:
+        #         continue
+        #
+        #     processed_sections.add(sec_key)
+        #
+        #     try:
+        #         query = (
+        #             self.supabase.table("documents")
+        #             .select("content, metadata")
+        #             .eq("metadata->>source", source)
+        #         )
+        #
+        #         if num_match:
+        #             if section:
+        #                 query = query.ilike("metadata->>section", f"{search_prefix}%")
+        #             else:
+        #                 query = query.ilike("metadata->>chapter", f"{search_prefix}%")
+        #         else:
+        #             if section:
+        #                 query = query.eq("metadata->>section", section)
+        #             else:
+        #                 query = query.eq("metadata->>chapter", chapter)
+        #
+        #         response = query.execute()
+        #
+        #         if response.data:
+        #             sorted_chunks = sorted(
+        #                 response.data,
+        #                 key=lambda x: x.get("metadata", {}).get("chunk_index", 0),
+        #             )
+        #             full_text = "\n".join(
+        #                 [chunk.get("content", "") for chunk in sorted_chunks]
+        #             )
+        #             new_meta = meta.copy()
+        #             new_meta["expanded"] = True
+        #             new_meta["total_expanded_chunks"] = len(sorted_chunks)
+        #
+        #             super_doc = Document(page_content=full_text, metadata=new_meta)
+        #             expanded_docs.append(super_doc)
+        #         else:
+        #             expanded_docs.append(doc)
+        #     except Exception as e:
+        #         print(f"[RAGService] Lỗi khi mở rộng context cho {sec_key}: {e}")
+        #         expanded_docs.append(doc)
+        #
+        # return expanded_docs
+        return docs
 
     async def search_similar(
         self,
         query: str,
         k: int = 15,
-        final_k: int = 4,
-        match_threshold: float = 0.4,
+        final_k: int = 5,
+        match_threshold: float = 0.5,
         use_hybrid: bool = True,
         use_rerank: bool = True,
     ) -> List[Document]:
@@ -396,77 +393,106 @@ class RAGService:
         else:
             final_docs = final_docs[:final_k]
 
-        # 4. Context Expansion (Mở rộng ngữ cảnh)
-        t1 = time.time()
-        final_docs = self._expand_context(final_docs)
-        print(
-            f"[RAG] Context Expansion took {time.time() - t1:.2f}s, resulted in {len(final_docs)} super-chunks"
-        )
+        # 4. Context Expansion (Mở rộng ngữ cảnh) - Tạm thời comment để tiết kiệm token
+        # t1 = time.time()
+        # final_docs = self._expand_context(final_docs)
+        # print(
+        #     f"[RAG] Context Expansion took {time.time() - t1:.2f}s, resulted in {len(final_docs)} super-chunks"
+        # )
 
         return final_docs
 
-    async def _route_query(self, query: str) -> bool:
-        """Định tuyến tin nhắn: Kích hoạt True nếu đây là câu chào hỏi bâng quơ"""
-        prompt = f"Phân loại tin nhắn sau. Nếu đây chỉ là câu giao tiếp chào hỏi, cảm ơn, khen ngợi bâng quơ, hãy trả lời 'CHITCHAT'. Nếu là các câu hỏi cần tìm kiếm thông tin/tư vấn chuyên môn, dữ liệu, bài tập, hãy trả lời 'RAG'.\nTin nhắn: '{query}'"
-        response = await self.llm_strict.ainvoke([HumanMessage(content=prompt)])
-        return "CHITCHAT" in response.content.upper()
-
-    async def chat_stream(
+    async def chat(
         self,
         query: str,
-        skip_routing: bool = False,
         image_base64: str = None,
         image_mime: str = "image/png",
-    ):
+    ) -> str:
         """Hàm trò chuyện chính dạng Stream"""
-        # 1. Định tuyến (Query Router)
-        if not skip_routing:
-            is_chitchat = await self._route_query(query)
-            if is_chitchat:
-                print("[RAG] Routing: Câu hỏi bâng quơ (CHITCHAT). Xử lý ngay...")
-                messages = [
-                    SystemMessage(
-                        content="Bạn là trợ lý ảo thân thiện do chủ trang web tạo ra. Hãy trả lời ngắn gọn và tự nhiên các câu giao tiếp cơ bản từ người dùng."
-                    ),
-                    HumanMessage(content=query),
+        # 1. Nhận diện câu hỏi phủ định (Negative Question Detection)
+        negative_keywords = [" NOT ", " EXCEPT ", " INCORRECT "]
+        is_negative = any(kw.lower() in query.lower() for kw in negative_keywords)
+
+        if is_negative:
+            extra_rule = (
+                "\nIMPORTANT:\n"
+                "- This is a negative question (NOT/EXCEPT/INCORRECT).\n"
+                "- Your task is to identify the WRONG statement among the options.\n"
+                "- Carefully check for incorrect terminology (e.g., using 'failure' instead of 'defect' in review context).\n"
+            )
+            print(f"[RAG] Negative question detected: {is_negative}")
+        else:
+            extra_rule = ""
+
+        # 2. Xử lý Query cho RAG (Nếu có ảnh, trích xuất nội dung ảnh để tìm kiếm chính xác hơn)
+        search_query = query
+        if image_base64:
+            print("[RAG] Đang trích xuất nội dung từ ảnh để tìm kiếm...")
+            extract_prompt = "Hãy trích xuất nội dung câu hỏi hoặc các thuật ngữ ISTQB chính từ ảnh này để dùng làm từ khóa tìm kiếm tài liệu. Chỉ trả về văn bản trích xuất."
+            extract_msg = HumanMessage(
+                content=[
+                    {"type": "text", "text": extract_prompt},
+                    {
+                        "type": "image_url",
+                        "image_url": {
+                            "url": f"data:{image_mime or 'image/png'};base64,{image_base64}"
+                        },
+                    },
                 ]
+            )
+            try:
+                extraction = await self.llm.ainvoke([extract_msg])
+                search_query = f"{query} {extraction.content}"
+                print(f"[RAG] Search Query mở rộng: '{search_query}'")
+            except Exception as e:
+                print(f"[RAG] Lỗi trích xuất nội dung ảnh: {e}")
 
-                async for chunk in self.llm.astream(messages):
-                    if chunk.content:
-                        yield chunk.content
-                return
-
-        # 2. Tìm kiếm
-        docs = await self.search_similar(query, k=15, final_k=4)
+        # 3. Tìm kiếm
+        docs = await self.search_similar(search_query, k=8, final_k=3)
 
         if not docs:
-            yield "Xin lỗi, tôi không tìm thấy thông tin liên quan trong tài liệu ISTQB để trả lời câu hỏi của bạn."
-            return
+            return "Xin lỗi, tôi không tìm thấy thông tin liên quan trong tài liệu ISTQB để trả lời câu hỏi của bạn."
 
-        # 4. Gắn Metadata và Nối Context
-        context_str = "\n\n".join([doc.page_content for doc in docs])
+        # 4. Gắn Metadata vào Context để LLM tự trích dẫn
+        context_parts = []
+        for doc in docs:
+            meta = doc.metadata
+            context_parts.append(f"""
+            [METADATA]
+            Chapter: {meta.get("chapter", "")}
+            [CONTENT]
+            {doc.page_content}
+            """)
 
-        # 5. Khởi tạo mảng LLM Native History
+        context_str = "\n\n".join(context_parts)
+
         system_msg = SystemMessage(
             content=(
-                "Bạn là một trợ lý ảo chuyên nghiệp về kiểm thử phần mềm (ISTQB). "
-                "Hãy trả lời dựa trên thông tin (Context) được cung cấp bên dưới.\n\n"
-                "QUY TẮC BẮT BUỘC:\n"
-                "1. Câu hỏi thường: Trả lời NGẮN GỌN, SÚC TÍCH. Dùng gạch đầu dòng nếu cần liệt kê.\n"
-                "2. Thuật ngữ Tiếng Anh: Giữ nguyên thuật ngữ chuyên ngành "
-                "(Error, Defect, Failure, Test Case...) hoặc dùng 'Tiếng Việt (Tiếng Anh)'.\n"
-                "3. Câu hỏi trắc nghiệm — BẮT BUỘC theo đúng 2 bước sau:\n"
-                "   Bước 1 - Phân tích từng đáp án theo format:\n"
-                "   [A]: ĐÚNG/SAI — <lý do 1 câu dựa trên Context>\n"
-                "   [B]: ĐÚNG/SAI — <lý do 1 câu dựa trên Context>\n"
-                "   [C]: ĐÚNG/SAI — <lý do 1 câu dựa trên Context>\n"
-                "   [D]: ĐÚNG/SAI — <lý do 1 câu dựa trên Context>\n"
-                "   Bước 2 - Kết luận: **ĐÁP ÁN ĐÚNG: [X]**\n"
-                "   Lưu ý: Với câu hỏi NOT/EXCEPT — đáp án nào ĐÚNG theo câu hỏi là đáp án chứa thông tin SAI/không có trong Context. "
-                "Phải đọc kỹ từng từ, không được suy luận 'gần đúng'.\n"
-                "4. Trích dẫn: Lồng ghép mã chương vào lý do (ví dụ: 'Theo mục 3.2.5...'). "
-                "TUYỆT ĐỐI KHÔNG tạo danh sách trích dẫn cuối bài.\n"
-                "5. Tính trung thực: Không bịa đặt kiến thức ngoài Context."
+                "Bạn là trợ lý luyện thi chứng chỉ ISTQB.\n"
+                "Chỉ trả lời dựa trên ngữ cảnh được cung cấp.\n\n"
+                "Quy tắc:\n"
+                "- Trả lời bằng tiếng Việt.\n"
+                "- Chỉ sử dụng thông tin từ ngữ cảnh được cung cấp.\n"
+                "- Phân tích từng đáp án độc lập trước khi kết luận.\n"
+                "- Kiểm tra kỹ thuật ngữ ISTQB cẩn thận.\n"
+                "- Các đáp án có wording tương tự chưa chắc đúng.\n"
+                "- Phát hiện thuật ngữ sai, không chính xác hoặc không nhất quán.\n"
+                "- Không suy luận theo kiến thức bên ngoài hoặc trực giác.\n"
+                "- Với câu hỏi chứa NOT/EXCEPT/INCORRECT, hãy chọn đáp án sai.\n"
+                "- Trả về tất cả đáp án đúng nếu câu hỏi cho phép nhiều lựa chọn.\n"
+                "- Giải thích ngắn gọn, tối đa 20 từ mỗi đáp án.\n"
+                "- Nếu ngữ cảnh không đủ thông tin, hãy nói rõ.\n"
+                "- Không trích dẫn nguồn cho từng đáp án.\n"
+                "- Liệt kê tất cả nguồn tham khảo liên quan ở cuối.\n"
+                "Định dạng trả lời:\n"
+                "Đáp án: [X] hoặc [X, Y]\n\n"
+                "- A: <giải thích ngắn>\n"
+                "- B: <giải thích ngắn>\n"
+                "- C: <giải thích ngắn>\n"
+                "- D: <giải thích ngắn>\n\n"
+                "***Nguồn tham khảo***:\n"
+                "- [Chapter/Section]"
+                f"{extra_rule}"
             )
         )
 
@@ -491,93 +517,9 @@ class RAGService:
         else:
             messages.append(HumanMessage(content=final_prompt))
 
-        full_ai_response = ""
-        # 6. Generator sinh chữ từ LLM
-        async for chunk in self.llm.astream(messages):
-            if chunk.content:
-                full_ai_response += chunk.content
-                yield chunk.content
-
-        # 7. Tự động chèn Nguồn tham khảo vào cuối câu trả lời
-        # Tìm xem đây có phải câu hỏi trắc nghiệm và có ĐÁP ÁN ĐÚNG không
-        correct_match = re.search(
-            r"ĐÁP ÁN ĐÚNG:\s*(?:\*\*)?\[?([A-D])\]?(?:\*\*)?",
-            full_ai_response,
-            re.IGNORECASE,
-        )
-        referenced_chapters = set()
-
-        if correct_match:
-            correct_opt = correct_match.group(1).upper()
-            # Lấy đoạn giải thích của đáp án đúng (từ [X]: đến đáp án tiếp theo hoặc Bước 2)
-            pattern = rf"\[{correct_opt}\]:.*?(?=\n\s*\[[A-D]\]:|\n\s*Bước 2|$)"
-            explanation_match = re.search(
-                pattern, full_ai_response, re.IGNORECASE | re.DOTALL
-            )
-            if explanation_match:
-                referenced_chapters = set(
-                    re.findall(r"(\d+(?:\.\d+)+)", explanation_match.group(0))
-                )
-
-        # Nếu không phải câu trắc nghiệm, hoặc đoạn giải thích đáp án đúng không chứa mã chương nào
-        if not referenced_chapters:
-            referenced_chapters = set(re.findall(r"(\d+(?:\.\d+)+)", full_ai_response))
-
-        unique_num_mapping = {}
-        fallback_sources = []
-
-        for doc in docs:
-            meta = doc.metadata
-            # Ưu tiên lấy tiêu đề chi tiết nhất: subsection (###) > section (##) > chapter (#)
-            headings = [
-                meta.get("subsection", ""),
-                meta.get("section", ""),
-                meta.get("chapter", ""),
-            ]
-            ch = next((h.strip() for h in headings if h and h.strip()), "")
-
-            if not ch:
-                continue
-
-            # Chuẩn hoá (VD: "1.2.1." -> "1.2.1")
-            match = re.search(r"^(\d+(?:\.\d+)*)\.?\s+(.*)$", ch)
-            if match:
-                num = match.group(1)  # Lấy phần số (1.3, 1.2.1)
-                text = match.group(2)
-                text = re.sub(r"<[^>]+>", "", text).strip()
-
-                if not referenced_chapters or any(
-                    ref in num for ref in referenced_chapters
-                ):
-                    if num not in unique_num_mapping:
-                        unique_num_mapping[num] = text
-            else:
-                if ch not in fallback_sources:
-                    fallback_sources.append(ch)
-
-        final_list = []
-        if len(unique_num_mapping) > 0:
-            # Lọc các nguồn có dạng x.y.z (có ít nhất 2 dấu chấm)
-            xyz_keys = [k for k in unique_num_mapping.keys() if k.count(".") >= 2]
-            # Nếu có dạng x.y.z thì ưu tiên cái đầu tiên (liên quan nhất), nếu không thì lấy cái đầu tiên của mapping
-            best_num = xyz_keys[0] if xyz_keys else list(unique_num_mapping.keys())[0]
-            final_list.append(f"- *{best_num}. {unique_num_mapping[best_num]}*")
-
-        # Nếu vẫn không có mã chương nào trùng khớp, lấy nguồn fallback đầu tiên (liên quan nhất)
-        if not final_list and fallback_sources:
-            for ch in fallback_sources:
-                ch_clean = re.sub(r"<[^>]+>", "", ch).strip()
-                if ch_clean and not any(
-                    noise in ch_clean.lower()
-                    for noise in ["chapter ", "learning", "level"]
-                ):
-                    final_list.append(f"- *{ch_clean}*")
-                    break  # Chỉ lấy 1 nguồn
-
-        if final_list:
-            yield "\n\n---\n**Nguồn tham khảo:**\n"
-            for src in final_list:
-                yield src + "\n"
+        # 6. Gọi LLM lấy kết quả cuối cùng
+        response = await self.llm_strict.ainvoke(messages)
+        return response.content
 
 
 rag_service = RAGService()

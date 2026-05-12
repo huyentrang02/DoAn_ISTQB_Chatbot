@@ -1,0 +1,1783 @@
+{
+  "timestamp": "2026-05-11T12:23:18.005536",
+  "duration_seconds": 1948.08,
+  "model": "models/gemini-2.5-pro",
+  "summary": {
+    "total": 160,
+    "correct": 142,
+    "accuracy": 88.75
+  },
+  "details": [
+    {
+      "id": "A-1",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "A-2",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "A-3",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "A-4",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: [B]"
+    },
+    {
+      "id": "A-5",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "A-6",
+      "ground_truth": [
+        "A",
+        "E"
+      ],
+      "ai_picked": [
+        "D",
+        "E"
+      ],
+      "is_correct": false,
+      "full_response": "Đáp án: D, E"
+    },
+    {
+      "id": "A-7",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "A-8",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "A-9",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "A-10",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "A-11",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "A-12",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "A-13",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "A-14",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "A-15",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "A-16",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: [D]"
+    },
+    {
+      "id": "A-17",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "A-18",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "A-19",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "A-20",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "A-21",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "A-22",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "A-23",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: [D]"
+    },
+    {
+      "id": "A-24",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: [A]"
+    },
+    {
+      "id": "A-25",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "A-26",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "A-27",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "A-28",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "A-29",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "A-30",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "A-31",
+      "ground_truth": [
+        "C",
+        "E"
+      ],
+      "ai_picked": [
+        "C",
+        "E"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C, E"
+    },
+    {
+      "id": "A-32",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "A-33",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "A-34",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "A-35",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "A-36",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "A-37",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "A-38",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "A-39",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "A-40",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "B-1",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "B-2",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "B-3",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "B-4",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "B-5",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "B-6",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": false,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "B-7",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": false,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "B-8",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "B-9",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: [B]"
+    },
+    {
+      "id": "B-10",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "B-11",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "B-12",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "B-13",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "B-14",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "B-15",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "B-16",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "B-17",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "B-18",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "B-19",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: [D]"
+    },
+    {
+      "id": "B-20",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "B-21",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": false,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "B-22",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "B-23",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: [C]"
+    },
+    {
+      "id": "B-24",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "B-25",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": false,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "B-26",
+      "ground_truth": [
+        "A",
+        "E"
+      ],
+      "ai_picked": [
+        "A",
+        "E"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A, E"
+    },
+    {
+      "id": "B-27",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "B-28",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "B-29",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "B-30",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "B-31",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: [B]"
+    },
+    {
+      "id": "B-32",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": false,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "B-33",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "B-34",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "B-35",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "B-36",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: [A]"
+    },
+    {
+      "id": "B-37",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "B-38",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: [B]"
+    },
+    {
+      "id": "B-39",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "B-40",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "C-1",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "C-2",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "C-3",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "C-4",
+      "ground_truth": [
+        "B",
+        "E"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": false,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "C-5",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "C-6",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "C-7",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "C-8",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "C-9",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "C-10",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "C-11",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "C-12",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "C-13",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "C-14",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "C-15",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "C-16",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "C-17",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "C-18",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "C-19",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "C-20",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: [A]"
+    },
+    {
+      "id": "C-21",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": false,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "C-22",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: [D]"
+    },
+    {
+      "id": "C-23",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "C-24",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": false,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "C-25",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "C-26",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "C-27",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "C-28",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "C-29",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "C-30",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "C-31",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: [C]"
+    },
+    {
+      "id": "C-32",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": false,
+      "full_response": "Để xác định thứ tự thực thi các test case, chúng ta cần tuân theo hai quy tắc:\n1.  **Sự phụ thuộc (Dependencies):** Một test case chỉ có thể được thực thi sau khi tất cả các test case mà nó phụ thuộc đã được thực thi xong.\n2.  **Mức độ ưu tiên (Priorities):** Khi có nhiều test case sẵn sàng để thực thi, test case có độ ưu tiên cao nhất (số nhỏ nhất) sẽ được thực thi trước.\n\nHãy xác định thứ tự thực thi từng bước:\n\n1.  **Bước 1 (Các test case có thể chạy đầu tiên):**\n    *   Các test case không có sự phụ thuộc nào là: TC1 (ưu tiên 2), TC3 (ưu tiên 2), và TC4 (ưu tiên 2).\n    *   Vì cả ba đều có cùng mức độ ưu tiên là 2, chúng sẽ được thực thi đầu tiên. Thứ tự giữa chúng không quan trọng cho các bước tiếp theo.\n    *   **Thứ tự 1, 2, 3:** TC1, TC3, TC4 (theo một thứ tự bất kỳ).\n\n2.  **Bước 2 (Sau khi TC1, TC3, TC4 đã chạy xong):**\n    *   Các test case đã thực thi: {TC1, TC3, TC4}.\n    *   Các test case mới có thể thực thi là:\n        *   TC2 (ưu tiên 3): Phụ thuộc vào TC1 (đã xong).\n        *   TC7 (ưu tiên 1): Phụ thuộc vào TC4 (đã xong).\n        *   TC5 (ưu tiên 1): Phụ thuộc vào TC2 và TC4. Vì TC2 chưa chạy nên TC5 chưa thể chạy.\n    *   So sánh các test case có thể chạy: TC2 (ưu tiên 3) và TC7 (ưu tiên 1).\n    *   TC7 có độ ưu tiên cao hơn (1 < 3).\n    *   **Thứ tự 4:** TC7.\n\n3.  **Bước 3 (Sau khi TC7 đã chạy xong):**\n    *   Các test case đã thực thi: {TC1, TC3, TC4, TC7}.\n    *   Test case duy nhất có thể chạy bây giờ là TC2 (ưu tiên 3).\n    *   **Thứ tự 5:** TC2.\n\n4.  **Bước 4 (Sau khi TC2 đã chạy xong):**\n    *   Các test case đã thực thi: {TC1, TC3, TC4, TC7, TC2}.\n    *   Bây giờ, các điều kiện cho TC5 đã được đáp ứng (TC2 và TC4 đều đã chạy xong).\n    *   Test case duy nhất có thể chạy là TC5 (ưu tiên 1).\n    *   **Thứ tự 6:** TC5.\n\n5.  **Bước 5 (Sau khi TC5 đã chạy xong):**\n    *   Các test case đã thực thi: {TC1, TC3, TC4, TC7, TC2, TC5}.\n    *   Test case cuối cùng có thể chạy là TC6 (ưu tiên 3), phụ thuộc vào TC5 (đã xong).\n    *   **Thứ tự 7:** TC6.\n\n**Thứ tự thực thi đầy đủ là:** (TC1, TC3, TC4), TC7, TC2, **TC5**, TC6.\n\nTest case được thực thi ở vị trí thứ sáu là TC5.\n\nĐáp án: [B]"
+    },
+    {
+      "id": "C-33",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "C-34",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": false,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "C-35",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "C-36",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": false,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "C-37",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "C-38",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "C-39",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: [D]"
+    },
+    {
+      "id": "C-40",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: [D]"
+    },
+    {
+      "id": "D-1",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "D-2",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "D-3",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "D-4",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "D-5",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "D-6",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "D-7",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "D-8",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "D-9",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": false,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "D-10",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "D-11",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": false,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "D-12",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "D-13",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "D-14",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": false,
+      "full_response": "Đáp án: [C]"
+    },
+    {
+      "id": "D-15",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "D-16",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": false,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "D-17",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "D-18",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "D-19",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "D-20",
+      "ground_truth": [
+        "B",
+        "E"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": false,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "D-21",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "D-22",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: [A]"
+    },
+    {
+      "id": "D-23",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "D-24",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "D-25",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "D-26",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "D-27",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: [D]"
+    },
+    {
+      "id": "D-28",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "D-29",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: [A]"
+    },
+    {
+      "id": "D-30",
+      "ground_truth": [
+        "B",
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": false,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "D-31",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "D-32",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "D-33",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "D-34",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "D-35",
+      "ground_truth": [
+        "B",
+        "E"
+      ],
+      "ai_picked": [
+        "B",
+        "E"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B, E"
+    },
+    {
+      "id": "D-36",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "D-37",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "D-38",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "D-39",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "D-40",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    }
+  ]
+}

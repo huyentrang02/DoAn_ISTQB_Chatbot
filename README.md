@@ -101,7 +101,7 @@ Hệ thống cung cấp kịch bản đánh giá tự động độ chính xác 
 2. **Chạy script đánh giá**:
 ```bash
 cd backend
-python scripts/evaluate_rag.py
+python3 scripts/evaluate_rag.py
 ```
 3. **Kết quả**:
 Script sẽ tạo ra file `backend/scripts/evaluation_results.md` chứa bảng thống kê số câu trả lời đúng, sai và tỷ lệ chính xác (Accuracy). Đồng thời sinh ra file `backend/scripts/evaluation_report.json` lưu trữ chi tiết câu trả lời của LLM.

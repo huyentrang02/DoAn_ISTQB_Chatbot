@@ -1,0 +1,1612 @@
+{
+  "timestamp": "20260511_123107",
+  "duration_seconds": 2407.77,
+  "input_file": "test_data.json",
+  "summary": {
+    "total": 160,
+    "correct": 148,
+    "accuracy": 92.5
+  },
+  "details": [
+    {
+      "id": "A-1",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-1.1.1",
+      "chatbot_source": "1.1.1, 1.3",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "A-2",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-1.2.1",
+      "chatbot_source": "1.2.1, 1.5.2, 2.1.2",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "A-3",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-1.3.1",
+      "chatbot_source": "1.3",
+      "is_correct": true,
+      "has_correct_source": false,
+      "total_success": false
+    },
+    {
+      "id": "A-4",
+      "ground_truth": "B",
+      "ai_picked": "C",
+      "expected_lo": "FL-1.4.1",
+      "chatbot_source": "3.2.2, 4.2.2",
+      "is_correct": false,
+      "has_correct_source": false,
+      "total_success": false
+    },
+    {
+      "id": "A-5",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-1.4.2",
+      "chatbot_source": "2.1.1, 5.1.1",
+      "is_correct": true,
+      "has_correct_source": false,
+      "total_success": false
+    },
+    {
+      "id": "A-6",
+      "ground_truth": "A,E",
+      "ai_picked": "A,E",
+      "expected_lo": "FL-1.4.5",
+      "chatbot_source": "1.4.3, 1.4.5",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "A-7",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-1.5.1",
+      "chatbot_source": "1.5, 1.5.1",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "A-8",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-1.5.2",
+      "chatbot_source": "1.5.2, 4.5.3",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "A-9",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-2.1.2",
+      "chatbot_source": "2.1.2",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "A-10",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-2.1.3",
+      "chatbot_source": "4.5, 4.5.3",
+      "is_correct": true,
+      "has_correct_source": false,
+      "total_success": false
+    },
+    {
+      "id": "A-11",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-2.1.5",
+      "chatbot_source": "2.1.5",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "A-12",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-2.1.6",
+      "chatbot_source": "2.1.6",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "A-13",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-2.2.1",
+      "chatbot_source": "2.2, 2.2.1, 5.1.7",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "A-14",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-2.2.3",
+      "chatbot_source": "2.2.3",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "A-15",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-3.1.2",
+      "chatbot_source": "3.1.2, 3.1.3",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "A-16",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-3.2.1",
+      "chatbot_source": "3.2.1",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "A-17",
+      "ground_truth": "B",
+      "ai_picked": "C",
+      "expected_lo": "FL-3.2.4",
+      "chatbot_source": "3.2.2, 3.2.3, 3.2.4",
+      "is_correct": false,
+      "has_correct_source": true,
+      "total_success": false
+    },
+    {
+      "id": "A-18",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-3.2.5",
+      "chatbot_source": "3.2.5",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "A-19",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-4.1.1",
+      "chatbot_source": "4.1",
+      "is_correct": true,
+      "has_correct_source": false,
+      "total_success": false
+    },
+    {
+      "id": "A-20",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-4.2.1",
+      "chatbot_source": "4.2.1",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "A-21",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-4.2.2",
+      "chatbot_source": "4.2.2",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "A-22",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-4.2.3",
+      "chatbot_source": "4.2.3",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "A-23",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-4.2.4",
+      "chatbot_source": "4.2.4",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "A-24",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-4.3.1",
+      "chatbot_source": "4.3.1",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "A-25",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-4.3.3",
+      "chatbot_source": "4.3.3",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "A-26",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-4.4.1",
+      "chatbot_source": "4.4, 4.4.1",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "A-27",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-4.4.2",
+      "chatbot_source": "4.1, 4.4.2",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "A-28",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-4.5.2",
+      "chatbot_source": "4.5.2",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "A-29",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-4.5.3",
+      "chatbot_source": "4.5.3",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "A-30",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-5.1.2",
+      "chatbot_source": "5.1.2",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "A-31",
+      "ground_truth": "C,E",
+      "ai_picked": "C,E",
+      "expected_lo": "FL-5.1.3",
+      "chatbot_source": "5.1.3",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "A-32",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-5.1.4",
+      "chatbot_source": "5.1.4",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "A-33",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-5.1.5",
+      "chatbot_source": "5.1.5",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "A-34",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-5.1.7",
+      "chatbot_source": "5.1.7",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "A-35",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-5.2.4",
+      "chatbot_source": "5.2.4",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "A-36",
+      "ground_truth": "D",
+      "ai_picked": "N/A",
+      "expected_lo": "FL-5.3.3",
+      "chatbot_source": "1.4.3, 2.1.1, 5.1.3",
+      "is_correct": false,
+      "has_correct_source": false,
+      "total_success": false
+    },
+    {
+      "id": "A-37",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-5.4.1",
+      "chatbot_source": "5.4",
+      "is_correct": true,
+      "has_correct_source": false,
+      "total_success": false
+    },
+    {
+      "id": "A-38",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-5.5.1",
+      "chatbot_source": "None",
+      "is_correct": true,
+      "has_correct_source": false,
+      "total_success": false
+    },
+    {
+      "id": "A-39",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-6.1.1",
+      "chatbot_source": "6.1",
+      "is_correct": true,
+      "has_correct_source": false,
+      "total_success": false
+    },
+    {
+      "id": "A-40",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-6.2.1",
+      "chatbot_source": "2.1.4",
+      "is_correct": true,
+      "has_correct_source": false,
+      "total_success": false
+    },
+    {
+      "id": "B-1",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-1.2.1",
+      "chatbot_source": "1.2, 3.1.3",
+      "is_correct": true,
+      "has_correct_source": false,
+      "total_success": false
+    },
+    {
+      "id": "B-2",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-1.2.2",
+      "chatbot_source": "1.2, 1.2.2",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "B-3",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-1.3.1",
+      "chatbot_source": "1.3",
+      "is_correct": true,
+      "has_correct_source": false,
+      "total_success": false
+    },
+    {
+      "id": "B-4",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-1.4.1",
+      "chatbot_source": "1.4.1, 1.4.3",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "B-5",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-1.4.2",
+      "chatbot_source": "1.4.2",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "B-6",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-1.4.4",
+      "chatbot_source": "1.4.4",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "B-7",
+      "ground_truth": "B",
+      "ai_picked": "D",
+      "expected_lo": "FL-1.5.1",
+      "chatbot_source": "1.5.1",
+      "is_correct": false,
+      "has_correct_source": true,
+      "total_success": false
+    },
+    {
+      "id": "B-8",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-1.5.2",
+      "chatbot_source": "1.5.2",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "B-9",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-2.1.1",
+      "chatbot_source": "2.1.1",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "B-10",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-2.1.2",
+      "chatbot_source": "2.1.2",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "B-11",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-2.1.3",
+      "chatbot_source": "2.1.3, 4.5.3",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "B-12",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-2.1.4",
+      "chatbot_source": "2.1.4, 5.4",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "B-13",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-2.2.1",
+      "chatbot_source": "2.2.1, 2.2.2",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "B-14",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-2.2.3",
+      "chatbot_source": "2.2.3",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "B-15",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-3.1.3",
+      "chatbot_source": "3.1.2, 3.1.3",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "B-16",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-3.2.1",
+      "chatbot_source": "3.2.1",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "B-17",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-3.2.2",
+      "chatbot_source": "3.2.2",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "B-18",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-3.2.3",
+      "chatbot_source": "3.2.3",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "B-19",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-4.1.1",
+      "chatbot_source": "4.2.3, 4.3.2",
+      "is_correct": true,
+      "has_correct_source": false,
+      "total_success": false
+    },
+    {
+      "id": "B-20",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-4.2.1",
+      "chatbot_source": "4.2.1",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "B-21",
+      "ground_truth": "D",
+      "ai_picked": "B",
+      "expected_lo": "FL-4.2.2",
+      "chatbot_source": "4.2.2",
+      "is_correct": false,
+      "has_correct_source": true,
+      "total_success": false
+    },
+    {
+      "id": "B-22",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-4.2.3",
+      "chatbot_source": "4.2.3",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "B-23",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-4.2.4",
+      "chatbot_source": "4.2.4",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "B-24",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-4.3.1",
+      "chatbot_source": "4.3.1, 4.3.2",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "B-25",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-4.3.2",
+      "chatbot_source": "4.3.2",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "B-26",
+      "ground_truth": "A,E",
+      "ai_picked": "A,E",
+      "expected_lo": "FL-4.4.2",
+      "chatbot_source": "4.4.2",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "B-27",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-4.4.3",
+      "chatbot_source": "4.4.3",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "B-28",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-4.5.2",
+      "chatbot_source": "None",
+      "is_correct": true,
+      "has_correct_source": false,
+      "total_success": false
+    },
+    {
+      "id": "B-29",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-4.5.3",
+      "chatbot_source": "4.5.3",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "B-30",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-5.1.3",
+      "chatbot_source": "2.1.4, 2.1.5",
+      "is_correct": true,
+      "has_correct_source": false,
+      "total_success": false
+    },
+    {
+      "id": "B-31",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-5.1.4",
+      "chatbot_source": "5.1.4",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "B-32",
+      "ground_truth": "B",
+      "ai_picked": "A",
+      "expected_lo": "FL-5.1.5",
+      "chatbot_source": "5.1.5",
+      "is_correct": false,
+      "has_correct_source": true,
+      "total_success": false
+    },
+    {
+      "id": "B-33",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-5.1.7",
+      "chatbot_source": "5.1.7",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "B-34",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-5.2.4",
+      "chatbot_source": "5.2.4",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "B-35",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-5.3.1",
+      "chatbot_source": "5.3.1",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "B-36",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-5.3.3",
+      "chatbot_source": "1.5.2, 2.1.4",
+      "is_correct": true,
+      "has_correct_source": false,
+      "total_success": false
+    },
+    {
+      "id": "B-37",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-5.4.1",
+      "chatbot_source": "5.4, 6.1",
+      "is_correct": true,
+      "has_correct_source": false,
+      "total_success": false
+    },
+    {
+      "id": "B-38",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-5.5.1",
+      "chatbot_source": "1.1.2",
+      "is_correct": true,
+      "has_correct_source": false,
+      "total_success": false
+    },
+    {
+      "id": "B-39",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-6.1.1",
+      "chatbot_source": "6.1",
+      "is_correct": true,
+      "has_correct_source": false,
+      "total_success": false
+    },
+    {
+      "id": "B-40",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-6.2.1",
+      "chatbot_source": "6.2",
+      "is_correct": true,
+      "has_correct_source": false,
+      "total_success": false
+    },
+    {
+      "id": "C-1",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-1.1.1",
+      "chatbot_source": "1.1.1",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "C-2",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-1.1.2",
+      "chatbot_source": "1.1.2, 3.1.3",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "C-3",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-1.3.1",
+      "chatbot_source": "1.3, 2.2.1",
+      "is_correct": true,
+      "has_correct_source": false,
+      "total_success": false
+    },
+    {
+      "id": "C-4",
+      "ground_truth": "B,E",
+      "ai_picked": "B,E",
+      "expected_lo": "FL-1.4.1",
+      "chatbot_source": "None",
+      "is_correct": true,
+      "has_correct_source": false,
+      "total_success": false
+    },
+    {
+      "id": "C-5",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-1.4.3",
+      "chatbot_source": "1.4.1, 1.4.3",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "C-6",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-1.4.5",
+      "chatbot_source": "1.4.5",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "C-7",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-1.5.2",
+      "chatbot_source": "1.5.2",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "C-8",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-1.5.3",
+      "chatbot_source": "1.5.3",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "C-9",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-2.1.2",
+      "chatbot_source": "2.1.1, 2.1.2",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "C-10",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-2.1.3",
+      "chatbot_source": "2.1.3, 4.5.3",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "C-11",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-2.1.5",
+      "chatbot_source": "2.1.2, 2.1.4, 2.1.5",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "C-12",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-2.1.6",
+      "chatbot_source": "2.1.6",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "C-13",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-2.2.1",
+      "chatbot_source": "2.2.1",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "C-14",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-2.2.3",
+      "chatbot_source": "2.2.3",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "C-15",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-3.1.3",
+      "chatbot_source": "3.1.2, 3.1.3",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "C-16",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-3.2.1",
+      "chatbot_source": "3.2.1",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "C-17",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-3.2.4",
+      "chatbot_source": "3.2.4",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "C-18",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-3.2.5",
+      "chatbot_source": "3.2.5",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "C-19",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-4.1.1",
+      "chatbot_source": "4.1",
+      "is_correct": true,
+      "has_correct_source": false,
+      "total_success": false
+    },
+    {
+      "id": "C-20",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-4.2.1",
+      "chatbot_source": "4.2.1",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "C-21",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-4.2.2",
+      "chatbot_source": "4.2.1, 4.2.2",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "C-22",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-4.2.3",
+      "chatbot_source": "4.2.3",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "C-23",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-4.2.4",
+      "chatbot_source": "4.2.4",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "C-24",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-4.3.2",
+      "chatbot_source": "4.3.1, 4.3.2",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "C-25",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-4.3.3",
+      "chatbot_source": "4.3.3",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "C-26",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-4.4.1",
+      "chatbot_source": "4.4, 4.4.1",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "C-27",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-4.4.3",
+      "chatbot_source": "4.4.3",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "C-28",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-4.5.2",
+      "chatbot_source": "4.5.2",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "C-29",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-4.5.3",
+      "chatbot_source": "4.5.3",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "C-30",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-5.1.1",
+      "chatbot_source": "5.1.1",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "C-31",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-5.1.4",
+      "chatbot_source": "5.1.4",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "C-32",
+      "ground_truth": "A",
+      "ai_picked": "B",
+      "expected_lo": "FL-5.1.5",
+      "chatbot_source": "5.1.5",
+      "is_correct": false,
+      "has_correct_source": true,
+      "total_success": false
+    },
+    {
+      "id": "C-33",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-5.1.6",
+      "chatbot_source": "5.1.6",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "C-34",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-5.1.7",
+      "chatbot_source": "5.1.7",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "C-35",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-5.2.3",
+      "chatbot_source": "5.2, 5.2.3",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "C-36",
+      "ground_truth": "B",
+      "ai_picked": "D",
+      "expected_lo": "FL-5.3.2",
+      "chatbot_source": "1.4.1, 5.3.2",
+      "is_correct": false,
+      "has_correct_source": true,
+      "total_success": false
+    },
+    {
+      "id": "C-37",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-5.4.1",
+      "chatbot_source": "5.4",
+      "is_correct": true,
+      "has_correct_source": false,
+      "total_success": false
+    },
+    {
+      "id": "C-38",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-5.5.1",
+      "chatbot_source": "None",
+      "is_correct": true,
+      "has_correct_source": false,
+      "total_success": false
+    },
+    {
+      "id": "C-39",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-6.1.1",
+      "chatbot_source": "6.1",
+      "is_correct": true,
+      "has_correct_source": false,
+      "total_success": false
+    },
+    {
+      "id": "C-40",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-6.2.1",
+      "chatbot_source": "6.2",
+      "is_correct": true,
+      "has_correct_source": false,
+      "total_success": false
+    },
+    {
+      "id": "D-1",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-1.1.1",
+      "chatbot_source": "1.1.1, 1.1.2",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "D-2",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-1.2.3",
+      "chatbot_source": "1.2.3",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "D-3",
+      "ground_truth": "A",
+      "ai_picked": "N/A",
+      "expected_lo": "FL-1.3.1",
+      "chatbot_source": "1.3",
+      "is_correct": false,
+      "has_correct_source": false,
+      "total_success": false
+    },
+    {
+      "id": "D-4",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-1.4.1",
+      "chatbot_source": "1.4.1",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "D-5",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-1.4.3",
+      "chatbot_source": "1.4.1",
+      "is_correct": true,
+      "has_correct_source": false,
+      "total_success": false
+    },
+    {
+      "id": "D-6",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-1.4.5",
+      "chatbot_source": "1.4.5",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "D-7",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-1.5.2",
+      "chatbot_source": "1.5.2",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "D-8",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-1.5.3",
+      "chatbot_source": "1.5.3",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "D-9",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-2.1.2",
+      "chatbot_source": "2.1.1, 2.1.2",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "D-10",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-2.1.3",
+      "chatbot_source": "4.5.3",
+      "is_correct": true,
+      "has_correct_source": false,
+      "total_success": false
+    },
+    {
+      "id": "D-11",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-2.1.4",
+      "chatbot_source": "2.1.4",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "D-12",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-2.1.6",
+      "chatbot_source": "2.1.6",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "D-13",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-2.2.2",
+      "chatbot_source": "2.2.2",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "D-14",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-2.3.1",
+      "chatbot_source": "2.3",
+      "is_correct": true,
+      "has_correct_source": false,
+      "total_success": false
+    },
+    {
+      "id": "D-15",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-3.1.1",
+      "chatbot_source": "3.1.1",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "D-16",
+      "ground_truth": "C",
+      "ai_picked": "A",
+      "expected_lo": "FL-3.1.2",
+      "chatbot_source": "3.1.2, 3.1.3",
+      "is_correct": false,
+      "has_correct_source": true,
+      "total_success": false
+    },
+    {
+      "id": "D-17",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-3.2.2",
+      "chatbot_source": "3.2.2",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "D-18",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-3.2.3",
+      "chatbot_source": "3.2.3",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "D-19",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-4.1.1",
+      "chatbot_source": "2.2.2, 4.1",
+      "is_correct": true,
+      "has_correct_source": false,
+      "total_success": false
+    },
+    {
+      "id": "D-20",
+      "ground_truth": "B,E",
+      "ai_picked": "B,E",
+      "expected_lo": "FL-4.2.1",
+      "chatbot_source": "4.2.1",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "D-21",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-4.2.2",
+      "chatbot_source": "4.2.2",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "D-22",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-4.2.3",
+      "chatbot_source": "4.2.3",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "D-23",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-4.2.4",
+      "chatbot_source": "4.2.4",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "D-24",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-4.3.1",
+      "chatbot_source": "4.3.1, 4.3.2",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "D-25",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-4.3.3",
+      "chatbot_source": "2.2.2, 4.1, 4.3.3",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "D-26",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-4.4.1",
+      "chatbot_source": "4.4.1",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "D-27",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-4.4.2",
+      "chatbot_source": "4.4.2",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "D-28",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-4.5.1",
+      "chatbot_source": "4.5.1",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "D-29",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-4.5.3",
+      "chatbot_source": "4.5.3",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "D-30",
+      "ground_truth": "B,D",
+      "ai_picked": "B,D",
+      "expected_lo": "FL-5.1.3",
+      "chatbot_source": "5.1.3, 5.3",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "D-31",
+      "ground_truth": "A",
+      "ai_picked": "N/A",
+      "expected_lo": "FL-5.1.4",
+      "chatbot_source": "5.1.4",
+      "is_correct": false,
+      "has_correct_source": true,
+      "total_success": false
+    },
+    {
+      "id": "D-32",
+      "ground_truth": "B",
+      "ai_picked": "N/A",
+      "expected_lo": "FL-5.1.5",
+      "chatbot_source": "4.2.3, 5.1.5",
+      "is_correct": false,
+      "has_correct_source": true,
+      "total_success": false
+    },
+    {
+      "id": "D-33",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-5.1.7",
+      "chatbot_source": "5.1.7",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "D-34",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-5.2.1",
+      "chatbot_source": "5.2.1, 5.2.3",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "D-35",
+      "ground_truth": "B,E",
+      "ai_picked": "B,E",
+      "expected_lo": "FL-5.2.2",
+      "chatbot_source": "5.2.2",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "D-36",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-5.3.2",
+      "chatbot_source": "5.3.2",
+      "is_correct": true,
+      "has_correct_source": true,
+      "total_success": true
+    },
+    {
+      "id": "D-37",
+      "ground_truth": "D",
+      "ai_picked": "D",
+      "expected_lo": "FL-5.4.1",
+      "chatbot_source": "5.4",
+      "is_correct": true,
+      "has_correct_source": false,
+      "total_success": false
+    },
+    {
+      "id": "D-38",
+      "ground_truth": "A",
+      "ai_picked": "A",
+      "expected_lo": "FL-5.5.1",
+      "chatbot_source": "5.5",
+      "is_correct": true,
+      "has_correct_source": false,
+      "total_success": false
+    },
+    {
+      "id": "D-39",
+      "ground_truth": "B",
+      "ai_picked": "B",
+      "expected_lo": "FL-6.1.1",
+      "chatbot_source": "6.1",
+      "is_correct": true,
+      "has_correct_source": false,
+      "total_success": false
+    },
+    {
+      "id": "D-40",
+      "ground_truth": "C",
+      "ai_picked": "C",
+      "expected_lo": "FL-6.2.1",
+      "chatbot_source": "6.2",
+      "is_correct": true,
+      "has_correct_source": false,
+      "total_success": false
+    }
+  ]
+}

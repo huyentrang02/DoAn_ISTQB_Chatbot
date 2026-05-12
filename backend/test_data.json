@@ -398,7 +398,7 @@
       "exam": "A",
       "question_number": "14",
       "is_additional": false,
-      "question": "You are testing a user story with three acceptance criteria: AC1, AC2 and AC3. AC1 is covered by\ntest case TC1, AC2 by TC2, and AC3 by TC3. The test execution history had three test runs on three\nconsecutive versions of the software as follows:\nExecution 1 Execution 2 Execution 3\nTC1 (1) Failed (4) Passed (7) Passed\nTC2 (2) Passed (5) Failed (8) Passed\nTC3 (3) Failed (6) Failed (9) Passed\nTests are repeated once you are informed that all defects found in the test run are corrected and\na new version of the software is available.\nWhich of the above tests are executed as regression tests?",
+      "question": "You are testing a user story with three acceptance criteria: AC1, AC2 and AC3. AC1 is covered by test case TC1, AC2 by TC2, and AC3 by TC3. The test execution history had three test runs on three consecutive versions of the software as follows:\n\n| | Execution 1 | Execution 2 | Execution 3 |\n| :--- | :--- | :--- | :--- |\n| **TC1** | (1) Failed | (4) Passed | (7) Passed |\n| **TC2** | (2) Passed | (5) Failed | (8) Passed |\n| **TC3** | (3) Failed | (6) Failed | (9) Passed |\n\nTests are repeated once you are informed that all defects found in the test run are corrected and a new version of the software is available.\nWhich of the above tests are executed as regression tests?",
       "options": {
         "A": "Only 4, 7, 8, 9",
         "B": "Only 5, 7",
@@ -587,7 +587,7 @@
       "exam": "A",
       "question_number": "21",
       "is_additional": false,
-      "question": "You are testing a system that calculates the final course grade for a given student.\nThe final grade is assigned based on the final result, according to the following rules:\n• 0 – 50 points: failed\n• 51 – 60 points: fair\n• 61 – 70 points: satisfactory\n• 71 – 80 points: good\n• 81 – 90 points: very good\n• 91 – 100 points: excellent\nYou have prepared the following set of test cases:\nFinal Final\nresult grade\nTC1 91 excellent\nTC2 50 failed\nTC3 81 very good\nTC4 60 fair\nTC5 70 satisfactory\nTC6 80 good\nWhat is the 2-value boundary value analysis (BVA) coverage for the final result that is achieved with\nthe existing test cases?",
+      "question": "You are testing a system that calculates the final course grade for a given student.\nThe final grade is assigned based on the final result, according to the following rules:\n- 0 – 50 points: failed\n- 51 – 60 points: fair\n- 61 – 70 points: satisfactory\n- 71 – 80 points: good\n- 81 – 90 points: very good\n- 91 – 100 points: excellent\n\nYou have prepared the following set of test cases:\n\n| | Final result | Final grade |\n| :--- | :---: | :---: |\n| **TC1** | 91 | excellent |\n| **TC2** | 50 | failed |\n| **TC3** | 81 | very good |\n| **TC4** | 60 | fair |\n| **TC5** | 70 | satisfactory |\n| **TC6** | 80 | good |\n\nWhat is the 2-value boundary value analysis (BVA) coverage for the final result that is achieved with the existing test cases?",
       "options": {
         "A": "50%",
         "B": "60%",
@@ -614,7 +614,7 @@
       "exam": "A",
       "question_number": "22",
       "is_additional": false,
-      "question": "Your favorite bicycle daily rental store has just introduced a new Customer Relationship\nManagement system and asked you, one of their most loyal members, to test it.\nThe implemented features are as follows:\n• Anyone can rent a bicycle, but members receive a 20% discount\n• However, if the return deadline is missed, the discount is no longer available\n• After 15 rentals, members get a gift: a T-Shirt\nDecision table describing the implemented features looks as follows:\nConditions R1 R2 R3 R4 R5 R6 R7 R8\nBeing a member T T T T F F F F\nMissed deadline T F T F T F F T\n15th rental F F T T F F T T\nActions\n20% discount X X\nGift T-Shirt X X X\nBased ONLY on the feature description of the Customer Relationship Management system, which\nof the above rules describes an impossible situation?",
+      "question": "Your favorite bicycle daily rental store has just introduced a new Customer Relationship Management system and asked you, one of their most loyal members, to test it.\n\nThe implemented features are as follows:\n- Anyone can rent a bicycle, but members receive a 20% discount\n- However, if the return deadline is missed, the discount is no longer available\n- After 15 rentals, members get a gift: a T-Shirt\n\nDecision table describing the implemented features looks as follows:\n\n| Conditions | R1 | R2 | R3 | R4 | R5 | R6 | R7 | R8 |\n| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |\n| Being a member | T | T | T | T | F | F | F | F |\n| Missed deadline | T | F | T | F | T | F | F | T |\n| 15th rental | F | F | T | T | F | F | T | T |\n| **Actions** | | | | | | | | |\n| 20% discount | | X | | X | | | | |\n| Gift T-Shirt | | | X | X | | | | X |\n\nBased ONLY on the feature description of the Customer Relationship Management system, which of the above rules describes an impossible situation?",
       "options": {
         "A": "R4",
         "B": "R2",
@@ -642,6 +642,7 @@
       "question_number": "23",
       "is_additional": false,
       "question": "You test a system whose lifecycle is modeled by the state transition diagram shown below. The\nsystem starts in the INIT state and ends its operation in the OFF state.\nWhat is the MINIMAL number of test cases to achieve valid transitions coverage?",
+      "image_path": "backend/img/a-23.png",
       "options": {
         "A": "4",
         "B": "2",
@@ -914,7 +915,7 @@
       "exam": "A",
       "question_number": "33",
       "is_additional": false,
-      "question": "You are testing a mobile application that allows users to find a nearby restaurant based on the type\nof food they want to eat. Consider the following list of test cases, priorities (i.e., a smaller number\nmeans a higher priority), and dependencies:\nTest case Logical\nTest condition covered Priority\nnumber dependency\nTC 001 Select type of food 3 none\nTC 002 Select restaurant 2 TC 001\nTC 003 Get direction 1 TC 002\nTC 004 Call restaurant 2 TC 002\nTC 005 Make reservation 3 TC 002\nWhich of the following test cases should be executed as the third one?",
+      "question": "You are testing a mobile application that allows users to find a nearby restaurant based on the type of food they want to eat. Consider the following list of test cases, priorities (i.e., a smaller number means a higher priority), and dependencies:\n\n| Test case number | Test condition covered | Priority | Logical dependency |\n| :--- | :--- | :--- | :--- |\n| TC 001 | Select type of food | 3 | none |\n| TC 002 | Select restaurant | 2 | TC 001 |\n| TC 003 | Get direction | 1 | TC 002 |\n| TC 004 | Call restaurant | 2 | TC 002 |\n| TC 005 | Make reservation | 3 | TC 002 |\n\nWhich of the following test cases should be executed as the third one?",
       "options": {
         "A": "TC 003",
         "B": "TC 005",
@@ -1000,7 +1001,7 @@
         "A": "Acceptance criteria",
         "B": "Defect report",
         "C": "Test completion report",
-        "D": "Burndown chart"
+        "D": "Burn-down chart"
       },
       "select_count": 1,
       "correct_answer": [
@@ -1697,7 +1698,7 @@
       "exam": "B",
       "question_number": "22",
       "is_additional": false,
-      "question": "The following decision table contains the rules for determining the risk of atherosclerosis.\nRule 1 Rule 2 Rule 3 Rule 4 Rule 5\nConditions\nCholesterol (mg/dl) 125 – 125 –\n≤124 ≤ 124 ≥ 201\n200 200\nBlood pressure (mm\n≤ 140 > 140 ≤ 140 > 140 –\nHg)\nAction\nRisk level very low low medium high very high\nYou designed the test cases with the following input data:\nTC1: Cholesterol = 125 mg/dl Blood pressure = 141 mm Hg\nTC2: Cholesterol = 200 mg/dl Blood pressure = 201 mm Hg\nTC3: Cholesterol = 124 mg/dl Blood pressure = 201 mm Hg\nTC4: Cholesterol = 109 mg/dl Blood pressure = 200 mm Hg\nTC5: Cholesterol = 201 mg/dl Blood pressure = 140 mm Hg\nWhat is the decision table coverage achieved by these test cases?",
+      "question": "The following decision table contains the rules for determining the risk of atherosclerosis.\n\n| | Rule 1 | Rule 2 | Rule 3 | Rule 4 | Rule 5 |\n| :--- | :---: | :---: | :---: | :---: | :---: |\n| **Conditions** | | | | | |\n| Cholesterol (mg/dl) | ≤ 124 | ≤ 124 | 125 – 200 | 125 – 200 | ≥ 201 |\n| Blood pressure (mm Hg) | ≤ 140 | > 140 | ≤ 140 | > 140 | – |\n| **Action** | | | | | |\n| Risk level | very low | low | medium | high | very high |\n\nYou designed the test cases with the following input data:\n- TC1: Cholesterol = 125 mg/dl, Blood pressure = 141 mm Hg\n- TC2: Cholesterol = 200 mg/dl, Blood pressure = 201 mm Hg\n- TC3: Cholesterol = 124 mg/dl, Blood pressure = 201 mm Hg\n- TC4: Cholesterol = 109 mg/dl, Blood pressure = 200 mm Hg\n- TC5: Cholesterol = 201 mg/dl, Blood pressure = 140 mm Hg\n\nWhat is the decision table coverage achieved by these test cases?",
       "options": {
         "A": "40%",
         "B": "60%",
@@ -1725,6 +1726,7 @@
       "question_number": "23",
       "is_additional": false,
       "question": "A storage system can store up to three elements and is modeled by the following state transition\ndiagram. The variable N represents the number of currently stored elements.\nWhich of the following test cases, represented as sequences of events, achieves the highest level\nof valid transitions coverage?",
+      "image_path": "backend/img/b-23.png",
       "options": {
         "A": "Add, Remove, Add, Add, Add",
         "B": "Add, Add, Add, Add, Remove, Remove",
@@ -1944,7 +1946,7 @@
       "exam": "B",
       "question_number": "31",
       "is_additional": false,
-      "question": "You want to estimate the test effort for the new project using estimation based on ratios. You\ncalculate the test-to-development effort ratio using averaged data for both development effort and\ntest effort from four historical projects similar to the new one. The table shows this historical data.\nProject Development effort Test effort\n($) ($)\nP1 800,000 40,000\nP2 1,200,000 130,000\nP3 600,000 70,000\nP4 1,000,000 120,000\nThe estimated development effort for the new project is $800,000. What is your estimate of the test\neffort in this project?",
+      "question": "You want to estimate the test effort for the new project using estimation based on ratios. You calculate the test-to-development effort ratio using averaged data for both development effort and test effort from four historical projects similar to the new one. The table shows this historical data.\n\n| Project | Development effort ($) | Test effort ($) |\n| :--- | :---: | :---: |\n| P1 | 800,000 | 40,000 |\n| P2 | 1,200,000 | 130,000 |\n| P3 | 600,000 | 70,000 |\n| P4 | 1,000,000 | 120,000 |\n\nThe estimated development effort for the new project is $800,000. What is your estimate of the test effort in this project?",
       "options": {
         "A": "$40,000",
         "B": "$80,000",
@@ -1971,7 +1973,7 @@
       "exam": "B",
       "question_number": "32",
       "is_additional": false,
-      "question": "You are testing a web application that allows users to SEARCH for products, VIEW product details,\nADD products to a shopping cart, and place an ORDER.\nYou have prepared the following seven test cases, all of which you want to execute. The tests\nshould be executed in the best order, based on test priority.\nTest Priority (1 = higher priority)\nTC1 SEARCH for product A 4\nTC2 SEARCH for product B 4\nTC3 VIEW product A details 3\nTC4 VIEW product B details 2\nTC5 ADD product A to a shopping cart 3\nTC6 ADD product B to a shopping cart 1\nTC7 place an ORDER 5\nYou also identified the following logical dependencies between test cases:\n• SEARCH functionality must be tested before VIEW functionality can be tested.\n• VIEW functionality must be tested before ADD functionality.\n• ADD functionality must be tested before ORDER functionality.\nWhich test case should be executed as the fourth one?",
+      "question": "You are testing a web application that allows users to SEARCH for products, VIEW product details, ADD products to a shopping cart, and place an ORDER.\nYou have prepared the following seven test cases, all of which you want to execute. The tests should be executed in the best order, based on test priority.\n\n| | Test | Priority (1 = higher priority) |\n| :--- | :--- | :---: |\n| TC1 | SEARCH for product A | 4 |\n| TC2 | SEARCH for product B | 4 |\n| TC3 | VIEW product A details | 3 |\n| TC4 | VIEW product B details | 2 |\n| TC5 | ADD product A to a shopping cart | 3 |\n| TC6 | ADD product B to a shopping cart | 1 |\n| TC7 | place an ORDER | 5 |\n\nYou also identified the following logical dependencies between test cases:\n- SEARCH functionality must be tested before VIEW functionality can be tested.\n- VIEW functionality must be tested before ADD functionality.\n- ADD functionality must be tested before ORDER functionality.\n\nWhich test case should be executed as the fourth one?",
       "options": {
         "A": "TC3",
         "B": "TC1",
@@ -2779,7 +2781,7 @@
       "exam": "C",
       "question_number": "22",
       "is_additional": false,
-      "question": "You are working on a project to develop a system to analyze driving test results. You have been\nasked to design test cases based on the following decision table.\nR1 R2 R3\nC1: First attempt at the exam? - - F\nC2: Theoretical exam passed? T F -\nC3: Practical exam passed? T - F\nIssue a driving license? X\nRequest additional driving lessons? X\nRequest to take the exam again? X\nWhat test data will show that there are contradictory rules in the decision table?",
+      "question": "You are working on a project to develop a system to analyze driving test results. You have been asked to design test cases based on the following decision table.\n\n| | R1 | R2 | R3 |\n| :--- | :---: | :---: | :---: |\n| C1: First attempt at the exam? | - | - | F |\n| C2: Theoretical exam passed? | T | F | - |\n| C3: Practical exam passed? | T | - | F |\n| Issue a driving license? | X | | |\n| Request additional driving lessons? | | | X |\n| Request to take the exam again? | | X | |\n\nWhat test data will show that there are contradictory rules in the decision table?",
       "options": {
         "A": "C1 = T, C2 = T, C3 = F",
         "B": "C1 = T, C2 = F, C3 = T",
@@ -2807,6 +2809,7 @@
       "question_number": "23",
       "is_additional": false,
       "question": "You are designing test cases based on the following state transition diagram:\nWhat is the MINIMUM number of test cases required to achieve 100% valid transitions coverage?",
+      "image_path": "backend/img/c-23.png",
       "options": {
         "A": "3",
         "B": "2",
@@ -2835,6 +2838,7 @@
       "question_number": "24",
       "is_additional": false,
       "question": "You want to apply branch testing to the code represented by the following control flow graph.\nHow many coverage items do you need to test?",
+      "image_path": "backend/img/c-24.png",
       "options": {
         "A": "2",
         "B": "4",
@@ -3023,7 +3027,7 @@
       "exam": "C",
       "question_number": "31",
       "is_additional": false,
-      "question": "At the beginning of each iteration, the team estimates the amount of work (in person-days) they will\nneed to complete during the iteration. Let E(n) be the estimated amount of work for iteration n, and\nlet A(n) be the actual amount of work done in iteration n. From the third iteration, the team uses the\nfollowing estimation model based on extrapolation:\n3∗𝐴(𝑛−1)+𝐴(𝑛−2)\n𝐸(𝑛)=\nThe graph shows the estimated and actual amount of4 work for the first four iterations.\nEstimated and actual effort (in person-days)\n13\n12\n11\n10\n9\n8\n7\n6\n5\n4\n3\n2\n1\n0\nIteration #1 Iteration #2 Iteration #3 Iteration #4\nEstimated Actual\nWhat is the estimated amount of work for iteration #5?",
+      "question": "At the beginning of each iteration, the team estimates the amount of work (in person-days) they will need to complete during the iteration. Let E(n) be the estimated amount of work for iteration n, and let A(n) be the actual amount of work done in iteration n. From the third iteration, the team uses the following estimation model based on extrapolation:\n\n$$E(n) = \\frac{3 * A(n-1) + A(n-2)}{4}$$\n\nThe graph shows the estimated and actual amount of work for the first four iterations:\n\n| Iteration | Estimated (person-days) | Actual (person-days) |\n| :--- | :---: | :---: |\n| #1 | 8 | 7 |\n| #2 | 7 | 12 |\n| #3 | 11 | 8 |\n| #4 | 9 | 6 |\n\nWhat is the estimated amount of work for iteration #5?",
       "options": {
         "A": "10.5 person-days",
         "B": "8.25 person-days",
@@ -3051,6 +3055,7 @@
       "question_number": "32",
       "is_additional": false,
       "question": "You are preparing a test execution schedule for executing seven test cases TC 1 to TC 7.\nThe following figure includes the priorities of these test cases (1=highest priority, 3 = lowest\npriority).\nThe figure also shows the dependencies between test cases using arrows. For instance, the arrow\nfrom TC 4 to TC 5 means that TC 5 can only be executed if TC 4 was previously executed.\nWhich test case should be executed sixth?",
+      "image_path": "backend/img/c-32.png",
       "options": {
         "A": "TC 3",
         "B": "TC 5",
@@ -3863,7 +3868,7 @@
       "exam": "D",
       "question_number": "22",
       "is_additional": false,
-      "question": "You are designing test cases based on the following decision table.\nR1 R2 R3 R4 R5 R6 R7\nC1: Age 0-18 19-65 19-65 >65 0-18 19-65 >65\nC2: Experience - 0-4 >4 - - - -\nC3: Registered? NO NO NO NO YES YES YES\nCategory A A B B B D C\nSo far you have designed the following test cases:\n• TC1: 19-year-old, unregistered man with no experience;\nexpected result: category A\n• TC2: 65-year-old, unregistered woman with 5 years of experience;\nexpected result: category B\n• TC3: 66-year-old, registered man with no experience;\nexpected result: category C\n• TC4: 65-year-old, registered woman with 4 years of experience;\nexpected result: category D\nWhich of the following test cases, when added to the existing set of test cases, will increase the\ndecision table coverage?",
+      "question": "You are designing test cases based on the following decision table.\n\n| | R1 | R2 | R3 | R4 | R5 | R6 | R7 |\n| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |\n| C1: Age | 0-18 | 19-65 | 19-65 | >65 | 0-18 | 19-65 | >65 |\n| C2: Experience | - | 0-4 | >4 | - | - | - | - |\n| C3: Registered? | NO | NO | NO | NO | YES | YES | YES |\n| **Category** | **A** | **A** | **B** | **B** | **B** | **D** | **C** |\n\nSo far you have designed the following test cases:\n- TC1: 19-year-old, unregistered man with no experience; expected result: category A\n- TC2: 65-year-old, unregistered woman with 5 years of experience; expected result: category B\n- TC3: 66-year-old, registered man with no experience; expected result: category C\n- TC4: 65-year-old, registered woman with 4 years of experience; expected result: category D\n\nWhich of the following test cases, when added to the existing set of test cases, will increase the decision table coverage?",
       "options": {
         "A": "66-year-old, unregistered man with no experience; expected result: category B",
         "B": "55-year-old, unregistered woman with 2 years of experience; expected result: category A",
@@ -3890,7 +3895,7 @@
       "exam": "D",
       "question_number": "23",
       "is_additional": false,
-      "question": "You are applying state transition testing to the hotel room reservation system modeled by the\nfollowing state transition table, with 4 states and 5 different events:\nEvents\nState Available NotAvailable ChangeRoom Cancel Pay\nS1: Requesting S2 S3\nS2: Confirmed S1 S4 S4\nS3: Waiting list S2 S4\nS4: End\nAssuming all test cases start in the ‘Requesting’ state, which of the following test cases,\nrepresented as sequences of events, achieves the highest valid transitions coverage?",
+      "question": "You are applying state transition testing to the hotel room reservation system modeled by the following state transition table, with 4 states and 5 different events:\n\n| | **Events** | | | | |\n| :--- | :---: | :---: | :---: | :---: | :---: |\n| **State** | **Available** | **NotAvailable** | **ChangeRoom** | **Cancel** | **Pay** |\n| S1: Requesting | S2 | S3 | | | |\n| S2: Confirmed | | | S1 | S4 | S4 |\n| S3: Waiting list | S2 | | | S4 | |\n| S4: End | | | | | |\n\nAssuming all test cases start in the ‘Requesting’ state, which of the following test cases, represented as sequences of events, achieves the highest valid transitions coverage?",
       "options": {
         "A": "NotAvailable, Available, ChangeRoom, NotAvailable, Cancel",
         "B": "Available, ChangeRoom, NotAvailable, Available, Pay",
@@ -4137,7 +4142,7 @@
       "exam": "D",
       "question_number": "32",
       "is_additional": false,
-      "question": "The table shows the traceability matrix from test cases to requirements. “X” means that a given test\ncase covers the corresponding requirement.\nReq1 Req2 Req3 Req4 Req5 Req6 Req7\nTC1 X X X X\nTC2 X X X\nTC3 X X\nTC4 X\nYou want to prioritize the test cases following the additional coverage prioritization technique.\nYou execute all four test cases.\nWhich test case should be executed as the LAST one?",
+      "question": "The table shows the traceability matrix from test cases to requirements. “X” means that a given test case covers the corresponding requirement.\n\n| | Req1 | Req2 | Req3 | Req4 | Req5 | Req6 | Req7 |\n| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |\n| TC1 | X | | X | X | | | X |\n| TC2 | X | | | | X | | X |\n| TC3 | | | | | X | X | |\n| TC4 | | X | | | | | | \n\nYou want to prioritize the test cases following the additional coverage prioritization technique.\nYou execute all four test cases.\nWhich test case should be executed as the LAST one?",
       "options": {
         "A": "TC1",
         "B": "TC2",

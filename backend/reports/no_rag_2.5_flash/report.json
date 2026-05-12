@@ -1,0 +1,1773 @@
+{
+  "timestamp": "2026-05-11T09:36:12.893648",
+  "model": "models/gemini-2.5-flash",
+  "summary": {
+    "total": 160,
+    "correct": 133,
+    "accuracy": 83.125
+  },
+  "details": [
+    {
+      "id": "A-1",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "A-2",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "A-3",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "A-4",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "A-5",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "A-6",
+      "ground_truth": [
+        "A",
+        "E"
+      ],
+      "ai_picked": [
+        "D",
+        "E"
+      ],
+      "is_correct": false,
+      "full_response": "Đáp án: D, E"
+    },
+    {
+      "id": "A-7",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "A-8",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "A-9",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "A-10",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "A-11",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "A-12",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "A-13",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "A-14",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Để trả lời câu hỏi này, chúng ta cần hiểu rõ định nghĩa của \"regression test\" (kiểm thử hồi quy) trong bối cảnh ISTQB. Mặc dù định nghĩa chính thức của ISTQB về kiểm thử hồi quy khá rộng (bao gồm việc kiểm thử lại bất kỳ phần mềm nào đã được kiểm thử sau khi sửa đổi để đảm bảo không có lỗi mới hoặc suy giảm chức năng hiện có), trong các câu hỏi trắc nghiệm, thường có sự phân biệt giữa \"confirmation testing\" (kiểm thử xác nhận) và \"regression testing\" (kiểm thử hồi quy) theo nghĩa hẹp hơn.\n\n*   **Kiểm thử xác nhận (Confirmation testing / Re-testing):** Là việc chạy lại một test case đã từng thất bại để xác nhận rằng lỗi đã được sửa và chức năng hiện hoạt động đúng như mong đợi.\n*   **Kiểm thử hồi quy (Regression testing):** Là việc chạy lại các test case đã từng vượt qua (hoặc không liên quan trực tiếp đến lỗi được sửa) để đảm bảo rằng các thay đổi (ví dụ: sửa lỗi, thêm tính năng mới) không gây ra lỗi mới hoặc ảnh hưởng tiêu cực đến các chức năng hiện có.\n\nHãy phân tích từng lần thực thi:\n\n**Execution 1:**\n*   (1) TC1: Failed - Lần chạy đầu tiên, không phải hồi quy.\n*   (2) TC2: Passed - Lần chạy đầu tiên, không phải hồi quy.\n*   (3) TC3: Failed - Lần chạy đầu tiên, không phải hồi quy.\n    *   Sau Execution 1, có lỗi ở TC1 và TC3. Các lỗi này được sửa.\n\n**Execution 2 (sau khi sửa lỗi từ Execution 1):**\n*   (4) TC1: Failed (Ex1) -> Passed (Ex2). Đây là việc chạy lại TC1 để xác nhận lỗi đã được sửa. -> **Confirmation Test**.\n*   (5) TC2: Passed (Ex1) -> Failed (Ex2). TC2 đã vượt qua ở lần trước, nhưng bây giờ lại thất bại sau khi có thay đổi (sửa lỗi TC1 và TC3). Điều này cho thấy một lỗi hồi quy (regression). Do đó, việc chạy TC2 ở đây là để kiểm tra hồi quy. -> **Regression Test**.\n*   (6) TC3: Failed (Ex1) -> Failed (Ex2). Đây là việc chạy lại TC3 để xác nhận lỗi đã được sửa, nhưng lỗi vẫn còn. -> **Confirmation Test**.\n    *   Sau Execution 2, có lỗi ở TC2 và TC3. Các lỗi này được sửa.\n\n**Execution 3 (sau khi sửa lỗi từ Execution 2):**\n*   (7) TC1: Passed (Ex2) -> Passed (Ex3). TC1 đã vượt qua ở lần trước. Việc chạy lại TC1 ở đây là để đảm bảo rằng các sửa lỗi cho TC2 và TC3 không ảnh hưởng đến chức năng của TC1. -> **Regression Test**.\n*   (8) TC2: Failed (Ex2) -> Passed (Ex3). Đây là việc chạy lại TC2 để xác nhận lỗi đã được sửa. -> **Confirmation Test**.\n*   (9) TC3: Failed (Ex2) -> Passed (Ex3). Đây là việc chạy lại TC3 để xác nhận lỗi đã được sửa. -> **Confirmation Test**.\n\nDựa trên sự phân biệt này, các test được thực thi như kiểm thử hồi quy là (5) và (7).\n\nĐáp án: B"
+    },
+    {
+      "id": "A-15",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "A-16",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "A-17",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "A-18",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D\n\n**Giải thích:**\n\nChúng ta hãy phân tích từng lựa chọn dựa trên kiến thức ISTQB về các yếu tố góp phần vào việc đánh giá thành công:\n\n*   **A: Participants should dedicate adequate time for the review (Người tham gia nên dành đủ thời gian cho việc đánh giá).** Đây là một yếu tố quan trọng. Việc đánh giá vội vàng thường dẫn đến bỏ sót lỗi và giảm hiệu quả.\n*   **B: Splitting large work products into small parts to make the required effort less intense (Chia các sản phẩm công việc lớn thành các phần nhỏ để giảm cường độ nỗ lực cần thiết).** Đây là một thực hành tốt giúp việc đánh giá trở nên dễ quản lý hơn, tập trung hơn và hiệu quả hơn, đặc biệt đối với các tài liệu lớn.\n*   **C: Participants should avoid behaviors that might indicate boredom, exasperation, or hostility to other participants (Người tham gia nên tránh các hành vi có thể biểu hiện sự chán nản, bực tức hoặc thái độ thù địch với những người tham gia khác).** Yếu tố con người và tâm lý là rất quan trọng trong các cuộc đánh giá. Một môi trường tích cực, mang tính xây dựng là cần thiết để đánh giá thành công.\n*   **D: Failures found should be acknowledged, appreciated, and handled objectively (Các lỗi được tìm thấy nên được thừa nhận, đánh giá cao và xử lý một cách khách quan).**\n    *   \"Acknowledged\" (thừa nhận) và \"handled objectively\" (xử lý khách quan) là những yếu tố quan trọng. Lỗi cần được ghi nhận và xử lý mà không đổ lỗi cá nhân.\n    *   Tuy nhiên, từ \"appreciated\" (đánh giá cao) khi áp dụng trực tiếp cho \"failures\" (lỗi) là không phù hợp. Bạn không \"đánh giá cao\" bản thân các lỗi (vì lỗi là điều không mong muốn). Bạn có thể \"đánh giá cao\" nỗ lực của người đánh giá trong việc tìm ra lỗi, hoặc \"đánh giá cao\" cơ hội để cải thiện chất lượng sản phẩm nhờ việc tìm ra lỗi. Nhưng việc \"đánh giá cao các lỗi\" theo nghĩa đen có thể gây hiểu lầm và không phải là một yếu tố trực tiếp góp phần vào sự thành công của quá trình đánh giá. Mục tiêu của đánh giá là tìm và loại bỏ lỗi, không phải là trân trọng sự tồn tại của chúng.\n\nMặc dù ISTQB nhấn mạnh rằng \"Defects found are welcomed and handled objectively\" (Các lỗi được tìm thấy được hoan nghênh và xử lý khách quan), từ \"appreciated\" trong ngữ cảnh này có thể được hiểu sai là \"trân trọng lỗi\" thay vì \"hoan nghênh việc tìm ra lỗi\". Do đó, đây là lựa chọn ít phù hợp nhất hoặc không phải là một yếu tố trực tiếp góp phần vào thành công của việc đánh giá."
+    },
+    {
+      "id": "A-19",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "A-20",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Để giải quyết bài toán này, chúng ta cần xác định các phân vùng tương đương (Equivalence Partitions - EP) hợp lệ và sau đó tìm số lượng test case tối thiểu để bao phủ tất cả các phân vùng đó.\n\n**1. Xác định các phân vùng tương đương:**\n\n*   **Tầng (Floor):**\n    *   F1: Tầng trệt (Ground floor)\n    *   F2: Tầng một (First floor)\n    *   F3: Tầng hai hoặc cao hơn (Second or higher floor)\n    *   Tổng cộng 3 phân vùng cho Tầng.\n\n*   **Loại vườn (Garden type):**\n    *   G1: Không vườn (No garden)\n    *   G2: Vườn nhỏ (Small garden)\n    *   G3: Vườn lớn (Large garden)\n    *   Tổng cộng 3 phân vùng cho Loại vườn.\n\n**2. Xác định các kết hợp hợp lệ dựa trên quy tắc nghiệp vụ:**\n\nQuy tắc:\n*   Các căn hộ ở tầng trệt **có** vườn.\n*   Các căn hộ ở các tầng cao hơn (tầng một, tầng hai hoặc cao hơn) **không có** vườn.\n\nBảng các kết hợp và tính hợp lệ:\n\n| Tầng (Floor) | Loại vườn (Garden Type) | Kết hợp | Hợp lệ/Không hợp lệ | Lý do |\n| :----------- | :---------------------- | :----- | :----------------- | :---- |\n| F1 (Trệt)    | G1 (Không vườn)         | (F1, G1) | Không hợp lệ       | Tầng trệt phải có vườn. |\n| F1 (Trệt)    | G2 (Vườn nhỏ)           | (F1, G2) | Hợp lệ             | Tầng trệt + vườn nhỏ là hợp lệ. |\n| F1 (Trệt)    | G3 (Vườn lớn)           | (F1, G3) | Hợp lệ             | Tầng trệt + vườn lớn là hợp lệ. |\n| F2 (Một)     | G1 (Không vườn)         | (F2, G1) | Hợp lệ             | Tầng cao hơn + không vườn là hợp lệ. |\n| F2 (Một)     | G2 (Vườn nhỏ)           | (F2, G2) | Không hợp lệ       | Tầng cao hơn không được có vườn. |\n| F2 (Một)     | G3 (Vườn lớn)           | (F2, G3) | Không hợp lệ       | Tầng cao hơn không được có vườn. |\n| F3 (Hai+)    | G1 (Không vườn)         | (F3, G1) | Hợp lệ             | Tầng cao hơn + không vườn là hợp lệ. |\n| F3 (Hai+)    | G2 (Vườn nhỏ)           | (F3, G2) | Không hợp lệ       | Tầng cao hơn không được có vườn. |\n| F3 (Hai+)    | G3 (Vườn lớn)           | (F3, G3) | Không hợp lệ       | Tầng cao hơn không được có vườn. |\n\n**Các kết hợp hợp lệ:**\n1.  (F1, G2) - Tầng trệt, Vườn nhỏ\n2.  (F1, G3) - Tầng trệt, Vườn lớn\n3.  (F2, G1) - Tầng một, Không vườn\n4.  (F3, G1) - Tầng hai hoặc cao hơn, Không vườn\n\n**3. Tìm số lượng test case tối thiểu để đạt 100% EP coverage cho các phân vùng hợp lệ:**\n\nMục tiêu là bao phủ tất cả các phân vùng của Tầng (F1, F2, F3) và tất cả các phân vùng của Loại vườn (G1, G2, G3) bằng số lượng test case ít nhất từ các kết hợp hợp lệ.\n\nHãy thử xây dựng các test case:\n\n*   **Test Case 1: (F1, G2)**\n    *   Bao phủ: F1, G2\n    *   Còn thiếu: F2, F3, G1, G3\n\n*   **Test Case 2: (F2, G1)**\n    *   Bao phủ: F2, G1\n    *   Còn thiếu: F3, G3 (F1, G2 đã được bao phủ)\n\n*   **Test Case 3: (F3, G1)**\n    *   Bao phủ: F3, G1 (G1 đã được bao phủ bởi TC2, nhưng F3 là mới)\n    *   Còn thiếu: G3 (F1, F2, F3, G1, G2 đã được bao phủ)\n\n*   **Test Case 4: (F1, G3)**\n    *   Bao phủ: F1 (đã được bao phủ bởi TC1), G3\n    *   Tất cả các phân vùng đã được bao phủ.\n\n**Kiểm tra độ bao phủ sau 4 test case:**\n*   **Tầng:**\n    *   F1: Bao phủ bởi TC1, TC4\n    *   F2: Bao phủ bởi TC2\n    *   F3: Bao phủ bởi TC3\n    *   => Tất cả các phân vùng Tầng đã được bao phủ.\n\n*   **Loại vườn:**\n    *   G1: Bao phủ bởi TC2, TC3\n    *   G2: Bao phủ bởi TC1\n    *   G3: Bao phủ bởi TC4\n    *   => Tất cả các phân vùng Loại vườn đã được bao phủ.\n\nVới 4 test case, chúng ta đã đạt được 100% EP coverage cho các phân vùng hợp lệ.\nKhông thể đạt được độ bao phủ này với 3 test case vì mỗi test case chỉ bao phủ một phân vùng Tầng và một phân vùng Loại vườn. Để bao phủ 3 phân vùng Tầng và 3 phân vùng Loại vườn, chúng ta cần ít nhất 3 test case. Tuy nhiên, do các ràng buộc về tính hợp lệ, không có cách nào để chọn 3 test case mà bao phủ tất cả 3 phân vùng Tầng và 3 phân vùng Loại vườn cùng một lúc. Ví dụ, nếu chọn (F1, G2), (F2, G1), (F3, G1), thì G3 sẽ không được bao phủ.\n\nVậy, số lượng test case tối thiểu là 4.\n\nĐáp án: B"
+    },
+    {
+      "id": "A-21",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "A-22",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "A-23",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Để đạt được độ bao phủ chuyển đổi (transition coverage) tối thiểu, chúng ta cần đảm bảo rằng mỗi mũi tên (chuyển đổi) trong biểu đồ trạng thái được thực hiện ít nhất một lần bởi một trường hợp kiểm thử hợp lệ. Một trường hợp kiểm thử hợp lệ bắt đầu từ trạng thái INIT và kết thúc ở trạng thái OFF.\n\nHãy liệt kê tất cả các chuyển đổi hợp lệ:\n1.  INIT --(test)--> DEBUG MODE\n2.  INIT --(run)--> IN OPERATION\n3.  DEBUG MODE --(done)--> OFF\n4.  IN OPERATION --(error)--> DEBUG MODE\n5.  IN OPERATION --(pause)--> ON HOLD\n6.  ON HOLD --(resume)--> IN OPERATION\n7.  ON HOLD --(done)--> OFF\n\nTổng cộng có 7 chuyển đổi.\n\nBây giờ, chúng ta sẽ tạo các trường hợp kiểm thử để bao phủ tất cả các chuyển đổi này một cách tối thiểu:\n\n**Trường hợp kiểm thử 1 (TC1):**\nĐể bao phủ nhánh \"test\" và một đường thoát \"done\".\n*   **Đường đi:** INIT --(test)--> DEBUG MODE --(done)--> OFF\n*   **Các chuyển đổi được bao phủ:**\n    *   INIT --(test)--> DEBUG MODE (1)\n    *   DEBUG MODE --(done)--> OFF (3)\n\n**Các chuyển đổi còn lại cần bao phủ:** 2, 4, 5, 6, 7\n\n**Trường hợp kiểm thử 2 (TC2):**\nĐể bao phủ nhánh \"run\", vòng lặp giữa IN OPERATION và ON HOLD, và đường dẫn \"error\".\n*   **Đường đi:** INIT --(run)--> IN OPERATION --(pause)--> ON HOLD --(resume)--> IN OPERATION --(error)--> DEBUG MODE --(done)--> OFF\n*   **Các chuyển đổi được bao phủ (mới):**\n    *   INIT --(run)--> IN OPERATION (2)\n    *   IN OPERATION --(pause)--> ON HOLD (5)\n    *   ON HOLD --(resume)--> IN OPERATION (6)\n    *   IN OPERATION --(error)--> DEBUG MODE (4)\n    (Chuyển đổi DEBUG MODE --(done)--> OFF đã được bao phủ bởi TC1, nhưng cần thiết để kết thúc đường đi.)\n\n**Các chuyển đổi còn lại cần bao phủ:** 7\n\n**Trường hợp kiểm thử 3 (TC3):**\nĐể bao phủ chuyển đổi \"done\" còn lại từ ON HOLD.\n*   **Đường đi:** INIT --(run)--> IN OPERATION --(pause)--> ON HOLD --(done)--> OFF\n*   **Các chuyển đổi được bao phủ (mới):**\n    *   ON HOLD --(done)--> OFF (7)\n    (Các chuyển đổi INIT --(run)--> IN OPERATION và IN OPERATION --(pause)--> ON HOLD đã được bao phủ bởi TC2, nhưng cần thiết để đến ON HOLD.)\n\nSau 3 trường hợp kiểm thử này, tất cả 7 chuyển đổi đã được bao phủ.\nChúng ta không thể bao phủ tất cả các chuyển đổi với ít hơn 3 trường hợp kiểm thử vì:\n*   Có hai điểm bắt đầu khác nhau từ INIT (test và run) dẫn đến các nhánh khác nhau.\n*   Có hai chuyển đổi \"done\" khác nhau dẫn đến trạng thái OFF (từ DEBUG MODE và từ ON HOLD), và chúng không thể được bao phủ trong cùng một đường đi mà không bỏ lỡ các chuyển đổi khác.\n*   Vòng lặp giữa IN OPERATION và ON HOLD cần được đi qua để bao phủ cả hai hướng của vòng lặp.\n\nDo đó, số lượng trường hợp kiểm thử tối thiểu là 3.\n\nĐáp án: D"
+    },
+    {
+      "id": "A-24",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "A-25",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": false,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "A-26",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "A-27",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "A-28",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "A-29",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": false,
+      "full_response": "Đáp án: B\n\n**Giải thích:**\n\n1.  **Phân tích User Story và Acceptance Criteria:**\n    *   **User Story:** Editor muốn xem xét nội dung trước khi xuất bản để đảm bảo ngữ pháp chính xác.\n    *   **Acceptance Criteria (AC):** Liệt kê các khả năng của Editor, bao gồm đăng nhập, xem, chỉnh sửa, thêm comment, lưu thay đổi và **giao lại cho vai trò \"content owner\" để thực hiện cập nhật (AC6)**.\n\n2.  **Đánh giá các lựa chọn theo tiêu chí ATDD (Acceptance Test-Driven Development):**\n    ATDD tập trung vào việc kiểm thử các tiêu chí chấp nhận từ góc độ kinh doanh, đảm bảo rằng tính năng mang lại giá trị mong muốn. Các bài kiểm thử ATDD thường mô tả một kịch bản end-to-end hoặc một phần quan trọng của quy trình làm việc.\n\n    *   **A: Test if the editor can save the document after edit the page content**\n        *   Đây là một bài kiểm thử hợp lệ, trực tiếp kiểm tra AC3 (edit page content) và AC5 (save changes). Tuy nhiên, nó chỉ là một phần nhỏ của quy trình và không phải là kịch bản end-to-end nhất.\n\n    *   **B: Test if the content owner can log in and make updates to the content**\n        *   Bài kiểm thử này liên quan trực tiếp đến AC6: \"The editor can reassign to the 'content owner' role to make updates\". Để AC này được coi là hoàn thành, không chỉ Editor có thể gán lại, mà còn phải đảm bảo rằng việc gán lại đó *thực sự cho phép* Content Owner thực hiện cập nhật. Đây là một bài kiểm thử ATDD rất tốt vì nó xác minh kết quả cuối cùng và mục đích của hành động \"reassign\" từ góc độ quy trình làm việc tổng thể. Nó kiểm tra xem cơ chế được cung cấp (gán lại) có thực sự dẫn đến kết quả mong muốn (cập nhật được thực hiện bởi Content Owner) hay không, điều này rất quan trọng để Editor đạt được mục tiêu \"đảm bảo ngữ pháp chính xác\".\n\n    *   **C: Test if the editor can schedule the edited content for publication**\n        *   User Story nói về việc \"review content *before* it is published\" và các AC không đề cập đến việc Editor có thể lên lịch xuất bản. Vai trò của Editor ở đây là xem xét và đảm bảo ngữ pháp, không phải là người xuất bản. Do đó, đây không phải là một bài kiểm thử phù hợp cho User Story này.\n\n    *   **D: Test if the editor can reassign to another editor to make updates**\n        *   AC6 chỉ rõ \"reassign to the 'content owner' role\". Nó không đề cập đến việc gán lại cho \"another editor\". Do đó, bài kiểm thử này không phù hợp với các tiêu chí chấp nhận đã cho.\n\n3.  **Kết luận:**\n    Lựa chọn B là ví dụ TỐT NHẤT về một bài kiểm thử ATDD vì nó không chỉ kiểm tra một hành động đơn lẻ mà còn xác minh kết quả cuối cùng của một quy trình quan trọng (việc gán lại để cập nhật) được mô tả trong AC6. Nó đảm bảo rằng tính năng này thực sự hỗ trợ mục tiêu kinh doanh của Editor là \"đảm bảo ngữ pháp chính xác\" bằng cách cho phép các chỉnh sửa cần thiết được thực hiện."
+    },
+    {
+      "id": "A-30",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: [C]"
+    },
+    {
+      "id": "A-31",
+      "ground_truth": [
+        "C",
+        "E"
+      ],
+      "ai_picked": [
+        "C",
+        "E"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C, E\n\nGiải thích:\nTiêu chí thoát (Exit Criteria) là các điều kiện phải được đáp ứng để hoàn thành một giai đoạn kiểm thử hoặc toàn bộ quá trình kiểm thử. Chúng giúp xác định khi nào có thể dừng kiểm thử.\n\nPhân tích các lựa chọn:\n*   **A: Test environment readiness (Môi trường kiểm thử sẵn sàng)**: Đây là một tiêu chí đầu vào (Entry Criterion), nghĩa là điều kiện cần phải có trước khi bắt đầu kiểm thử, chứ không phải khi kết thúc.\n*   **B: The ability to log in to the test object by the tester (Người kiểm thử có khả năng đăng nhập vào đối tượng kiểm thử)**: Đây là một kiểm tra chức năng cơ bản, thường là một phần của kiểm thử khói (smoke test) hoặc điều kiện tiên quyết để bắt đầu các kiểm thử chi tiết hơn. Nó là một tiêu chí đầu vào hoặc một kiểm tra rất sớm, không phải tiêu chí thoát.\n*   **C: Estimated defect density is reached (Mật độ lỗi ước tính đạt được)**: Đây là một tiêu chí thoát phổ biến. Khi mật độ lỗi (số lỗi trên một đơn vị kích thước phần mềm) đạt đến một ngưỡng chấp nhận được hoặc một giá trị ước tính, điều đó cho thấy chất lượng phần mềm đã đủ tốt để dừng kiểm thử.\n*   **D: Requirements are translated into given/when/then format (Các yêu cầu được dịch sang định dạng given/when/then)**: Đây là một hoạt động thiết kế kiểm thử (test design activity), liên quan đến cách viết các trường hợp kiểm thử (ví dụ, trong BDD - Behavior-Driven Development). Nó xảy ra trong giai đoạn chuẩn bị kiểm thử, không phải là điều kiện để kết thúc kiểm thử.\n*   **E: Regression tests are automated (Các kiểm thử hồi quy được tự động hóa)**: Mặc dù việc tự động hóa kiểm thử hồi quy là một hoạt động quan trọng để nâng cao hiệu quả và duy trì chất lượng, nhưng trong một số dự án hoặc giai đoạn cụ thể, việc hoàn thành tự động hóa các kiểm thử hồi quy có thể được đặt ra như một mục tiêu và trở thành một tiêu chí thoát cho giai đoạn đó (ví dụ: \"giai đoạn tự động hóa hoàn thành\" hoặc \"sẵn sàng cho CI/CD\"). Mặc dù không phải là tiêu chí thoát trực tiếp về chất lượng sản phẩm như mật độ lỗi, nhưng nó có thể là một tiêu chí về sự hoàn thành của các hoạt động kiểm thử hoặc sự sẵn sàng của bộ kiểm thử cho các giai đoạn tiếp theo. So với các lựa chọn A, B, D rõ ràng không phải tiêu chí thoát, E là lựa chọn phù hợp hơn.\n\nVì vậy, hai lựa chọn phù hợp nhất là C và E."
+    },
+    {
+      "id": "A-32",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "A-33",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "A-34",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "A-35",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "A-36",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "A-37",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "A-38",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: [C]\n\n**Giải thích:**\n\nĐể một lỗi có thể được tái tạo và sửa chữa bởi nhà phát triển, thông tin về môi trường kiểm thử và phiên bản của phần mềm đang được kiểm thử (test item) là cực kỳ quan trọng.\n\n*   **Test environment (Môi trường kiểm thử):** Báo cáo không đề cập đến các chi tiết quan trọng như hệ điều hành, trình duyệt và phiên bản của nó (nếu là ứng dụng web), cấu hình phần cứng, hoặc bất kỳ phần mềm phụ thuộc nào khác. Việc thiếu thông tin này là lý do hàng đầu khiến nhà phát triển không thể tái tạo lỗi (\"not reproducible\").\n*   **Test item (Phiên bản phần mềm/Build):** Báo cáo không chỉ rõ phiên bản hoặc số build cụ thể của ứng dụng đang được kiểm thử. Điều này là cần thiết để nhà phát triển biết chính xác phiên bản mã nguồn nào cần kiểm tra.\n\nCác lựa chọn khác không chính xác:\n*   **A: Expected result and actual result:** Cả hai đều được nêu rõ trong báo cáo.\n*   **B: References and defect status:** Các tham chiếu (TC-1305, REQ-0012) và trạng thái (Rejected) đều có mặt.\n*   **D: Priority and severity:** Mức độ ưu tiên (\"high priority\") và mức độ nghiêm trọng (ngụ ý cao do \"application hangs up\" và \"critical new business requirement\") đều được đề cập hoặc suy ra rõ ràng."
+    },
+    {
+      "id": "A-39",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "A-40",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "B-1",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "B-2",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "B-3",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: [D]"
+    },
+    {
+      "id": "B-4",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "B-5",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": false,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "B-6",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B\n\n**Giải thích:**\n\n*   **A: Traceability between the mitigated risks and test cases that passed provides a means of determining the level of residual risk.**\n    *   Đây là một giá trị đúng của truy xuất nguồn gốc. Nếu các trường hợp kiểm thử liên quan đến việc giảm thiểu rủi ro đã vượt qua, điều đó cho thấy các biện pháp giảm thiểu có hiệu quả, và mức độ rủi ro còn lại (residual risk) có thể được đánh giá là thấp hơn.\n\n*   **B: Traceability between user requirements and test results provides a means of measuring project progress against business goals.**\n    *   Đây là một giá trị cốt lõi và rất quan trọng của truy xuất nguồn gốc theo ISTQB. Các yêu cầu của người dùng (user requirements) được bắt nguồn từ các mục tiêu kinh doanh (business goals). Bằng cách liên kết các yêu cầu với kết quả kiểm thử (đặc biệt là các yêu cầu đã vượt qua kiểm thử), chúng ta có thể đo lường mức độ hoàn thành các yêu cầu và do đó, đo lường tiến độ của dự án so với các mục tiêu kinh doanh đã đặt ra. Điều này giúp các bên liên quan hiểu rõ hơn về tình trạng dự án và giá trị kinh doanh đã đạt được.\n\n*   **C: Traceability between testers and test cases that failed provides a means of determining the skill level of the testers.**\n    *   Đây là một nhận định sai. Các trường hợp kiểm thử thất bại (failed test cases) thường chỉ ra lỗi trong phần mềm, chứ không phải là thiếu kỹ năng của người kiểm thử. Thực tế, một người kiểm thử giỏi sẽ tìm ra nhiều lỗi, dẫn đến nhiều trường hợp kiểm thử thất bại. Việc sử dụng thông tin này để đánh giá kỹ năng của người kiểm thử là không phù hợp và không chính xác.\n\n*   **D: Traceability between the identified risks and written test conditions provides a means of determining which risks are worth testing.**\n    *   Đây là một nhận định không hoàn toàn chính xác về giá trị chính của truy xuất nguồn gốc trong ngữ cảnh này. Việc xác định \"rủi ro nào đáng để kiểm thử\" (which risks are worth testing) thường được thực hiện trong giai đoạn phân tích rủi ro và lập kế hoạch kiểm thử, trước khi các điều kiện kiểm thử được viết ra. Truy xuất nguồn gốc giữa rủi ro và điều kiện kiểm thử chủ yếu giúp đảm bảo rằng các rủi ro đã được xác định là quan trọng *đã được bao phủ* bởi các hoạt động kiểm thử, chứ không phải để *xác định* rủi ro nào đáng kiểm thử.\n\n**So sánh A và B:**\nCả A và B đều là những ví dụ đúng về giá trị của truy xuất nguồn gốc. Tuy nhiên, tùy thuộc vào ngữ cảnh và mức độ bao quát, một câu trả lời có thể được coi là \"đúng hơn\" hoặc \"phù hợp hơn\".\nOption B liên kết trực tiếp các hoạt động kiểm thử với các mục tiêu kinh doanh cấp cao, thể hiện một giá trị chiến lược và tổng thể của truy xuất nguồn gốc trong việc đo lường thành công của dự án. Đây là một trong những lợi ích được nhấn mạnh nhiều trong ISTQB về việc liên kết kiểm thử với giá trị kinh doanh.\nOption A cũng đúng nhưng cụ thể hơn về quản lý rủi ro.\n\nTrong bối cảnh các câu hỏi trắc nghiệm ISTQB, việc liên kết kiểm thử với yêu cầu và mục tiêu kinh doanh để đo lường tiến độ là một ví dụ rất điển hình và mạnh mẽ về giá trị của truy xuất nguồn gốc."
+    },
+    {
+      "id": "B-7",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": false,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "B-8",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": false,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "B-9",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "B-10",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "B-11",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "B-12",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "B-13",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "B-14",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "B-15",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "B-16",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "B-17",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "B-18",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "B-19",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: [D]"
+    },
+    {
+      "id": "B-20",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Để xác định tập dữ liệu đầu vào đạt được độ bao phủ phân vùng tương đương cao nhất, chúng ta cần xác định các phân vùng tương đương dựa trên các quy tắc giảm giá:\n\n1.  **Quy tắc giảm giá:**\n    *   **Giảm giá 50%:** Áp dụng cho mỗi lần rửa thứ 20 (và bội số của 20). Tức là, số lần rửa chia hết cho 20.\n        *   Phân vùng: `wash_number % 20 == 0` (Ví dụ: 20, 40, 60)\n    *   **Giảm giá 10%:** Áp dụng cho mỗi lần rửa thứ 10 (nhưng không phải lần thứ 20). Tức là, số lần rửa chia hết cho 10 nhưng không chia hết cho 20.\n        *   Phân vùng: `wash_number % 10 == 0` VÀ `wash_number % 20 != 0` (Ví dụ: 10, 30, 50)\n    *   **Không giảm giá:** Áp dụng cho các lần rửa không phải là bội số của 10.\n        *   Phân vùng: `wash_number % 10 != 0` (Ví dụ: 1, 9, 11, 19, 21)\n\nBây giờ, chúng ta sẽ kiểm tra từng tùy chọn:\n\n*   **A: 19, 20, 30**\n    *   **19:** Không chia hết cho 10 -> Không giảm giá (Phân vùng 3)\n    *   **20:** Chia hết cho 20 -> Giảm giá 50% (Phân vùng 1)\n    *   **30:** Chia hết cho 10 nhưng không chia hết cho 20 -> Giảm giá 10% (Phân vùng 2)\n    *   **Độ bao phủ:** Bao phủ cả 3 phân vùng (50%, 10%, Không giảm giá).\n\n*   **B: 11, 12, 20**\n    *   **11:** Không chia hết cho 10 -> Không giảm giá (Phân vùng 3)\n    *   **12:** Không chia hết cho 10 -> Không giảm giá (Phân vùng 3)\n    *   **20:** Chia hết cho 20 -> Giảm giá 50% (Phân vùng 1)\n    *   **Độ bao phủ:** Bao phủ phân vùng 1 và 3. Thiếu phân vùng 2 (giảm giá 10%).\n\n*   **C: 1, 10, 50**\n    *   **1:** Không chia hết cho 10 -> Không giảm giá (Phân vùng 3)\n    *   **10:** Chia hết cho 10 nhưng không chia hết cho 20 -> Giảm giá 10% (Phân vùng 2)\n    *   **50:** Chia hết cho 10 nhưng không chia hết cho 20 -> Giảm giá 10% (Phân vùng 2)\n    *   **Độ bao phủ:** Bao phủ phân vùng 2 và 3. Thiếu phân vùng 1 (giảm giá 50%).\n\n*   **D: 10, 29, 30, 31**\n    *   **10:** Chia hết cho 10 nhưng không chia hết cho 20 -> Giảm giá 10% (Phân vùng 2)\n    *   **29:** Không chia hết cho 10 -> Không giảm giá (Phân vùng 3)\n    *   **30:** Chia hết cho 10 nhưng không chia hết cho 20 -> Giảm giá 10% (Phân vùng 2)\n    *   **31:** Không chia hết cho 10 -> Không giảm giá (Phân vùng 3)\n    *   **Độ bao phủ:** Bao phủ phân vùng 2 và 3. Thiếu phân vùng 1 (giảm giá 50%).\n\nSo sánh các tùy chọn, tùy chọn A là tùy chọn duy nhất bao phủ tất cả ba phân vùng tương đương.\n\nĐáp án: A"
+    },
+    {
+      "id": "B-21",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": false,
+      "full_response": "Để trả lời câu hỏi này, chúng ta cần hiểu rõ định nghĩa về 2-value Boundary Value Analysis (BVA) và 3-value Boundary Value Analysis (BVA) theo chuẩn ISTQB.\n\n**1. Xác định các giá trị biên:**\n*   Phạm vi hợp lệ (Valid range): [6, 12] (bao gồm 6 và 12)\n*   Giá trị tối thiểu hợp lệ (min): 6\n*   Giá trị tối đa hợp lệ (max): 12\n\n**2. Các trường hợp kiểm thử đã được bao phủ bởi 100% 2-value BVA:**\nTheo ISTQB, 2-value BVA bao gồm:\n*   Giá trị tối thiểu hợp lệ (min): 6\n*   Giá trị tối đa hợp lệ (max): 12\n*   Giá trị ngay dưới min (min-1): 5 (không hợp lệ)\n*   Giá trị ngay trên max (max+1): 13 (không hợp lệ)\nVậy, các giá trị đã được kiểm thử là: **{5, 6, 12, 13}**.\n\n**3. Các trường hợp kiểm thử cần thiết cho 100% 3-value BVA:**\nTheo ISTQB, 3-value BVA bao gồm:\n*   Các giá trị của 2-value BVA: {min-1, min, max, max+1}\n*   Các giá trị ngay bên trong phạm vi hợp lệ:\n    *   Giá trị ngay trên min (min+1): 7 (hợp lệ)\n    *   Giá trị ngay dưới max (max-1): 11 (hợp lệ)\nVậy, tổng các giá trị cần kiểm thử cho 3-value BVA là: **{5, 6, 7, 11, 12, 13}**.\n\n**4. Xác định các giá trị bổ sung cần kiểm thử:**\nĐể đạt được 100% 3-value BVA khi đã có 100% 2-value BVA, chúng ta cần thêm các giá trị có trong 3-value BVA nhưng chưa có trong 2-value BVA.\n*   Tập 3-value BVA: {5, 6, 7, 11, 12, 13}\n*   Tập 2-value BVA: {5, 6, 12, 13}\n*   Các giá trị bổ sung = {7, 11}\n\n**5. So sánh với các lựa chọn:**\n*   A: 4, 5, 13, 14 (5 và 13 đã được bao phủ)\n*   B: 7, 11 (Chính xác là các giá trị bổ sung cần thiết)\n*   C: 1, 5, 13 (5 và 13 đã được bao phủ)\n*   D: 1, 4, 7, 11, 14 (Bao gồm 7 và 11, nhưng thêm 1, 4, 14 không thuộc định nghĩa 3-value BVA theo ISTQB, mặc dù chúng có thể là các trường hợp kiểm thử tốt cho rủi ro cao)\n\nDựa trên định nghĩa chuẩn của ISTQB về 3-value BVA, các giá trị bổ sung cần thiết là 7 và 11.\n\nĐáp án: B"
+    },
+    {
+      "id": "B-22",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B\n\n**Giải thích:**\n\nĐể xác định độ phủ của bảng quyết định, chúng ta cần xem xét mỗi trường hợp kiểm thử (TC) khớp với quy tắc nào trong bảng.\n\n1.  **TC1: Cholesterol = 125 mg/dl, Blood pressure = 141 mm Hg**\n    *   Cholesterol 125 mg/dl nằm trong khoảng \"125 – 200\".\n    *   Blood pressure 141 mm Hg lớn hơn \"140\" (tức là \"> 140\").\n    *   TC1 khớp với **Rule 4**.\n\n2.  **TC2: Cholesterol = 200 mg/dl, Blood pressure = 201 mm Hg**\n    *   Cholesterol 200 mg/dl nằm trong khoảng \"125 – 200\".\n    *   Blood pressure 201 mm Hg lớn hơn \"140\" (tức là \"> 140\").\n    *   TC2 khớp với **Rule 4**. (Rule 4 đã được phủ bởi TC1).\n\n3.  **TC3: Cholesterol = 124 mg/dl, Blood pressure = 201 mm Hg**\n    *   Cholesterol 124 mg/dl nhỏ hơn hoặc bằng \"124\" (tức là \"≤ 124\").\n    *   Blood pressure 201 mm Hg lớn hơn \"140\" (tức là \"> 140\").\n    *   TC3 khớp với **Rule 2**.\n\n4.  **TC4: Cholesterol = 109 mg/dl, Blood pressure = 200 mm Hg**\n    *   Cholesterol 109 mg/dl nhỏ hơn hoặc bằng \"124\" (tức là \"≤ 124\").\n    *   Blood pressure 200 mm Hg lớn hơn \"140\" (tức là \"> 140\").\n    *   TC4 khớp với **Rule 2**. (Rule 2 đã được phủ bởi TC3).\n\n5.  **TC5: Cholesterol = 201 mg/dl, Blood pressure = 140 mm Hg**\n    *   Cholesterol 201 mg/dl lớn hơn hoặc bằng \"201\" (tức là \"≥ 201\").\n    *   Đối với Rule 5, điều kiện huyết áp là \"-\" (không quan trọng).\n    *   TC5 khớp với **Rule 5**.\n\n**Các quy tắc đã được phủ:**\n*   Rule 2 (bởi TC3, TC4)\n*   Rule 4 (bởi TC1, TC2)\n*   Rule 5 (bởi TC5)\n\n**Các quy tắc chưa được phủ:**\n*   Rule 1 (Cholesterol ≤ 124, Blood pressure ≤ 140)\n*   Rule 3 (Cholesterol 125 – 200, Blood pressure ≤ 140)\n\nTổng số quy tắc trong bảng là 5.\nSố quy tắc đã được phủ là 3.\n\nĐộ phủ = (Số quy tắc đã phủ / Tổng số quy tắc) * 100%\nĐộ phủ = (3 / 5) * 100% = 0.6 * 100% = 60%"
+    },
+    {
+      "id": "B-23",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Để xác định test case đạt mức độ bao phủ chuyển đổi hợp lệ cao nhất, chúng ta cần xác định tất cả các chuyển đổi hợp lệ trong biểu đồ và sau đó theo dõi từng test case để xem nó bao phủ những chuyển đổi nào.\n\nCác chuyển đổi hợp lệ (arcs) trong biểu đồ là:\n1.  **T1**: `START` --Add--> `NOT FULL` (N:=1)\n2.  **T2**: `NOT FULL` --Add [N<2]--> `NOT FULL` (N:=N+1)\n3.  **T3**: `NOT FULL` --Add [N=2]--> `FULL` (N:=N+1)\n4.  **T4**: `NOT FULL` --Remove [N>0]--> `NOT FULL` (N:=N-1)\n5.  **T5**: `FULL` --Remove--> `NOT FULL` (N:=N-1)\n\nTổng cộng có 5 chuyển đổi hợp lệ cần được bao phủ.\n\nBây giờ, chúng ta sẽ theo dõi từng test case:\n\n**A: Add, Remove, Add, Add, Add**\n*   Bắt đầu: `START`, N=undefined\n*   1. Add: `START` -> `NOT FULL`. N=1. (Bao phủ T1)\n*   2. Remove: `NOT FULL` (N=1). Guard [N>0] đúng. `NOT FULL` -> `NOT FULL`. N=0. (Bao phủ T4)\n*   3. Add: `NOT FULL` (N=0). Guard [N<2] đúng. `NOT FULL` -> `NOT FULL`. N=1. (Bao phủ T2)\n*   4. Add: `NOT FULL` (N=1). Guard [N<2] đúng. `NOT FULL` -> `NOT FULL`. N=2. (Bao phủ T2)\n*   5. Add: `NOT FULL` (N=2). Guard [N=2] đúng. `NOT FULL` -> `FULL`. N=3. (Bao phủ T3)\n*   Các chuyển đổi được bao phủ: {T1, T4, T2, T3}. Tổng cộng: 4.\n\n**B: Add, Add, Add, Add, Remove, Remove**\n*   Bắt đầu: `START`, N=undefined\n*   1. Add: `START` -> `NOT FULL`. N=1. (Bao phủ T1)\n*   2. Add: `NOT FULL` (N=1). Guard [N<2] đúng. `NOT FULL` -> `NOT FULL`. N=2. (Bao phủ T2)\n*   3. Add: `NOT FULL` (N=2). Guard [N=2] đúng. `NOT FULL` -> `FULL`. N=3. (Bao phủ T3)\n*   4. Add: `FULL` (N=3). Không có chuyển đổi \"Add\" nào từ trạng thái `FULL`. Đây là một sự kiện không hợp lệ. Trạng thái vẫn là `FULL`, N=3. Không có chuyển đổi hợp lệ nào được bao phủ.\n*   5. Remove: `FULL` (N=3). `FULL` -> `NOT FULL`. N=2. (Bao phủ T5)\n*   6. Remove: `NOT FULL` (N=2). Guard [N>0] đúng. `NOT FULL` -> `NOT FULL`. N=1. (Bao phủ T4)\n*   Các chuyển đổi được bao phủ: {T1, T2, T3, T5, T4}. Tổng cộng: 5.\n\n**C: Add, Add, Add, Remove, Remove**\n*   Bắt đầu: `START`, N=undefined\n*   1. Add: `START` -> `NOT FULL`. N=1. (Bao phủ T1)\n*   2. Add: `NOT FULL` (N=1). Guard [N<2] đúng. `NOT FULL` -> `NOT FULL`. N=2. (Bao phủ T2)\n*   3. Add: `NOT FULL` (N=2). Guard [N=2] đúng. `NOT FULL` -> `FULL`. N=3. (Bao phủ T3)\n*   4. Remove: `FULL` (N=3). `FULL` -> `NOT FULL`. N=2. (Bao phủ T5)\n*   5. Remove: `NOT FULL` (N=2). Guard [N>0] đúng. `NOT FULL` -> `NOT FULL`. N=1. (Bao phủ T4)\n*   Các chuyển đổi được bao phủ: {T1, T2, T3, T5, T4}. Tổng cộng: 5.\n\n**D: Add, Add, Add, Remove, Add**\n*   Bắt đầu: `START`, N=undefined\n*   1. Add: `START` -> `NOT FULL`. N=1. (Bao phủ T1)\n*   2. Add: `NOT FULL` (N=1). Guard [N<2] đúng. `NOT FULL` -> `NOT FULL`. N=2. (Bao phủ T2)\n*   3. Add: `NOT FULL` (N=2). Guard [N=2] đúng. `NOT FULL` -> `FULL`. N=3. (Bao phủ T3)\n*   4. Remove: `FULL` (N=3). `FULL` -> `NOT FULL`. N=2. (Bao phủ T5)\n*   5. Add: `NOT FULL` (N=2). Guard [N=2] đúng. `NOT FULL` -> `FULL`. N=3. (Bao phủ T3)\n*   Các chuyển đổi được bao phủ: {T1, T2, T3, T5}. Tổng cộng: 4.\n\nCả Option B và Option C đều bao phủ tất cả 5 chuyển đổi hợp lệ (100% bao phủ chuyển đổi). Tuy nhiên, Option B chứa một sự kiện không hợp lệ (Add khi ở trạng thái FULL), trong khi Option C chỉ chứa các sự kiện hợp lệ và ngắn hơn. Trong bối cảnh kiểm thử, một test case ngắn gọn hơn và chỉ bao gồm các sự kiện hợp lệ thường được ưu tiên nếu đạt được cùng mức độ bao phủ.\n\nĐáp án: C"
+    },
+    {
+      "id": "B-24",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: [B]"
+    },
+    {
+      "id": "B-25",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "B-26",
+      "ground_truth": [
+        "A",
+        "E"
+      ],
+      "ai_picked": [
+        "A",
+        "E"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A, E"
+    },
+    {
+      "id": "B-27",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "B-28",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "B-29",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "B-30",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A\n\nGiải thích:\nEntry criterion (tiêu chí đầu vào) là một tập hợp các điều kiện phải được đáp ứng trước khi một hoạt động có thể bắt đầu. Chúng đảm bảo rằng hoạt động bắt đầu với các điều kiện tiên quyết cần thiết và có cơ hội thành công và chất lượng hợp lý.\n\nChúng ta đang tìm tiêu chí đầu vào tốt nhất cho bước (2): \"Submit code into a version control system and merge it into the “test” branch\" (Gửi mã vào hệ thống kiểm soát phiên bản và hợp nhất nó vào nhánh \"test\").\n\n*   **A: Static analysis returns no high severity warnings for the submitted code (Phân tích tĩnh không trả về cảnh báo mức độ nghiêm trọng cao cho mã đã gửi)**\n    *   Phân tích tĩnh là một kiểm tra chất lượng mã tự động được thực hiện sớm trong quy trình phát triển (shift-left testing). Nếu mã có cảnh báo mức độ nghiêm trọng cao, điều đó cho thấy các vấn đề tiềm ẩn về chất lượng, lỗi hoặc vi phạm tiêu chuẩn mã hóa. Việc ngăn chặn mã như vậy được hợp nhất vào nhánh \"test\" (nhánh tích hợp để kiểm thử) là một tiêu chí đầu vào quan trọng để đảm bảo chất lượng của mã được tích hợp và tránh lãng phí thời gian vào việc kiểm thử mã kém chất lượng. Đây là một cổng chất lượng mạnh mẽ.\n\n*   **B: System version control reports no conflicts when merging code into the “test” branch (Hệ thống kiểm soát phiên bản báo cáo không có xung đột khi hợp nhất mã vào nhánh \"test\")**\n    *   Việc không có xung đột là điều kiện tiên quyết kỹ thuật để hợp nhất thành công. Nếu có xung đột, việc hợp nhất sẽ không thể diễn ra một cách sạch sẽ và nhà phát triển phải giải quyết chúng trước khi gửi lại. Mặc dù đây là một điều kiện cần thiết, nhưng nó thường được kiểm tra bởi hệ thống kiểm soát phiên bản trong quá trình hợp nhất hoặc là một trạng thái mà nhà phát triển phải đảm bảo trước khi tạo yêu cầu hợp nhất (pull request). Nó là một điều kiện kỹ thuật cho việc hợp nhất, nhưng A tập trung vào chất lượng nội tại của mã.\n\n*   **C: Component tests are compiled and ready to be executed (Các bài kiểm thử thành phần đã được biên dịch và sẵn sàng để thực thi)**\n    *   Kiểm thử thành phần (component testing) là bước (3) trong quy trình. Do đó, sự sẵn sàng của các bài kiểm thử thành phần là tiêu chí đầu vào cho bước (3), không phải bước (2).\n\n*   **D: Statement coverage is at least 80% (Độ bao phủ câu lệnh ít nhất 80%)**\n    *   Độ bao phủ câu lệnh là một số liệu đo lường mức độ kiểm thử, thường được kiểm tra *trong* hoặc *sau* khi thực hiện kiểm thử (bước 3). Nó là một tiêu chí thoát (exit criterion) cho việc kiểm thử hoặc một cổng chất lượng cho các giai đoạn sau, không phải tiêu chí đầu vào cho việc gửi và hợp nhất mã.\n\n**So sánh A và B:**\nCả A và B đều là những điều kiện quan trọng trong một quy trình DevOps. Tuy nhiên, A (phân tích tĩnh) tập trung vào **chất lượng nội tại của mã** mà nhà phát triển đang gửi. Nó đảm bảo rằng bản thân mã đó đáp ứng một tiêu chuẩn chất lượng tối thiểu trước khi được phép vào nhánh dùng chung để kiểm thử. Việc ngăn chặn mã có cảnh báo nghiêm trọng cao ngay từ đầu giúp \"shift left\" chất lượng, tiết kiệm thời gian và tài nguyên ở các giai đoạn sau. B (không có xung đột) là về **khả năng kỹ thuật** của việc tích hợp mã. Mặc dù cần thiết, nhưng nếu mã có chất lượng kém (như được chỉ ra bởi phân tích tĩnh), việc hợp nhất nó một cách sạch sẽ vẫn có thể dẫn đến các vấn đề sau này.\n\nTrong bối cảnh của một quy trình DevOps, việc đảm bảo chất lượng mã sớm nhất có thể là ưu tiên hàng đầu. Do đó, việc phân tích tĩnh không trả về cảnh báo mức độ nghiêm trọng cao là tiêu chí đầu vào **phù hợp nhất** để đảm bảo rằng mã được đưa vào nhánh \"test\" có chất lượng chấp nhận được."
+    },
+    {
+      "id": "B-31",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B\n\n**Giải thích:**\n\nĐể ước tính nỗ lực kiểm thử cho dự án mới bằng phương pháp dựa trên tỷ lệ (estimation based on ratios), chúng ta cần thực hiện các bước sau:\n\n1.  **Tính tổng nỗ lực phát triển từ các dự án lịch sử:**\n    Tổng nỗ lực phát triển = 800,000 + 1,200,000 + 600,000 + 1,000,000 = 3,600,000 $\n\n2.  **Tính tổng nỗ lực kiểm thử từ các dự án lịch sử:**\n    Tổng nỗ lực kiểm thử = 40,000 + 130,000 + 70,000 + 120,000 = 360,000 $\n\n3.  **Tính tỷ lệ nỗ lực kiểm thử trên nỗ lực phát triển (Test-to-Development Effort Ratio) dựa trên dữ liệu trung bình (tổng cộng):**\n    Tỷ lệ = (Tổng nỗ lực kiểm thử) / (Tổng nỗ lực phát triển)\n    Tỷ lệ = 360,000 / 3,600,000 = 0.1\n\n4.  **Ước tính nỗ lực kiểm thử cho dự án mới:**\n    Nỗ lực phát triển ước tính cho dự án mới là 800,000 $.\n    Nỗ lực kiểm thử ước tính = Nỗ lực phát triển ước tính * Tỷ lệ\n    Nỗ lực kiểm thử ước tính = 800,000 * 0.1 = 80,000 $\n\nVậy, ước tính nỗ lực kiểm thử cho dự án mới là $80,000."
+    },
+    {
+      "id": "B-32",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": false,
+      "full_response": "Để xác định thứ tự thực hiện các test case, chúng ta cần xem xét cả độ ưu tiên (Priority) và các phụ thuộc logic (Logical Dependencies).\n\n**Các Test Case và Độ ưu tiên:**\n*   TC1: SEARCH for product A (P4)\n*   TC2: SEARCH for product B (P4)\n*   TC3: VIEW product A details (P3)\n*   TC4: VIEW product B details (P2)\n*   TC5: ADD product A to a shopping cart (P3)\n*   TC6: ADD product B to a shopping cart (P1)\n*   TC7: place an ORDER (P5)\n\n*(Lưu ý: P1 là ưu tiên cao nhất, P5 là ưu tiên thấp nhất)*\n\n**Các Phụ thuộc Logic:**\n1.  Chức năng SEARCH phải được kiểm thử trước khi chức năng VIEW có thể được kiểm thử. (SEARCH -> VIEW)\n2.  Chức năng VIEW phải được kiểm thử trước khi chức năng ADD. (VIEW -> ADD)\n3.  Chức năng ADD phải được kiểm thử trước khi chức năng ORDER. (ADD -> ORDER)\n\nChúng ta sẽ xây dựng thứ tự thực hiện từng bước, luôn chọn test case có độ ưu tiên cao nhất trong số các test case có thể thực thi (đã thỏa mãn các phụ thuộc).\n\n**Bước 1: Xác định test case đầu tiên.**\n*   Các test case SEARCH (TC1, TC2) không có phụ thuộc nào.\n*   Các test case VIEW, ADD, ORDER đều có phụ thuộc.\n*   Trong số TC1 (P4) và TC2 (P4), cả hai đều có độ ưu tiên 4. Chúng ta có thể chọn một trong hai. Hãy chọn TC1.\n*   **1st Test: TC1 (SEARCH for product A, P4)**\n    *   Sau khi TC1 được thực thi, chức năng SEARCH được coi là đã được kiểm thử (ít nhất một phần), mở khóa khả năng thực thi các test case VIEW.\n\n**Bước 2: Xác định test case thứ hai.**\n*   Các test case có thể thực thi hiện tại:\n    *   TC2 (SEARCH for product B, P4) - không có phụ thuộc.\n    *   TC3 (VIEW product A details, P3) - phụ thuộc SEARCH đã được thỏa mãn (do TC1).\n    *   TC4 (VIEW product B details, P2) - phụ thuộc SEARCH đã được thỏa mãn (do TC1).\n*   Các test case khác (TC5, TC6, TC7) vẫn bị chặn do phụ thuộc VIEW hoặc ADD chưa được kiểm thử.\n*   Trong số TC2 (P4), TC3 (P3), TC4 (P2), test case có độ ưu tiên cao nhất là TC4 (P2).\n*   **2nd Test: TC4 (VIEW product B details, P2)**\n    *   Sau khi TC4 được thực thi, chức năng VIEW được coi là đã được kiểm thử (ít nhất một phần), mở khóa khả năng thực thi các test case ADD.\n\n**Bước 3: Xác định test case thứ ba.**\n*   Các test case có thể thực thi hiện tại:\n    *   TC2 (SEARCH for product B, P4) - không có phụ thuộc.\n    *   TC3 (VIEW product A details, P3) - phụ thuộc SEARCH đã được thỏa mãn.\n    *   TC5 (ADD product A to a shopping cart, P3) - phụ thuộc VIEW đã được thỏa mãn (do TC4).\n    *   TC6 (ADD product B to a shopping cart, P1) - phụ thuộc VIEW đã được thỏa mãn (do TC4).\n*   Test case TC7 vẫn bị chặn do phụ thuộc ADD chưa được kiểm thử.\n*   Trong số TC2 (P4), TC3 (P3), TC5 (P3), TC6 (P1), test case có độ ưu tiên cao nhất là TC6 (P1).\n*   **3rd Test: TC6 (ADD product B to a shopping cart, P1)**\n    *   Sau khi TC6 được thực thi, chức năng ADD được coi là đã được kiểm thử (ít nhất một phần), mở khóa khả năng thực thi test case ORDER.\n\n**Bước 4: Xác định test case thứ tư.**\n*   Các test case có thể thực thi hiện tại:\n    *   TC2 (SEARCH for product B, P4) - không có phụ thuộc.\n    *   TC3 (VIEW product A details, P3) - phụ thuộc SEARCH đã được thỏa mãn.\n    *   TC5 (ADD product A to a shopping cart, P3) - phụ thuộc VIEW đã được thỏa mãn (do TC4). Tuy nhiên, theo logic thông thường, để ADD sản phẩm A, ta cần VIEW sản phẩm A trước (TC3). Vì TC3 và TC5 có cùng độ ưu tiên (P3) và TC3 là bước tiền đề logic cho TC5, TC3 nên được ưu tiên.\n    *   TC7 (place an ORDER, P5) - phụ thuộc ADD đã được thỏa mãn (do TC6).\n*   Trong số TC2 (P4), TC3 (P3), TC5 (P3), TC7 (P5), các test case có độ ưu tiên cao nhất là TC3 và TC5 (cùng P3).\n*   Giữa TC3 (VIEW A) và TC5 (ADD A), TC3 là bước tiền đề logic cho TC5 (bạn cần xem chi tiết sản phẩm A trước khi thêm nó vào giỏ hàng). Do đó, TC3 sẽ được chọn.\n*   **4th Test: TC3 (VIEW product A details, P3)**\n\nVậy, test case thứ tư được thực thi là TC3.\n\nĐáp án: A"
+    },
+    {
+      "id": "B-33",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "B-34",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "B-35",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "B-36",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "B-37",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "B-38",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: [B]"
+    },
+    {
+      "id": "B-39",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "B-40",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "C-1",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": false,
+      "full_response": "Đáp án: A\n\n**Giải thích:**\n\nCác mục tiêu điển hình của kiểm thử theo ISTQB bao gồm:\n*   Đánh giá các sản phẩm công việc như yêu cầu, câu chuyện người dùng, thiết kế và mã.\n*   **Xác minh xem tất cả các yêu cầu đã được chỉ định có được đáp ứng hay không.** (Rất gần với lựa chọn A)\n*   Xác nhận xem đối tượng kiểm thử có hoàn chỉnh và hoạt động như mong đợi hay không. (Rất gần với lựa chọn D)\n*   Xây dựng niềm tin vào mức độ chất lượng của đối tượng kiểm thử.\n*   Tìm lỗi và giảm mức độ rủi ro.\n*   Cung cấp đủ thông tin cho các bên liên quan để họ đưa ra quyết định sáng suốt, đặc biệt liên quan đến việc phát hành đối tượng kiểm thử.\n*   Tuân thủ các yêu cầu hoặc tiêu chuẩn hợp đồng, pháp lý hoặc quy định.\n\nPhân tích các lựa chọn:\n*   **A: Validating that documented requirements are met (Xác nhận rằng các yêu cầu đã được ghi lại được đáp ứng)**: Đây là một mục tiêu cốt lõi và rất điển hình của kiểm thử. Kiểm thử nhằm đảm bảo rằng hệ thống đáp ứng các thông số kỹ thuật và chức năng đã được ghi lại.\n*   **B: Causing failures and identifying defects (Gây ra lỗi và xác định khiếm khuyết)**: Mặc dù kiểm thử *làm* phát hiện ra khiếm khuyết và có thể dẫn đến lỗi, nhưng \"gây ra lỗi\" không phải là mục tiêu. Mục tiêu là *tìm kiếm* các khiếm khuyết hiện có để ngăn chặn lỗi, không phải chủ động tạo ra chúng.\n*   **C: Initiating errors and identifying root causes (Khởi tạo lỗi và xác định nguyên nhân gốc rễ)**: Tương tự như B, \"khởi tạo lỗi\" không phải là mục tiêu của kiểm thử. Việc xác định nguyên nhân gốc rễ là một hoạt động phân tích sau khi khiếm khuyết được tìm thấy.\n*   **D: Verifying the test object meets user expectations (Xác minh đối tượng kiểm thử đáp ứng mong đợi của người dùng)**: Đây cũng là một mục tiêu kiểm thử hợp lệ và quan trọng, đặc biệt trong kiểm thử chấp nhận (acceptance testing) và kiểm thử xác nhận (validation testing). Tuy nhiên, \"documented requirements\" (các yêu cầu đã được ghi lại) thường là cơ sở chính thức và cụ thể để thiết kế và thực hiện kiểm thử. Trong nhiều trường hợp, việc đáp ứng các yêu cầu đã ghi lại là cách để đáp ứng mong đợi của người dùng.\n\nTrong số các lựa chọn, \"Validating that documented requirements are met\" là một trong những mục tiêu kiểm thử cơ bản, rõ ràng và được công nhận rộng rãi nhất theo ISTQB."
+    },
+    {
+      "id": "C-2",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "C-3",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": false,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "C-4",
+      "ground_truth": [
+        "B",
+        "E"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": false,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "C-5",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Dựa trên kiến thức ISTQB Foundation Level (Syllabus 2018):\n\n1.  **Coverage items:**\n    *   **Test Analysis (A):** Hoạt động phân tích kiểm thử bao gồm việc \"Identify coverage items\" (xác định các mục cần bao phủ). Đây là nơi xác định các yếu tố từ cơ sở kiểm thử (ví dụ: yêu cầu, rủi ro) cần được kiểm thử.\n    *   **Test Design (B):** Hoạt động thiết kế kiểm thử bao gồm việc \"Map test cases to test conditions and coverage items\" (ánh xạ các trường hợp kiểm thử tới các điều kiện kiểm thử và các mục bao phủ). Mặc dù Test Design sử dụng các mục bao phủ, nhưng việc *xác định* chúng thuộc về Test Analysis. Tuy nhiên, nếu \"coverage items\" được hiểu là *tài liệu hóa các mục bao phủ mà các trường hợp kiểm thử được thiết kế sẽ bao gồm*, thì nó có thể được coi là một sản phẩm của Test Design.\n\n2.  **Change requests:**\n    *   **Test Completion (D):** Hoạt động hoàn tất kiểm thử bao gồm việc \"Evaluate the status of change requests\" (đánh giá trạng thái của các yêu cầu thay đổi). Mặc dù yêu cầu thay đổi thường được tạo ra trong quá trình thực hiện kiểm thử khi phát hiện lỗi, nhưng việc quản lý, đánh giá cuối cùng và quyết định về trạng thái của chúng là một phần quan trọng của Test Completion.\n\n3.  **Test execution schedule:**\n    *   **Test Implementation (C):** Hoạt động triển khai kiểm thử bao gồm việc \"Arrange test suites in an execution schedule\" (sắp xếp các bộ kiểm thử vào một lịch trình thực hiện). Đây là nơi các thủ tục kiểm thử được sắp xếp và lên kế hoạch thực hiện.\n\n4.  **Prioritized test conditions:**\n    *   **Test Analysis (A):** Hoạt động phân tích kiểm thử bao gồm việc \"Define and prioritize test conditions\" (xác định và ưu tiên các điều kiện kiểm thử).\n\n**Phân tích các lựa chọn:**\n\n*   **1. Coverage items:** Theo syllabus, việc xác định các mục bao phủ thuộc về Test Analysis (1A). Tuy nhiên, trong các lựa chọn, 1A không xuất hiện cùng với các kết hợp mạnh khác. Nếu chấp nhận rằng Test Design (1B) tạo ra tài liệu về các mục bao phủ mà các trường hợp kiểm thử sẽ giải quyết, thì 1B có thể được xem xét.\n*   **2. Change requests:** 2D (Test Completion) là một kết hợp rất mạnh và được hỗ trợ rõ ràng bởi syllabus.\n*   **3. Test execution schedule:** 3C (Test Implementation) là một kết hợp rất mạnh và được hỗ trợ rõ ràng bởi syllabus.\n*   **4. Prioritized test conditions:** 4A (Test Analysis) là một kết hợp rất mạnh và được hỗ trợ rõ ràng bởi syllabus.\n\nBây giờ, chúng ta hãy xem xét các tùy chọn:\n*   **A: 1B, 2D, 3C, 4A**\n    *   2D, 3C, 4A đều là các kết hợp rất mạnh và chính xác.\n    *   1B (Coverage items -> Test Design) là điểm cần xem xét. Mặc dù việc xác định các mục bao phủ là Test Analysis, nhưng việc thiết kế các trường hợp kiểm thử để bao phủ chúng và tài liệu hóa sự bao phủ đó có thể được coi là một sản phẩm của Test Design. Trong bối cảnh các lựa chọn, đây là sự kết hợp tốt nhất.\n*   **B: 1B, 2D, 3A, 4C** (3A và 4C không chính xác)\n*   **C: 1D, 2C, 3A, 4B** (1D, 2C, 3A, 4B đều không chính xác)\n*   **D: 1D, 2C, 3B, 4A** (1D, 2C, 3B không chính xác)\n\nDựa trên việc 3 trong số 4 kết hợp trong lựa chọn A là rất mạnh và chính xác theo ISTQB Syllabus, và kết hợp còn lại (1B) có thể được giải thích là hợp lý trong một số ngữ cảnh, lựa chọn A là câu trả lời phù hợp nhất.\n\nĐáp án: A"
+    },
+    {
+      "id": "C-6",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "C-7",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "C-8",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "C-9",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": false,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "C-10",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": false,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "C-11",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "C-12",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "C-13",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "C-14",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "C-15",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "C-16",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "C-17",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Dựa trên kiến thức ISTQB về các loại hình review:\n\n1.  **Technical review (Đánh giá kỹ thuật):**\n    *   Được thực hiện bởi các chuyên gia kỹ thuật.\n    *   Mục tiêu chính là phát hiện lỗi kỹ thuật, đảm bảo tính nhất quán, tuân thủ tiêu chuẩn.\n    *   Cũng bao gồm việc đạt được sự đồng thuận, tạo ra ý tưởng mới và cải thiện chất lượng tổng thể.\n    *   Mô tả **A** (\"Includes objectives such as gaining consensus, generating new ideas, and motivating authors to improve\") phù hợp với Technical review. Các chuyên gia thảo luận để đạt được sự đồng thuận về giải pháp kỹ thuật, có thể đưa ra ý tưởng mới và phản hồi giúp tác giả cải thiện.\n\n2.  **Informal review (Đánh giá không chính thức):**\n    *   Không có quy trình chính thức, thường là kiểm tra bàn làm việc, lập trình cặp.\n    *   Mục tiêu chính là phát hiện lỗi.\n    *   Không tạo ra đầu ra tài liệu chính thức.\n    *   Mô tả **D** (\"The main objective is detecting potential defects and it generates no formal documented output\") hoàn toàn phù hợp với Informal review.\n\n3.  **Inspection (Kiểm tra):**\n    *   Là loại hình review chính thức nhất, có quy trình nghiêm ngặt, vai trò rõ ràng, tiêu chí đầu vào/đầu ra.\n    *   Mục tiêu chính và gần như duy nhất là phát hiện lỗi.\n    *   Yêu cầu thu thập số liệu (metrics) để hỗ trợ cải tiến quy trình.\n    *   Mô tả **C** (\"The main objective is detecting potential defects and it requires metrics collection to support process improvement\") hoàn toàn phù hợp với Inspection.\n\n4.  **Walkthrough (Duyệt tài liệu):**\n    *   Tác giả dẫn dắt buổi review, trình bày tài liệu cho những người tham gia.\n    *   Mục tiêu bao gồm giáo dục người tham gia về tài liệu, đạt được sự đồng thuận, tạo ra ý tưởng mới và phát hiện lỗi.\n    *   Mô tả **B** (\"Includes objectives such as educating reviewers, gaining consensus, generating new ideas and detecting potential defects\") phù hợp với Walkthrough. Việc tác giả trình bày giúp giáo dục người xem, đồng thời thu thập ý kiến để đạt đồng thuận, tìm ý tưởng mới và phát hiện lỗi.\n\nKết hợp các cặp phù hợp:\n*   1. Technical review -> A\n*   2. Informal review -> D\n*   3. Inspection -> C\n*   4. Walkthrough -> B\n\nVậy, sự kết hợp tốt nhất là **1A, 2D, 3C, 4B**.\n\nĐáp án: B"
+    },
+    {
+      "id": "C-18",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "C-19",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "C-20",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [],
+      "is_correct": false,
+      "full_response": "Phân tích các phân vùng tương đương:\n\n1.  **PIN hợp lệ:** Phải có 4 chữ số VÀ không phải tất cả các chữ số đều giống nhau.\n    *   Tương ứng với: \"length correct\" (4 chữ số) VÀ \"number of different digits correct\" (ít nhất hai chữ số khác nhau).\n\n2.  **PIN không hợp lệ:**\n    *   **Trường hợp 1:** Độ dài không đúng (khác 4 chữ số).\n        *   Tương ứng với: \"length incorrect\" (độ dài khác 4).\n        *   Điều này bao gồm cả PIN ngắn hơn 4 chữ số và PIN dài hơn 4 chữ số.\n    *   **Trường hợp 2:** Độ dài đúng (4 chữ số) NHƯNG tất cả các chữ số đều giống nhau.\n        *   Tương ứng với: \"length correct\" (4 chữ số) VÀ \"number of different digits incorrect\" (tất cả các chữ số giống nhau).\n\nChúng ta cần tìm tập dữ liệu kiểm thử bao phủ tất cả các phân vùng này.\n\n**Phân tích các lựa chọn:**\n\n*   **A: 12, 1111, 1234, 12345**\n    *   **12:** Độ dài không đúng (2 chữ số) -> Bao phủ \"length incorrect\" (ngắn hơn 4).\n    *   **1111:** Độ dài đúng (4 chữ số), nhưng tất cả các chữ số giống nhau -> Bao phủ \"length correct\" VÀ \"number of different digits incorrect\".\n    *   **1234:** Độ dài đúng (4 chữ số) VÀ các chữ số khác nhau -> Bao phủ \"length correct\" VÀ \"number of different digits correct\" (Đây là một PIN hợp lệ).\n    *   **12345:** Độ dài không đúng (5 chữ số) -> Bao phủ \"length incorrect\" (dài hơn 4).\n    *   **Kết luận A:** Tập này bao phủ tất cả các phân vùng:\n        *   \"length correct\": (1111, 1234)\n        *   \"length incorrect\": (12, 12345) - bao gồm cả trường hợp ngắn hơn và dài hơn 4.\n        *   \"number of different digits correct\": (1234)\n        *   \"number of different digits incorrect\": (1111)\n        *   Đây là một tập hợp rất tốt.\n\n*   **B: 1, 123, 1111, 1234**\n    *   **1:** Độ dài không đúng (1 chữ số) -> Bao phủ \"length incorrect\" (ngắn hơn 4).\n    *   **123:** Độ dài không đúng (3 chữ số) -> Bao phủ \"length incorrect\" (ngắn hơn 4).\n    *   **1111:** Độ dài đúng, chữ số giống nhau -> Bao phủ \"length correct\" VÀ \"number of different digits incorrect\".\n    *   **1234:** Độ dài đúng, chữ số khác nhau -> Bao phủ \"length correct\" VÀ \"number of different digits correct\".\n    *   **Kết luận B:** Tập này bao phủ tất cả các phân vùng, nhưng chỉ bao phủ \"length incorrect\" với các trường hợp ngắn hơn 4 chữ số (1 và 3 chữ số), không có trường hợp dài hơn 4 chữ số. So với A, A bao phủ \"length incorrect\" toàn diện hơn.\n\n*   **C: 11, 12, 1111, 12345**\n    *   **11, 12, 12345:** Bao phủ \"length incorrect\".\n    *   **1111:** Bao phủ \"length correct\" VÀ \"number of different digits incorrect\".\n    *   **Thiếu:** Trường hợp PIN hợp lệ (độ dài đúng VÀ các chữ số khác nhau). Không có test case nào như 1234.\n    *   **Kết luận C:** Không bao phủ đủ.\n\n*   **D: 123, 1222, 12345**\n    *   **123, 12345:** Bao phủ \"length incorrect\".\n    *   **1222:** Độ dài đúng (4 chữ số) VÀ các chữ số khác nhau (1 và 2) -> Bao phủ \"length correct\" VÀ \"number of different digits correct\".\n    *   **Thiếu:** Trường hợp độ dài đúng NHƯNG tất cả các chữ số giống nhau (ví dụ: 1111).\n    *   **Kết luận D:** Không bao phủ đủ.\n\n**So sánh A và B:**\nCả A và B đều bao phủ tất cả 4 phân vùng chính. Tuy nhiên, phân vùng \"length incorrect\" bao gồm cả PIN ngắn hơn 4 chữ số và PIN dài hơn 4 chữ số.\n*   Lựa chọn A bao gồm `12` (ngắn hơn 4) và `12345` (dài hơn 4), bao phủ đầy đủ hơn phân vùng \"length incorrect\".\n*   Lựa chọn B chỉ bao gồm `1` và `123` (đều ngắn hơn 4), không có ví dụ nào cho PIN dài hơn 4 chữ số.\n\nDo đó, lựa chọn A là tập hợp dữ liệu kiểm thử TỐT NHẤT vì nó bao phủ tất cả các phân vùng một cách toàn diện nhất.\n\nThe final answer is $\\boxed{A}$"
+    },
+    {
+      "id": "C-21",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [],
+      "is_correct": false,
+      "full_response": "Để trả lời câu hỏi này, chúng ta cần áp dụng kỹ thuật phân tích giá trị biên 2 điểm (2-value Boundary Value Analysis - BVA).\n\n**1. Xác định các điều kiện và giá trị biên:**\nQuy tắc kinh doanh là:\nIF (value ≤ 100 OR value ≥ 200) THEN write “value incorrect”\nELSE write “value OK”\n\nĐiều này có nghĩa là:\n*   **Phạm vi \"value incorrect\"**: `value <= 100` và `value >= 200`\n*   **Phạm vi \"value OK\"**: `100 < value < 200`\n\nCác giá trị biên quan trọng là 100 và 200.\n\n**2. Áp dụng 2-value Boundary Value Analysis:**\nTheo 2-value BVA, chúng ta chọn giá trị tại biên và một giá trị ngay sát biên (thường là giá trị chuyển đổi sang một phân vùng hoặc kết quả khác).\n\n*   **Đối với biên 100:**\n    *   Giá trị tại biên: **100** (kết quả \"incorrect\")\n    *   Giá trị ngay sát biên (chuyển sang \"OK\"): **101** (kết quả \"OK\")\n\n*   **Đối với biên 200:**\n    *   Giá trị tại biên: **200** (kết quả \"incorrect\")\n    *   Giá trị ngay sát biên (chuyển sang \"OK\"): **199** (kết quả \"OK\")\n\nVậy, tập hợp các giá trị biên lý tưởng theo 2-value BVA để bao phủ các điều kiện là: `{100, 101, 199, 200}`.\n\n**3. Đánh giá các lựa chọn dựa trên tập hợp lý tưởng:**\n\n*   **A: 100, 150, 200, 201**\n    *   Chứa 100 (lý tưởng)\n    *   Chứa 200 (lý tưởng)\n    *   150 là giá trị giữa phạm vi \"OK\", không phải giá trị biên 2 điểm.\n    *   201 là giá trị ngay trên 200 (vẫn \"incorrect\"), không phải giá trị chuyển đổi kết quả.\n    *   Bao phủ 2/4 điểm lý tưởng (100, 200).\n\n*   **B: 99, 100, 200, 201**\n    *   Chứa 100 (lý tưởng)\n    *   Chứa 200 (lý tưởng)\n    *   99 là giá trị ngay dưới 100 (vẫn \"incorrect\").\n    *   201 là giá trị ngay trên 200 (vẫn \"incorrect\").\n    *   Tập hợp này chỉ kiểm tra các giá trị \"incorrect\" xung quanh biên.\n    *   Bao phủ 2/4 điểm lý tưởng (100, 200).\n\n*   **C: 98, 99, 100, 101**\n    *   Chứa 100 (lý tưởng)\n    *   Chứa 101 (lý tưởng)\n    *   98, 99 là các giá trị \"incorrect\" dưới 100.\n    *   Tập hợp này chỉ tập trung vào biên 100 và bỏ qua hoàn toàn biên 200.\n    *   Bao phủ 2/4 điểm lý tưởng (100, 101).\n\n*   **D: 101, 150, 199, 200**\n    *   Chứa 101 (lý tưởng)\n    *   Chứa 199 (lý tưởng)\n    *   Chứa 200 (lý tưởng)\n    *   150 là giá trị giữa phạm vi \"OK\", không phải giá trị biên 2 điểm.\n    *   Bao phủ 3/4 điểm lý tưởng (101, 199, 200).\n\n**Kết luận:**\nLựa chọn D bao phủ nhiều điểm giá trị biên lý tưởng nhất (3 trên 4 điểm: 101, 199, 200) so với các lựa chọn khác (chỉ bao phủ 2 điểm). Mặc dù 150 không phải là điểm biên 2 giá trị, nhưng nó không làm giảm độ bao phủ của các điểm biên quan trọng. Do đó, lựa chọn D đạt được độ bao phủ lớn nhất.\n\nThe final answer is $\\boxed{D}$"
+    },
+    {
+      "id": "C-22",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [],
+      "is_correct": false,
+      "full_response": "Để tìm dữ liệu kiểm thử cho thấy có các quy tắc mâu thuẫn trong bảng quyết định, chúng ta cần tìm một tập hợp các điều kiện (C1, C2, C3) mà thỏa mãn hai hoặc nhiều quy tắc khác nhau, nhưng các quy tắc đó lại đưa ra các hành động khác nhau.\n\nHãy phân tích từng quy tắc:\n*   **R1:** C1: -, C2: T, C3: T -> Hành động: Cấp giấy phép lái xe\n*   **R2:** C1: -, C2: F, C3: - -> Hành động: Yêu cầu thi lại\n*   **R3:** C1: F, C2: -, C3: F -> Hành động: Yêu cầu học thêm lái xe\n\nBây giờ, chúng ta sẽ kiểm tra từng lựa chọn:\n\n**A: C1 = T, C2 = T, C3 = F**\n*   R1: Không khớp (C3 là F, R1 cần C3 là T)\n*   R2: Không khớp (C2 là T, R2 cần C2 là F)\n*   R3: Không khớp (C1 là T, R3 cần C1 là F)\n    *   Không có quy tắc nào khớp.\n\n**B: C1 = T, C2 = F, C3 = T**\n*   R1: Không khớp (C2 là F, R1 cần C2 là T)\n*   R2: Khớp (C1 là T được chấp nhận bởi '-', C2 là F, C3 là T được chấp nhận bởi '-'). Hành động: Yêu cầu thi lại.\n*   R3: Không khớp (C1 là T, R3 cần C1 là F)\n    *   Chỉ khớp với R2. Không có mâu thuẫn.\n\n**C: C1 = T, C2 = T, C3 = T và C1 = F, C2 = T, C3 = T**\n*   Với **C1 = T, C2 = T, C3 = T**:\n    *   R1: Khớp (C1 là T được chấp nhận bởi '-', C2 là T, C3 là T). Hành động: Cấp giấy phép lái xe.\n    *   R2: Không khớp (C2 là T, R2 cần C2 là F)\n    *   R3: Không khớp (C1 là T, R3 cần C1 là F)\n    *   Chỉ khớp với R1.\n*   Với **C1 = F, C2 = T, C3 = T**:\n    *   R1: Khớp (C1 là F được chấp nhận bởi '-', C2 là T, C3 là T). Hành động: Cấp giấy phép lái xe.\n    *   R2: Không khớp (C2 là T, R2 cần C2 là F)\n    *   R3: Không khớp (C3 là T, R3 cần C3 là F)\n    *   Chỉ khớp với R1.\n    *   Không có mâu thuẫn.\n\n**D: C1 = F, C2 = F, C3 = F**\n*   **Kiểm tra R1:** C1 là F, C2 là F. R1 yêu cầu C2 là T. -> Không khớp R1.\n*   **Kiểm tra R2:** C1 là F (khớp với '-'), C2 là F, C3 là F (khớp với '-'). -> **Khớp R2**. Hành động: Yêu cầu thi lại.\n*   **Kiểm tra R3:** C1 là F, C2 là F (khớp với '-'), C3 là F. -> **Khớp R3**. Hành động: Yêu cầu học thêm lái xe.\n\nVới dữ liệu kiểm thử **C1 = F, C2 = F, C3 = F**, cả R2 và R3 đều được thỏa mãn. Tuy nhiên, R2 yêu cầu \"Yêu cầu thi lại\" trong khi R3 yêu cầu \"Yêu cầu học thêm lái xe\". Đây là hai hành động khác nhau cho cùng một tập hợp điều kiện, cho thấy có sự mâu thuẫn trong các quy tắc.\n\nThe final answer is $\\boxed{D}$"
+    },
+    {
+      "id": "C-23",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "C-24",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": false,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "C-25",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "C-26",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": false,
+      "full_response": "Đáp án: C\n\n**Giải thích:**\n\n1.  **Phân tích danh sách:** Danh sách các mục (\"Correct input not accepted\", \"Incorrect input accepted\", \"Wrong output format\", \"Division by zero\") là các loại lỗi hoặc điều kiện thất bại phổ biến trong phần mềm.\n\n2.  **Đánh giá các lựa chọn:**\n    *   **A: Exploratory testing (Kiểm thử thăm dò)**: Kỹ thuật này liên quan đến việc thiết kế, thực hiện và học hỏi đồng thời, thường không dựa trên một danh sách kiểm tra cố định. Việc có một danh sách cụ thể đi ngược lại bản chất tự phát của kiểm thử thăm dò.\n    *   **B: Fault attack (Tấn công lỗi) / Error guessing (Đoán lỗi)**: Kỹ thuật này dựa vào kinh nghiệm của người kiểm thử để dự đoán các lỗi có thể có và thiết kế các trường hợp kiểm thử để tìm ra chúng. Các mục trong danh sách này *là* các loại lỗi phổ biến mà một người kiểm thử có kinh nghiệm sẽ đoán. Tuy nhiên, việc *sử dụng một danh sách có sẵn* để kiểm tra có một tên gọi cụ thể hơn.\n    *   **C: Checklist-based testing (Kiểm thử dựa trên danh sách kiểm tra)**: Kỹ thuật này liên quan đến việc sử dụng một danh sách các mục đã được xác định trước (checklist) để đảm bảo rằng tất cả các bước hoặc điều kiện cần thiết đã được kiểm tra. Danh sách được cung cấp hoàn toàn phù hợp với định nghĩa của một checklist mà người kiểm thử sẽ sử dụng để kiểm tra hệ thống. Mặc dù nội dung của checklist có thể được tạo ra thông qua kỹ thuật đoán lỗi, nhưng hành động *sử dụng* danh sách đó để thực hiện kiểm thử chính là kiểm thử dựa trên checklist.\n    *   **D: Boundary value analysis (Phân tích giá trị biên)**: Kỹ thuật này tập trung vào việc kiểm thử các giá trị ở ranh giới của miền đầu vào (ví dụ: giá trị tối thiểu, tối đa, ngay trên/dưới tối thiểu/tối đa). Danh sách đã cho không liên quan trực tiếp đến các giá trị biên của đầu vào.\n\n3.  **Kết luận:** Câu hỏi hỏi về kỹ thuật kiểm thử *nhiều khả năng nhất* được sử dụng bởi người kiểm thử *khi sử dụng danh sách này*. Hành động sử dụng một danh sách các mục để kiểm tra một cách có hệ thống chính là định nghĩa của kiểm thử dựa trên danh sách kiểm tra. Mặc dù các mục trong danh sách có thể được tạo ra từ kinh nghiệm (đoán lỗi), nhưng việc *áp dụng* danh sách đó trong quá trình kiểm thử được gọi là kiểm thử dựa trên danh sách kiểm tra."
+    },
+    {
+      "id": "C-27",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": false,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "C-28",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "C-29",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: [D]"
+    },
+    {
+      "id": "C-30",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "C-31",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "C-32",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [],
+      "is_correct": false,
+      "full_response": "Để xác định thứ tự thực hiện các test case, chúng ta cần tuân thủ các quy tắc sau:\n1.  **Ưu tiên phụ thuộc (Dependencies):** Một test case chỉ có thể được thực hiện khi tất cả các test case mà nó phụ thuộc đã được thực hiện.\n2.  **Ưu tiên độ ưu tiên (Priority):** Trong số các test case có thể thực hiện (đã thỏa mãn điều kiện phụ thuộc), chọn test case có độ ưu tiên cao nhất (1 = cao nhất, 3 = thấp nhất).\n3.  **Quy tắc phá vỡ hòa (Tie-breaking):** Nếu có nhiều test case có cùng độ ưu tiên và đều có thể thực hiện, chúng ta sẽ chọn test case nào giúp mở khóa các test case có độ ưu tiên cao hơn hoặc nhiều test case hơn. Nếu vẫn hòa, thứ tự không quan trọng đối với câu hỏi này.\n\nDưới đây là danh sách các test case, độ ưu tiên và phụ thuộc của chúng:\n*   TC 1: Priority 2, Không phụ thuộc\n*   TC 2: Priority 3, Phụ thuộc vào TC 1\n*   TC 3: Priority 2, Không phụ thuộc\n*   TC 4: Priority 2, Không phụ thuộc\n*   TC 5: Priority 1, Phụ thuộc vào TC 2 VÀ TC 4\n*   TC 6: Priority 3, Phụ thuộc vào TC 5\n*   TC 7: Priority 1, Phụ thuộc vào TC 4\n\nBây giờ, chúng ta sẽ xây dựng lịch trình thực hiện từng bước:\n\n**Bước 1:**\n*   Các test case có thể thực hiện ban đầu (không có phụ thuộc): TC 1 (P2), TC 3 (P2), TC 4 (P2).\n*   Tất cả đều có độ ưu tiên 2.\n*   TC 4 mở khóa TC 7 (P1) và một phần TC 5 (P1). TC 1 mở khóa TC 2 (P3). TC 3 không mở khóa gì.\n*   Chọn TC 4 vì nó mở khóa các test case có độ ưu tiên cao hơn (P1).\n*   **Thực hiện thứ 1: TC 4 (P2)**\n\n**Bước 2:**\n*   TC 4 đã hoàn thành. TC 7 (P1) bây giờ có thể thực hiện (chỉ phụ thuộc vào TC 4).\n*   Các test case có thể thực hiện: TC 1 (P2), TC 3 (P2), TC 7 (P1).\n*   Độ ưu tiên cao nhất là P1 (TC 7).\n*   **Thực hiện thứ 2: TC 7 (P1)**\n\n**Bước 3:**\n*   TC 7 đã hoàn thành. Không có test case mới nào được mở khóa.\n*   Các test case có thể thực hiện: TC 1 (P2), TC 3 (P2).\n*   Cả hai đều có độ ưu tiên 2. Chọn TC 1 vì nó mở khóa TC 2 (dù P3).\n*   **Thực hiện thứ 3: TC 1 (P2)**\n\n**Bước 4:**\n*   TC 1 đã hoàn thành. TC 2 (P3) bây giờ có thể thực hiện (chỉ phụ thuộc vào TC 1).\n*   Các test case có thể thực hiện: TC 3 (P2), TC 2 (P3).\n*   Độ ưu tiên cao nhất là P2 (TC 3).\n*   **Thực hiện thứ 4: TC 3 (P2)**\n\n**Bước 5:**\n*   TC 3 đã hoàn thành. Không có test case mới nào được mở khóa.\n*   Các test case có thể thực hiện: TC 2 (P3).\n*   Độ ưu tiên cao nhất là P3 (TC 2).\n*   **Thực hiện thứ 5: TC 2 (P3)**\n\n**Bước 6:**\n*   TC 2 đã hoàn thành. TC 5 (P1) bây giờ có thể thực hiện (phụ thuộc vào TC 2 VÀ TC 4. Cả TC 2 và TC 4 đều đã hoàn thành).\n*   Các test case có thể thực hiện: TC 5 (P1).\n*   Độ ưu tiên cao nhất là P1 (TC 5).\n*   **Thực hiện thứ 6: TC 5 (P1)**\n\nVậy, test case thứ sáu được thực hiện là TC 5.\n\nThe final answer is $\\boxed{B}$"
+    },
+    {
+      "id": "C-33",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "C-34",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": false,
+      "full_response": "Đáp án: A\n\n**Giải thích:**\n\nCác góc phần tư kiểm thử (Testing Quadrants), đặc biệt là mô hình của Brian Marick, được sử dụng để phân loại các hoạt động kiểm thử trong bối cảnh Agile. Chúng phân loại kiểm thử dựa trên hai chiều:\n1.  **Hướng công nghệ (Technology-facing) vs. Hướng nghiệp vụ (Business-facing):** Kiểm thử tập trung vào kỹ thuật nội bộ hay vào hành vi từ góc độ người dùng/nghiệp vụ.\n2.  **Hỗ trợ lập trình (Support Programming) vs. Phê bình sản phẩm (Critique Product):** Kiểm thử nhằm giúp đội phát triển xây dựng sản phẩm đúng cách hay nhằm đánh giá chất lượng của sản phẩm đã hoàn thành.\n\nMỗi góc phần tư đại diện cho một sự kết hợp cụ thể của các cấp độ kiểm thử (Test Levels) và các loại kiểm thử (Test Types), đồng thời ngụ ý về thời điểm chúng thường được thực hiện trong vòng đời phát triển phần mềm (Software Development Lifecycle - SDLC).\n\n*   **Góc phần tư 1 (Q1):** Hướng công nghệ, hỗ trợ lập trình (ví dụ: kiểm thử đơn vị, kiểm thử thành phần, kiểm thử API, kiểm thử cấu trúc). Thường được thực hiện sớm trong SDLC.\n*   **Góc phần tư 2 (Q2):** Hướng nghiệp vụ, hỗ trợ lập trình (ví dụ: kiểm thử chức năng, kiểm thử dựa trên ví dụ, kiểm thử câu chuyện người dùng). Thường được thực hiện sớm đến giữa SDLC.\n*   **Góc phần tư 3 (Q3):** Hướng nghiệp vụ, phê bình sản phẩm (ví dụ: kiểm thử chấp nhận người dùng (UAT), kiểm thử thăm dò, kiểm thử Alpha/Beta). Thường được thực hiện giữa đến cuối SDLC.\n*   **Góc phần tư 4 (Q4):** Hướng công nghệ, phê bình sản phẩm (ví dụ: kiểm thử hiệu năng, kiểm thử bảo mật, kiểm thử tải, kiểm thử căng thẳng). Thường được thực hiện giữa đến cuối SDLC.\n\nDựa trên phân tích này:\n\n*   **A: Testing quadrants represent particular combinations of test levels and test types, defining their location in the software development lifecycle.** (Các góc phần tư kiểm thử đại diện cho các sự kết hợp cụ thể của các cấp độ kiểm thử và các loại kiểm thử, xác định vị trí của chúng trong vòng đời phát triển phần mềm.) - Đây là mô tả chính xác nhất. Mỗi góc phần tư là một sự kết hợp của các cấp độ và loại kiểm thử, và chúng giúp định hướng khi nào các hoạt động kiểm thử này nên được thực hiện.\n*   **B: Testing quadrants describe the degree of granularity of individual test types performed at each test level.** (Các góc phần tư kiểm thử mô tả mức độ chi tiết của từng loại kiểm thử được thực hiện ở mỗi cấp độ kiểm thử.) - Mặc dù độ chi tiết là một khía cạnh của kiểm thử, đây không phải là mục đích chính của các góc phần tư.\n*   **C: Testing quadrants assign the test types that can be performed to the test levels.** (Các góc phần tư kiểm thử gán các loại kiểm thử có thể được thực hiện cho các cấp độ kiểm thử.) - Điều này quá đơn giản. Các góc phần tư cung cấp một khuôn khổ rộng hơn, không chỉ là một sự gán ghép trực tiếp.\n*   **D: Testing quadrants group test levels and test types by several criteria such as targeting specific stakeholders.** (Các góc phần tư kiểm thử nhóm các cấp độ kiểm thử và các loại kiểm thử theo một số tiêu chí như nhắm mục tiêu đến các bên liên quan cụ thể.) - Điều này cũng đúng một phần, vì các góc phần tư nhóm các hoạt động kiểm thử theo các tiêu chí (hướng công nghệ/nghiệp vụ, hỗ trợ/phê bình) và thường liên quan đến các bên liên quan khác nhau. Tuy nhiên, lựa chọn A mô tả mối quan hệ một cách toàn diện hơn, bao gồm cả việc xác định vị trí trong SDLC, điều rất quan trọng trong việc áp dụng các góc phần tư.\n\nDo đó, lựa chọn A là câu trả lời chính xác và đầy đủ nhất."
+    },
+    {
+      "id": "C-35",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "C-36",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "C-37",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "C-38",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "C-39",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "C-40",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "D-1",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "D-2",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": false,
+      "full_response": "Đáp án: D\n\nGiải thích:\n*   **Error (Lỗi):** Là một hành động của con người tạo ra một kết quả không chính xác. Trong trường hợp này, việc nhà thiết kế mệt mỏi và tạo ra một thiết kế không phù hợp cho người dùng khuyết tật là một **lỗi** của nhà thiết kế.\n*   **Defect (Khiếm khuyết/Lỗi phần mềm):** Là một khiếm khuyết trong một thành phần hoặc hệ thống có thể khiến thành phần hoặc hệ thống đó không thực hiện được chức năng yêu cầu. Thiết kế giao diện người dùng không phù hợp cho người dùng khuyết tật là một **khiếm khuyết** trong tài liệu thiết kế. Khiếm khuyết này là kết quả của lỗi của nhà thiết kế.\n*   **Failure (Thất bại):** Là một sự kiện mà một thành phần hoặc hệ thống không thực hiện được chức năng yêu cầu trong giới hạn quy định. Việc người dùng khuyết tật phàn nàn về giao diện là một **thất bại** của hệ thống. Việc tính toán tiền thưởng sai là một **thất bại** khác (mặc dù chưa được phát hiện).\n\nPhân tích các lựa chọn:\n*   **A: The miscalculation of bonuses is a defect that occasionally occurs**\n    *   Việc tính toán tiền thưởng sai là một **thất bại** (failure) của hệ thống, không phải là một khiếm khuyết (defect). Khiếm khuyết là nguyên nhân (ví dụ: thiếu xử lý ngoại lệ trong mã), còn thất bại là biểu hiện của khiếm khuyết đó khi hệ thống hoạt động. Do đó, A là sai.\n*   **B: The fine received for failing to address some disabled users is a failure**\n    *   Khoản tiền phạt là một **hậu quả** hoặc **tác động** của việc hệ thống thất bại trong việc đáp ứng yêu cầu của người dùng khuyết tật và quy định pháp luật. Bản thân khoản tiền phạt không phải là một thất bại của hệ thống. Thất bại là việc giao diện không hoạt động đúng cho người dùng khuyết tật. Do đó, B là sai.\n*   **C: The programmer working under severe time pressure is a root cause**\n    *   Áp lực thời gian nghiêm trọng là một **yếu tố góp phần** dẫn đến lỗi của lập trình viên (không bao gồm xử lý ngoại lệ). Nó là một nguyên nhân của lỗi, nhưng việc gọi nó là \"nguyên nhân gốc rễ\" (root cause) có thể không hoàn toàn chính xác theo định nghĩa ISTQB, vì nguyên nhân gốc rễ thường sâu hơn (ví dụ: quy trình quản lý dự án kém, lập kế hoạch không thực tế). Hơn nữa, \"lập trình viên\" không phải là nguyên nhân gốc rễ, mà là hành động của lập trình viên dưới áp lực. Do đó, C không phải là câu trả lời chính xác nhất.\n*   **D: The design of the user interface includes a designer error**\n    *   Nhà thiết kế đã tạo ra một thiết kế không phù hợp vì mệt mỏi. Hành động này của nhà thiết kế là một **lỗi** (error). Thiết kế giao diện người dùng (sản phẩm của hành động đó) chứa một khiếm khuyết (defect) do lỗi này gây ra. Do đó, có thể nói rằng thiết kế \"bao gồm\" hoặc \"phản ánh\" một lỗi của nhà thiết kế. Đây là cách diễn đạt chính xác nhất trong các lựa chọn để liên kết khiếm khuyết trong thiết kế với nguyên nhân gốc rễ là lỗi của con người.\n\nVậy, câu D là phát biểu chính xác nhất."
+    },
+    {
+      "id": "D-3",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "D-4",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Dựa trên kiến thức ISTQB:\n\n1.  **Derive test cases from test conditions:** Đây là một hoạt động chính của **Test Design** (Thiết kế kiểm thử). Sau khi xác định các điều kiện kiểm thử (test conditions) trong giai đoạn phân tích, chúng ta sẽ thiết kế các trường hợp kiểm thử (test cases) để kiểm tra các điều kiện đó.\n    *   Matches with **B. Test design**.\n\n2.  **Identify reusable testware:** Việc xác định các tài sản kiểm thử (testware) có thể tái sử dụng (như test cases, test data, môi trường kiểm thử) thường được thực hiện trong giai đoạn **Test Completion** (Hoàn thành kiểm thử) khi chúng ta tổng kết, lưu trữ tài liệu và rút ra bài học kinh nghiệm cho các dự án tương lai.\n    *   Matches with **D. Test completion**.\n\n3.  **Organize test cases into test procedures:** Sau khi các trường hợp kiểm thử được thiết kế, chúng cần được sắp xếp thành một trình tự thực hiện cụ thể, thường bao gồm các bước chi tiết, để tạo thành các quy trình kiểm thử (test procedures) hoặc kịch bản kiểm thử (test scripts). Đây là một phần của việc chuẩn bị cho thực thi kiểm thử.\n    *   Matches with **C. Test implementation**.\n\n4.  **Evaluate the test basis and the test object:** Đánh giá cơ sở kiểm thử (test basis - ví dụ: yêu cầu, tài liệu thiết kế) để đảm bảo tính kiểm thử được, đầy đủ và nhất quán là một nhiệm vụ cốt lõi của **Test Analysis** (Phân tích kiểm thử). Đây là giai đoạn hiểu rõ *cái gì* cần được kiểm thử.\n    *   Matches with **A. Test analysis**.\n\nKết hợp các cặp:\n*   1 -> B\n*   2 -> D\n*   3 -> C\n*   4 -> A\n\nVậy, đáp án phù hợp nhất là: 1B, 2D, 3C, 4A.\n\nĐáp án: B"
+    },
+    {
+      "id": "D-5",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Dựa trên kiến thức ISTQB Foundation Level, chúng ta hãy phân tích từng loại testware và pha kiểm thử mà nó được tạo ra:\n\n*   **i. Test completion report (Báo cáo hoàn thành kiểm thử):** Được tạo ra trong pha **Test Completion (Hoàn thành kiểm thử)**.\n*   **ii. Data held in a database used for test inputs and expected results (Dữ liệu trong cơ sở dữ liệu dùng cho đầu vào kiểm thử và kết quả mong đợi):** Đây là **Test Data (Dữ liệu kiểm thử)**. Dữ liệu kiểm thử được chuẩn bị và tạo ra trong pha **Test Implementation (Triển khai kiểm thử)**.\n*   **iii. The list of elements needed to build the test environment (Danh sách các yếu tố cần thiết để xây dựng môi trường kiểm thử):** Việc thiết lập môi trường kiểm thử là một phần của pha **Test Implementation (Triển khai kiểm thử)**. Danh sách này là một tài liệu hoặc cấu hình liên quan đến việc xây dựng môi trường.\n*   **iv. Documented sequences of test cases in execution order (Các chuỗi test case được ghi lại theo thứ tự thực hiện):** Đây chính là **Test Procedures (Quy trình kiểm thử)** hoặc **Test Suites (Bộ kiểm thử)**. Chúng được phát triển và sắp xếp trong pha **Test Implementation (Triển khai kiểm thử)**.\n*   **v. Test cases (Các test case):** Các test case được **thiết kế** trong pha **Test Design (Thiết kế kiểm thử)**, không phải được tạo ra trong pha Test Implementation.\n\nTheo giáo trình ISTQB, pha Test Implementation có mục đích là \"phát triển và ưu tiên các quy trình kiểm thử, tạo dữ liệu kiểm thử và môi trường kiểm thử\". Do đó, các sản phẩm chính của pha này là:\n*   Test procedures (hoặc test scripts)\n*   Test suites\n*   Test data\n*   Test environment (đã được thiết lập)\n\nDựa vào phân tích trên, các mục được tạo ra trong pha Test Implementation là: **ii, iii, iv**.\n\nBây giờ, chúng ta xem xét các lựa chọn:\n*   A: ii, iv (Chứa các mục đúng, nhưng thiếu iii)\n*   B: iii, v (v là sai)\n*   C: i, ii, v (i và v là sai)\n*   D: i, iii, iv (i là sai)\n\nVì các lựa chọn B, C, D đều chứa ít nhất một mục rõ ràng không phải là sản phẩm của Test Implementation (i hoặc v), chúng ta loại bỏ chúng.\nLựa chọn A (ii, iv) chứa hai mục hoàn toàn chính xác được tạo ra trong pha Test Implementation và không chứa mục nào sai. Mặc dù thiếu mục iii, nhưng đây là lựa chọn tốt nhất trong số các phương án được đưa ra.\n\nĐáp án: A"
+    },
+    {
+      "id": "D-6",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "D-7",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "D-8",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "D-9",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": false,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "D-10",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "D-11",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D\n\n**Giải thích:**\n\n*   **A: Making sure that non-functional quality characteristics are not overlooked:** Mặc dù đây là một thách thức chung trong phát triển phần mềm, DevOps thực sự khuyến khích việc \"shift-left\" (đưa các hoạt động kiểm thử và đảm bảo chất lượng lên sớm hơn trong chu trình) để giải quyết các đặc tính phi chức năng một cách liên tục. Do đó, DevOps cố gắng giảm thiểu việc bỏ qua chúng, chứ không phải là thách thức chính khi triển khai.\n*   **B: Managing continuously changing test environments:** Đây là một thách thức thực sự trong DevOps, đặc biệt khi áp dụng Infrastructure as Code (IaC) và containerization. Việc quản lý các môi trường động, đảm bảo tính nhất quán và dữ liệu kiểm thử có thể rất phức tạp. Tuy nhiên, nó thường là một thách thức phát sinh *sau khi* đã bắt đầu triển khai một số yếu tố của DevOps.\n*   **C: The need for more manual testers with suitable experience:** DevOps tập trung vào tự động hóa kiểm thử để đạt được tốc độ và phản hồi liên tục. Do đó, nhu cầu về kiểm thử viên thủ công thường giảm đi hoặc vai trò của họ chuyển sang kiểm thử thăm dò (exploratory testing) và UAT, chứ không phải là cần thêm nhiều kiểm thử viên thủ công.\n*   **D: Setting up the test automation as part of the delivery pipeline:** Đây là một trong những thách thức lớn nhất và cơ bản nhất khi triển khai DevOps. Để có một quy trình CI/CD hiệu quả, kiểm thử tự động là bắt buộc. Việc thiết lập một bộ kiểm thử tự động toàn diện, đáng tin cậy và tích hợp nó vào pipeline là một nỗ lực đáng kể, đòi hỏi kỹ năng, công cụ và thay đổi văn hóa. Nhiều tổ chức gặp khó khăn trong việc đạt được mức độ tự động hóa kiểm thử cần thiết để thực sự hưởng lợi từ DevOps.\n\nSo sánh B và D: D là một thách thức mang tính nền tảng và thường là rào cản ban đầu lớn nhất khi *bắt đầu triển khai* DevOps. Nếu không có kiểm thử tự động, pipeline DevOps sẽ không thể hoạt động hiệu quả. B là một thách thức quản lý phát sinh *trong quá trình vận hành* một hệ thống DevOps đã được triển khai ở một mức độ nhất định. Do câu hỏi hỏi về thách thức \"khi triển khai\" (when implementing), việc thiết lập tự động hóa kiểm thử (D) thường là bước đầu tiên và khó khăn nhất."
+    },
+    {
+      "id": "D-12",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B\n\n**Giải thích:**\n\n*   **Retrospective** (họp cải tiến) là một buổi họp quan trọng trong các phương pháp Agile (như Scrum), diễn ra vào cuối mỗi chu kỳ phát triển (ví dụ: Sprint). Mục đích chính của nó là để toàn bộ nhóm Agile cùng nhau nhìn lại quá trình làm việc trong chu kỳ vừa qua, thảo luận về những gì đã diễn ra, và tìm cách cải thiện cho các chu kỳ tiếp theo.\n\nHãy phân tích các lựa chọn:\n\n*   **A: Retrospectives allow team members to identify other team members who did not fully contribute to achieving quality as required by the whole team approach.**\n    *   Đây là mô tả sai. Retrospective được thiết kế để là một môi trường \"blameless\" (không đổ lỗi), tập trung vào cải thiện quy trình, công cụ và cách tương tác, chứ không phải để chỉ trích cá nhân.\n\n*   **B: Retrospectives give testers an opportunity to identify activities that were successful so that these are retained when potential improvements are made in the future.**\n    *   Mặc dù câu này chỉ đề cập đến \"testers\" (người kiểm thử), nhưng nội dung mô tả hoạt động lại rất chính xác cho một buổi Retrospective:\n        *   \"identify activities that were successful\" (xác định những hoạt động thành công) - đây là phần \"What went well?\" (Điều gì đã tốt?)\n        *   \"so that these are retained\" (để duy trì chúng) - giữ lại những điều tốt.\n        *   \"when potential improvements are made in the future\" (khi có những cải tiến tiềm năng trong tương lai) - đây là phần \"What could be improved?\" (Điều gì có thể cải thiện?) và \"What will we commit to doing differently?\" (Chúng ta sẽ làm gì khác đi?).\n    *   Mặc dù Retrospective là dành cho *toàn bộ nhóm*, nhưng việc mô tả một hoạt động cốt lõi của nó (nhận diện thành công và cải tiến) là đúng. Trong các lựa chọn, đây là mô tả gần đúng nhất về mục đích của Retrospective.\n\n*   **C: Retrospectives are where agile team members are allowed to voice their concerns about management and customers in a blameless environment.**\n    *   Đây là một phần có thể xảy ra trong Retrospective (nêu lên mối quan ngại trong môi trường không đổ lỗi), nhưng nó không phải là mô tả đầy đủ và tốt nhất. Retrospective không chỉ tập trung vào \"mối quan ngại về quản lý và khách hàng\" mà còn về quy trình nội bộ, công cụ, giao tiếp trong nhóm, và quan trọng hơn là nó cũng tập trung vào việc nhận diện những điều đã làm tốt.\n\n*   **D: Retrospectives give agile team members a forum where they focus on discussing the plan and technical decisions for the next iteration.**\n    *   Đây là mô tả sai. Việc thảo luận kế hoạch và quyết định kỹ thuật cho iteration tiếp theo diễn ra trong các buổi họp lập kế hoạch (Sprint Planning) hoặc các buổi thiết kế kỹ thuật, chứ không phải Retrospective. Retrospective nhìn lại quá khứ để cải thiện tương lai, không phải để lập kế hoạch cho tương lai.\n\nDo đó, lựa chọn B, mặc dù có giới hạn về đối tượng (\"testers\"), nhưng lại mô tả chính xác nhất về bản chất và mục tiêu của một buổi Retrospective là học hỏi từ những gì đã thành công và tìm kiếm cơ hội cải tiến."
+    },
+    {
+      "id": "D-13",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "D-14",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B\n\nGiải thích:\nMaintenance testing (kiểm thử bảo trì) là việc kiểm thử một hệ thống đang hoạt động hoặc tác động của một thay đổi đối với môi trường hoạt động, hoặc kiểm thử các thay đổi đối với hệ thống do các thay đổi mang tính sửa lỗi (corrective), thích nghi (adaptive) hoặc hoàn thiện (perfective).\n\nHãy phân tích từng lựa chọn:\n\n*   **A: The developers reported that changing the currency exchange system was difficult and the testers decided to check if this was true.**\n    *   Đây là một hoạt động kiểm tra khả năng bảo trì (maintainability) hoặc khả năng kiểm thử (testability) của hệ thống, chứ không phải là một trigger trực tiếp dẫn đến việc kiểm thử một thay đổi cụ thể. Mặc dù nó có thể dẫn đến các thay đổi trong tương lai, bản thân việc \"khó thay đổi\" không phải là trigger cho kiểm thử bảo trì.\n\n*   **B: The refund option of the currency exchange system was removed as it did not always repay the correct amount to customers.**\n    *   Đây là một ví dụ điển hình của thay đổi mang tính sửa lỗi (corrective change). Một tính năng bị loại bỏ vì nó gây ra lỗi nghiêm trọng (không hoàn trả đúng số tiền). Việc loại bỏ tính năng này là một thay đổi đối với hệ thống và cần được kiểm thử để đảm bảo rằng tính năng đã được loại bỏ đúng cách, không gây ra lỗi hồi quy (regression) và vấn đề gốc đã được giải quyết. Đây là một trigger rất mạnh và phổ biến cho kiểm thử bảo trì, đặc biệt trong hệ thống tài chính.\n\n*   **C: The agile team has started developing a user story that adds a new customer loyalty feature to the currency exchange system.**\n    *   Đây là một ví dụ của thay đổi mang tính hoàn thiện (perfective change) hoặc nâng cấp (enhancement). Việc thêm một tính năng mới là một thay đổi đối với hệ thống và cũng cần được kiểm thử (kiểm thử tính năng mới và kiểm thử hồi quy). Đây cũng là một trigger hợp lệ cho kiểm thử bảo trì.\n\n*   **D: The language support option of the currency exchange system was used to enable both English and local language currency transactions.**\n    *   Đây chỉ là việc sử dụng hoặc cấu hình một tính năng hiện có của hệ thống. Không có thay đổi nào đối với mã nguồn hoặc kiến trúc hệ thống được mô tả ở đây. Do đó, nó không phải là một trigger cho kiểm thử bảo trì.\n\nSo sánh B và C:\nCả B và C đều là các loại thay đổi thuộc phạm vi kiểm thử bảo trì. Tuy nhiên, câu hỏi yêu cầu \"MOST likely\" (khả năng cao nhất).\n*   Lựa chọn B mô tả một lỗi nghiêm trọng (không hoàn trả đúng số tiền) dẫn đến việc phải loại bỏ một tính năng. Các lỗi nghiêm trọng, đặc biệt trong hệ thống tài chính, thường là trigger cấp bách và không thể tránh khỏi cho kiểm thử bảo trì để đảm bảo hệ thống hoạt động chính xác và đáng tin cậy.\n*   Lựa chọn C mô tả việc thêm một tính năng mới, thường là một phần của kế hoạch phát triển hoặc nâng cấp. Mặc dù cũng là một trigger quan trọng, nhưng việc khắc phục lỗi nghiêm trọng thường có tính cấp bách và tần suất cao hơn trong vòng đời của một hệ thống đang hoạt động.\n\nDo tính chất quan trọng và cấp bách của việc sửa lỗi trong một hệ thống trao đổi tiền tệ, lựa chọn B là trigger có khả năng cao nhất dẫn đến kiểm thử bảo trì.\n\nThe final answer is $\\boxed{B}$"
+    },
+    {
+      "id": "D-15",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "D-16",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C\n\n**Giải thích:**\n\n*   **Static testing** (kiểm thử tĩnh) tập trung vào việc tìm kiếm lỗi trong các tài liệu làm việc (yêu cầu, thiết kế, mã nguồn) mà không cần thực thi mã. Nó rất hiệu quả trong việc phát hiện các loại lỗi như:\n    *   Sự mơ hồ, thiếu sót trong yêu cầu.\n    *   Lỗi thiết kế kiến trúc.\n    *   Vi phạm tiêu chuẩn mã hóa.\n    *   Các vấn đề về khả năng bảo trì, tính dễ đọc của mã.\n    *   Một số lỗi logic hoặc lỗi cú pháp có thể được phát hiện bởi các công cụ phân tích tĩnh.\n*   **Dynamic testing** (kiểm thử động) liên quan đến việc thực thi mã để tìm kiếm lỗi. Nó phát hiện các loại lỗi như:\n    *   Lỗi chức năng (phần mềm không hoạt động như mong đợi).\n    *   Lỗi hiệu năng, bảo mật, khả năng sử dụng.\n    *   Lỗi tích hợp, lỗi môi trường runtime.\n\nHãy phân tích các lựa chọn:\n\n*   **A: The defect types found by static testing are different from the defect types that can be found by dynamic testing.** (Các loại lỗi được tìm thấy bởi kiểm thử tĩnh khác với các loại lỗi có thể được tìm thấy bởi kiểm thử động.)\n    *   Đây là một tuyên bố quá tuyệt đối. Có một sự chồng chéo đáng kể. Ví dụ, một lỗi logic trong mã có thể được tìm thấy bằng cách xem xét mã (kiểm thử tĩnh) hoặc bằng cách thực thi mã và quan sát kết quả sai (kiểm thử động).\n\n*   **B: Dynamic testing can detect the defect types that can be found by static testing plus some additional defect types.** (Kiểm thử động có thể phát hiện các loại lỗi có thể được tìm thấy bởi kiểm thử tĩnh cộng với một số loại lỗi bổ sung.)\n    *   Điều này không đúng. Kiểm thử động không thể phát hiện tất cả các loại lỗi mà kiểm thử tĩnh có thể tìm thấy. Ví dụ, kiểm thử động không thể trực tiếp tìm thấy một yêu cầu bị thiếu trong tài liệu yêu cầu, hoặc một lỗi thiết kế kiến trúc cơ bản mà không gây ra lỗi chức năng ngay lập tức.\n\n*   **C: Dynamic testing can identify some of the defects that can be found by static testing but not all of them.** (Kiểm thử động có thể xác định một số lỗi có thể được tìm thấy bởi kiểm thử tĩnh nhưng không phải tất cả chúng.)\n    *   Đây là tuyên bố chính xác nhất. Có một tập hợp con các lỗi có thể được tìm thấy bởi cả hai phương pháp (ví dụ: lỗi logic, lỗi cú pháp). Tuy nhiên, kiểm thử tĩnh có khả năng tìm thấy các loại lỗi mà kiểm thử động không thể hoặc rất khó tìm thấy (ví dụ: lỗi trong tài liệu yêu cầu, lỗi thiết kế cấp cao, vi phạm tiêu chuẩn mã hóa không gây ra lỗi runtime).\n\n*   **D: Static testing can identify the defect types that can be found by dynamic testing as well as some extra defect types.** (Kiểm thử tĩnh có thể xác định các loại lỗi có thể được tìm thấy bởi kiểm thử động cũng như một số loại lỗi bổ sung.)\n    *   Điều này không đúng. Kiểm thử tĩnh không thể tìm thấy tất cả các loại lỗi mà kiểm thử động có thể tìm thấy. Ví dụ, kiểm thử tĩnh không thể phát hiện các vấn đề về hiệu năng dưới tải, các điều kiện tranh chấp (race conditions) chỉ xảy ra khi thực thi, hoặc các vấn đề về khả năng sử dụng giao diện người dùng.\n\nDo đó, lựa chọn C phản ánh đúng mối quan hệ bổ sung và sự chồng chéo giữa kiểm thử tĩnh và kiểm thử động, đồng thời nhấn mạnh giá trị độc đáo của kiểm thử tĩnh trong việc tìm kiếm các loại lỗi mà kiểm thử động không thể."
+    },
+    {
+      "id": "D-17",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "D-18",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "D-19",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "D-20",
+      "ground_truth": [
+        "B",
+        "E"
+      ],
+      "ai_picked": [
+        "E"
+      ],
+      "is_correct": false,
+      "full_response": "Để trả lời câu hỏi này, chúng ta cần xác định các phân vùng tương đương (equivalence partitions) và xem xét những phân vùng nào đã được bao phủ bởi các trường hợp kiểm thử hiện có. Sau đó, chúng ta sẽ tìm trường hợp kiểm thử từ các lựa chọn để bao phủ các phân vùng còn thiếu.\n\n**1. Xác định các phân vùng tương đương:**\nD = CY - BY\n\n*   **Phân vùng 1 (Invalid):** D < 0 (Thông báo lỗi: \"birth year cannot be greater than current year\")\n*   **Phân vùng 2 (Valid):** 0 ≤ D < 18 (Áp dụng giảm giá sinh viên)\n*   **Phân vùng 3 (Valid):** 18 ≤ D < 65 (Không áp dụng giảm giá)\n*   **Phân vùng 4 (Valid):** D ≥ 65 (Áp dụng giảm giá hưu trí)\n\n**2. Đánh giá các trường hợp kiểm thử hiện có:**\n\n*   **Trường hợp 1:** BY = 1990, CY = 2020\n    *   D = 2020 - 1990 = 30\n    *   Kết quả mong đợi: \"no discount\".\n    *   Phân vùng được bao phủ: **18 ≤ D < 65** (Phân vùng 3 - Đã bao phủ).\n\n*   **Trường hợp 2:** BY = 2030, CY = 2029\n    *   D = 2029 - 2030 = -1\n    *   Kết quả mong đợi: \"print the error message\".\n    *   Phân vùng được bao phủ: **D < 0** (Phân vùng 1 - Đã bao phủ).\n\n**3. Xác định các phân vùng còn thiếu để đạt được \"full valid equivalence partitioning coverage\":**\n\n\"Full valid equivalence partitioning coverage\" yêu cầu tất cả các phân vùng hợp lệ phải được bao phủ.\nCác phân vùng hợp lệ là:\n*   Phân vùng 2: 0 ≤ D < 18 (Giảm giá sinh viên) - **CÒN THIẾU**\n*   Phân vùng 3: 18 ≤ D < 65 (Không giảm giá) - Đã bao phủ bởi trường hợp 1.\n*   Phân vùng 4: D ≥ 65 (Giảm giá hưu trí) - **CÒN THIẾU**\n\nChúng ta cần thêm ít nhất hai trường hợp kiểm thử để bao phủ Phân vùng 2 và Phân vùng 4.\n\n**4. Đánh giá các lựa chọn:**\n\n*   **A: BY = 2001, CY = 2065**\n    *   D = 2065 - 2001 = 64\n    *   Phân vùng: 18 ≤ D < 65 (Không giảm giá). Phân vùng này đã được bao phủ.\n\n*   **B: BY = 1900, CY = 1965**\n    *   D = 1965 - 1900 = 65\n    *   Phân vùng: D ≥ 65 (Giảm giá hưu trí). **Phân vùng này còn thiếu và được bao phủ bởi lựa chọn này.**\n\n*   **C: BY = 1965, CY = 1900**\n    *   D = 1900 - 1965 = -65\n    *   Phân vùng: D < 0 (Thông báo lỗi). Phân vùng này đã được bao phủ.\n\n*   **D: BY = 2011, CY = 2029**\n    *   D = 2029 - 2011 = 18\n    *   Phân vùng: 18 ≤ D < 65 (Không giảm giá). Phân vùng này đã được bao phủ.\n\n*   **E: BY = 2000, CY = 2000**\n    *   D = 2000 - 2000 = 0\n    *   Phân vùng: 0 ≤ D < 18 (Giảm giá sinh viên). **Phân vùng này còn thiếu và được bao phủ bởi lựa chọn này.**\n\nCả lựa chọn B và E đều bao phủ một phân vùng hợp lệ còn thiếu. Tuy nhiên, câu hỏi yêu cầu chọn \"Which of the following test data sets\" (số ít), ngụ ý chỉ có một đáp án đúng. Trong các câu hỏi ISTQB, khi nhiều lựa chọn có vẻ đúng, thường có một lựa chọn được ưu tiên hơn (ví dụ: bao phủ phân vùng đầu tiên/cuối cùng còn thiếu, hoặc một giá trị biên).\n\nLựa chọn E (D=0) bao phủ phân vùng hợp lệ đầu tiên (0 ≤ D < 18).\nLựa chọn B (D=65) bao phủ phân vùng hợp lệ cuối cùng (D ≥ 65).\n\nCả hai đều là các giá trị biên quan trọng cho các phân vùng tương ứng. Nếu phải chọn một, và không có tiêu chí ưu tiên rõ ràng, việc chọn một trong hai là hợp lý. Tuy nhiên, trong bối cảnh câu hỏi trắc nghiệm, thường có một đáp án được coi là \"đúng nhất\". Giả sử câu hỏi muốn bao phủ phân vùng hợp lệ đầu tiên còn thiếu.\n\nĐáp án: E"
+    },
+    {
+      "id": "D-21",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "D-22",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Để trả lời câu hỏi này, chúng ta cần xác định các quy tắc (rules) nào đã được bao phủ bởi các test case hiện có và quy tắc nào còn thiếu.\n\n**Phân tích bảng quyết định:**\n\n*   **R1:** Age (0-18), Experience (-), Registered (NO) -> Category A\n*   **R2:** Age (19-65), Experience (0-4), Registered (NO) -> Category A\n*   **R3:** Age (19-65), Experience (>4), Registered (NO) -> Category B\n*   **R4:** Age (>65), Experience (-), Registered (NO) -> Category B\n*   **R5:** Age (0-18), Experience (-), Registered (YES) -> Category B\n*   **R6:** Age (19-65), Experience (-), Registered (YES) -> Category D\n*   **R7:** Age (>65), Experience (-), Registered (YES) -> Category C\n\n**Phân tích các test case hiện có:**\n\n*   **TC1:** 19-year-old (19-65), unregistered (NO), no experience (0-4); expected result: category A.\n    *   Đây khớp với **R2**.\n*   **TC2:** 65-year-old (19-65), unregistered (NO), 5 years of experience (>4); expected result: category B.\n    *   Đây khớp với **R3**.\n*   **TC3:** 66-year-old (>65), registered (YES), no experience (-); expected result: category C.\n    *   Đây khớp với **R7**.\n*   **TC4:** 65-year-old (19-65), registered (YES), 4 years of experience (-); expected result: category D.\n    *   Đây khớp với **R6**.\n\n**Các quy tắc đã được bao phủ:** R2, R3, R7, R6.\n**Các quy tắc chưa được bao phủ:** R1, R4, R5.\n\n**Phân tích các lựa chọn bổ sung:**\n\n*   **A: 66-year-old (>65), unregistered (NO), no experience (-); expected result: category B.**\n    *   Đây khớp với **R4**.\n    *   **R4 hiện chưa được bao phủ.** Do đó, test case này sẽ tăng độ bao phủ.\n\n*   **B: 55-year-old (19-65), unregistered (NO), 2 years of experience (0-4); expected result: category A.**\n    *   Đây khớp với **R2**.\n    *   **R2 đã được bao phủ bởi TC1.** Do đó, test case này sẽ không tăng độ bao phủ.\n\n*   **C: 19-year-old (19-65), registered (YES), 5 years of experience (-); expected result: category D.**\n    *   Đây khớp với **R6**.\n    *   **R6 đã được bao phủ bởi TC4.** Do đó, test case này sẽ không tăng độ bao phủ.\n\n*   **D: No additional test case can increase the already achieved decision table coverage.**\n    *   Điều này sai vì lựa chọn A có thể tăng độ bao phủ.\n\nVậy, test case trong lựa chọn A sẽ tăng độ bao phủ của bảng quyết định.\n\nĐáp án: A"
+    },
+    {
+      "id": "D-23",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B\n\n**Giải thích:**\n\nĐể xác định test case nào đạt được độ phủ chuyển đổi hợp lệ cao nhất, chúng ta sẽ theo dõi từng chuỗi sự kiện và ghi lại các chuyển đổi trạng thái hợp lệ duy nhất mà mỗi chuỗi thực hiện. Tất cả các test case đều bắt đầu từ trạng thái S1 (Requesting).\n\n**Các chuyển đổi hợp lệ có thể có từ bảng:**\n1.  S1 --(Available)--> S2\n2.  S1 --(NotAvailable)--> S3\n3.  S2 --(ChangeRoom)--> S1\n4.  S2 --(Cancel)--> S4\n5.  S2 --(Pay)--> S4\n6.  S3 --(Available)--> S2\n7.  S3 --(Cancel)--> S4\nTổng cộng có 7 chuyển đổi hợp lệ duy nhất.\n\n**Phân tích từng lựa chọn:**\n\n**A: NotAvailable, Available, ChangeRoom, NotAvailable, Cancel**\n*   S1 --(NotAvailable)--> S3 (Covered: S1->S3)\n*   S3 --(Available)--> S2 (Covered: S3->S2)\n*   S2 --(ChangeRoom)--> S1 (Covered: S2->S1)\n*   S1 --(NotAvailable)--> S3 (Đã phủ)\n*   S3 --(Cancel)--> S4 (Covered: S3->S4)\n*   **Tổng số chuyển đổi duy nhất được phủ bởi A: 4** (S1->S3, S3->S2, S2->S1, S3->S4)\n\n**B: Available, ChangeRoom, NotAvailable, Available, Pay**\n*   S1 --(Available)--> S2 (Covered: S1->S2)\n*   S2 --(ChangeRoom)--> S1 (Covered: S2->S1)\n*   S1 --(NotAvailable)--> S3 (Covered: S1->S3)\n*   S3 --(Available)--> S2 (Covered: S3->S2)\n*   S2 --(Pay)--> S4 (Covered: S2->S4)\n*   **Tổng số chuyển đổi duy nhất được phủ bởi B: 5** (S1->S2, S2->S1, S1->S3, S3->S2, S2->S4)\n\n**C: Available, ChangeRoom, Available, ChangeRoom, NotAvailable**\n*   S1 --(Available)--> S2 (Covered: S1->S2)\n*   S2 --(ChangeRoom)--> S1 (Covered: S2->S1)\n*   S1 --(Available)--> S2 (Đã phủ)\n*   S2 --(ChangeRoom)--> S1 (Đã phủ)\n*   S1 --(NotAvailable)--> S3 (Covered: S1->S3)\n*   **Tổng số chuyển đổi duy nhất được phủ bởi C: 3** (S1->S2, S2->S1, S1->S3)\n\n**D: NotAvailable, Cancel, ChangeRoom, Available, Pay**\n*   S1 --(NotAvailable)--> S3 (Covered: S1->S3)\n*   S3 --(Cancel)--> S4 (Covered: S3->S4)\n*   S4 --(ChangeRoom)--> (Không có chuyển đổi hợp lệ từ S4 với sự kiện ChangeRoom. Test case dừng lại hoặc sự kiện này bị bỏ qua, không tạo ra chuyển đổi mới.)\n*   **Tổng số chuyển đổi duy nhất được phủ bởi D: 2** (S1->S3, S3->S4)\n\nSo sánh số lượng chuyển đổi duy nhất được phủ:\n*   A: 4\n*   B: 5\n*   C: 3\n*   D: 2\n\nLựa chọn B phủ được nhiều chuyển đổi hợp lệ duy nhất nhất (5 chuyển đổi)."
+    },
+    {
+      "id": "D-24",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C\n\nGiải thích:\n*   **Thông tin đã cho:**\n    *   Bộ kiểm thử S cho chương trình P đạt 100% độ phủ câu lệnh (statement coverage).\n    *   Bộ S gồm 3 trường hợp kiểm thử (test cases).\n    *   Mỗi trường hợp kiểm thử riêng lẻ đạt 50% độ phủ câu lệnh.\n\n*   **Phân tích các lựa chọn:**\n\n    *   **A: Executing S will cause all possible failures in P**\n        *   Độ phủ 100% câu lệnh là một tiêu chí tốt, nhưng nó không đảm bảo tìm thấy *tất cả* các lỗi có thể có trong chương trình. Có thể có lỗi liên quan đến sự kết hợp dữ liệu, thời gian, các đường dẫn không được bao phủ bởi câu lệnh (ví dụ: lỗi do thiếu một câu lệnh), hoặc các lỗi chỉ xuất hiện trong điều kiện cụ thể mà các trường hợp kiểm thử không tạo ra, mặc dù câu lệnh chứa lỗi đã được chạy. Vì vậy, tuyên bố này là không đúng.\n\n    *   **B: S achieves 100% branch coverage for P**\n        *   Độ phủ câu lệnh và độ phủ nhánh là hai loại độ phủ khác nhau. 100% độ phủ câu lệnh không nhất thiết ngụ ý 100% độ phủ nhánh. Ví dụ, một câu lệnh `if` có thể được thực thi (bao phủ câu lệnh bên trong nhánh `if`) nhưng nhánh `else` (nếu có) có thể không được thực thi. Để đạt 100% độ phủ nhánh, cả hai kết quả (đúng/sai) của mọi điểm quyết định phải được thực thi. Vì vậy, tuyên bố này không nhất thiết đúng.\n\n    *   **C: Every executable statement in P containing a defect has been run at least once during the execution of S**\n        *   Độ phủ 100% câu lệnh có nghĩa là *mọi* câu lệnh có thể thực thi trong chương trình P đã được thực thi ít nhất một lần bởi bộ kiểm thử S. Nếu một lỗi (defect) tồn tại *trong* một câu lệnh có thể thực thi, thì theo định nghĩa của 100% độ phủ câu lệnh, câu lệnh đó (và do đó, lỗi bên trong nó) *phải* đã được chạy. Điều này không có nghĩa là lỗi sẽ *biểu hiện* thành một thất bại (failure) hoặc được phát hiện, nhưng bản thân câu lệnh chứa lỗi đã được thực thi. Tuyên bố này là một hệ quả trực tiếp của việc đạt 100% độ phủ câu lệnh.\n\n    *   **D: After removing one test case from S, the remaining two test cases will still achieve 100% statement coverage**\n        *   Mỗi trường hợp kiểm thử chỉ đạt 50% độ phủ. Để đạt 100% độ phủ cho toàn bộ chương trình, các trường hợp kiểm thử phải bao phủ các phần khác nhau của mã. Nếu loại bỏ một trường hợp kiểm thử, rất có thể phần mã mà trường hợp đó bao phủ sẽ không còn được bao phủ nữa, dẫn đến độ phủ tổng thể giảm xuống dưới 100%. Ví dụ, nếu TC1 bao phủ các câu lệnh {1-5}, TC2 bao phủ {6-10}, và TC3 bao phủ {1-5} (có thể trùng lặp hoặc bổ sung), thì việc loại bỏ một TC có thể làm mất đi phần bao phủ cần thiết để đạt 100%. Vì vậy, tuyên bố này không đúng.\n\nDựa trên phân tích, lựa chọn C là tuyên bố chính xác nhất."
+    },
+    {
+      "id": "D-25",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "D-26",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "D-27",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "D-28",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "D-29",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "D-30",
+      "ground_truth": [
+        "B",
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": false,
+      "full_response": "Đáp án: [D]"
+    },
+    {
+      "id": "D-31",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A"
+    },
+    {
+      "id": "D-32",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Để xác định test case cuối cùng theo kỹ thuật ưu tiên độ bao phủ bổ sung (additional coverage prioritization), chúng ta sẽ chọn các test case theo thứ tự sao cho mỗi test case được chọn bao phủ nhiều yêu cầu chưa được bao phủ nhất. Test case cuối cùng sẽ là test case còn lại sau khi tất cả các yêu cầu đã được bao phủ, hoặc là test case cung cấp ít độ bao phủ bổ sung nhất ở lượt của nó.\n\nDưới đây là các yêu cầu được bao phủ bởi mỗi test case:\n*   **TC1:** Req1, Req3, Req4, Req7 (4 yêu cầu)\n*   **TC2:** Req1, Req5, Req7 (3 yêu cầu)\n*   **TC3:** Req5, Req6 (2 yêu cầu)\n*   **TC4:** Req2 (1 yêu cầu)\n\nTổng số yêu cầu: Req1, Req2, Req3, Req4, Req5, Req6, Req7 (7 yêu cầu).\n\nChúng ta sẽ xây dựng thứ tự thực thi:\n\n**Bước 1: Chọn test case bao phủ nhiều yêu cầu nhất ban đầu.**\n*   TC1 bao phủ 4 yêu cầu.\n*   TC2 bao phủ 3 yêu cầu.\n*   TC3 bao phủ 2 yêu cầu.\n*   TC4 bao phủ 1 yêu cầu.\n**Chọn TC1.**\n*   Các yêu cầu đã bao phủ: {Req1, Req3, Req4, Req7}\n*   Các yêu cầu chưa bao phủ: {Req2, Req5, Req6}\n\n**Bước 2: Chọn test case bao phủ nhiều yêu cầu *bổ sung* nhất từ các yêu cầu chưa bao phủ.**\n*   **TC2:** Bao phủ {Req1, Req5, Req7}. Các yêu cầu bổ sung từ {Req2, Req5, Req6} là {Req5} (1 yêu cầu).\n*   **TC3:** Bao phủ {Req5, Req6}. Các yêu cầu bổ sung từ {Req2, Req5, Req6} là {Req5, Req6} (2 yêu cầu).\n*   **TC4:** Bao phủ {Req2}. Các yêu cầu bổ sung từ {Req2, Req5, Req6} là {Req2} (1 yêu cầu).\n**Chọn TC3.**\n*   Các yêu cầu đã bao phủ: {Req1, Req3, Req4, Req7} U {Req5, Req6} = {Req1, Req3, Req4, Req5, Req6, Req7}\n*   Các yêu cầu chưa bao phủ: {Req2}\n\n**Bước 3: Chọn test case bao phủ nhiều yêu cầu *bổ sung* nhất từ các yêu cầu chưa bao phủ.**\n*   **TC2:** Bao phủ {Req1, Req5, Req7}. Các yêu cầu bổ sung từ {Req2} là {} (0 yêu cầu).\n*   **TC4:** Bao phủ {Req2}. Các yêu cầu bổ sung từ {Req2} là {Req2} (1 yêu cầu).\n**Chọn TC4.**\n*   Các yêu cầu đã bao phủ: {Req1, Req3, Req4, Req5, Req6, Req7} U {Req2} = {Req1, Req2, Req3, Req4, Req5, Req6, Req7}\n*   Các yêu cầu chưa bao phủ: {}\n\n**Bước 4: Test case còn lại là TC2.**\nTại thời điểm này, tất cả các yêu cầu đã được bao phủ bởi TC1, TC3 và TC4. Khi TC2 được thực thi, nó không cung cấp thêm bất kỳ độ bao phủ mới nào.\n\nThứ tự thực thi theo ưu tiên độ bao phủ bổ sung là: TC1, TC3, TC4, TC2.\nTest case được thực thi CUỐI CÙNG là TC2.\n\nĐáp án: B"
+    },
+    {
+      "id": "D-33",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: [C]"
+    },
+    {
+      "id": "D-34",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "D-35",
+      "ground_truth": [
+        "B",
+        "E"
+      ],
+      "ai_picked": [
+        "B"
+      ],
+      "is_correct": false,
+      "full_response": "Đáp án: B"
+    },
+    {
+      "id": "D-36",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    },
+    {
+      "id": "D-37",
+      "ground_truth": [
+        "D"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: D"
+    },
+    {
+      "id": "D-38",
+      "ground_truth": [
+        "A"
+      ],
+      "ai_picked": [
+        "A"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: A\n\n**Giải thích:**\n\nĐể giúp nhà phát triển tái tạo lỗi một cách nhanh chóng, thông tin cần thiết nhất là các chi tiết cụ thể về điều kiện gây ra lỗi.\n\n*   **A: Thêm thông tin về người dùng và sách bị ảnh hưởng vào phần “Description”.** Điều này cực kỳ hữu ích. Các bước tái tạo hiện tại là chung chung (\"Login as a user who has checked out a book,\" \"Click on the 'Book Return' button for *the* book\"). Nếu lỗi chỉ xảy ra với một loại người dùng cụ thể (ví dụ: người dùng có vai trò đặc biệt, người dùng đã mượn sách quá hạn) hoặc một loại sách cụ thể (ví dụ: sách có ID nhất định, sách đã được mượn trong một thời gian dài), việc cung cấp dữ liệu cụ thể (tên người dùng, ID sách) sẽ cho phép nhà phát triển thiết lập môi trường chính xác và tái tạo lỗi mà không cần phải đoán hoặc thử nghiệm với nhiều dữ liệu khác nhau. Điều này trực tiếp giúp tái tạo lỗi nhanh chóng.\n\n*   **B: Điền giá trị còn thiếu cho trường “Priority”.** Trường \"Priority\" (Mức độ ưu tiên) quan trọng cho việc quản lý dự án và sắp xếp công việc, nhưng nó không cung cấp bất kỳ thông tin nào giúp nhà phát triển tái tạo lỗi.\n\n*   **C: Thêm các bản ghi nhớ (memory dumps) và ảnh chụp cơ sở dữ liệu (database snapshots) được chụp sau mỗi bước mô tả trong phần “Steps to Reproduce” vào phần “Attachments”.** Các bản ghi nhớ và ảnh chụp cơ sở dữ liệu rất hữu ích cho việc gỡ lỗi và phân tích nguyên nhân gốc rễ *sau khi* lỗi đã được tái tạo. Tuy nhiên, chúng không trực tiếp giúp nhà phát triển *thực hiện các bước* để tái tạo lỗi. Mục tiêu chính là giúp nhà phát triển *làm cho lỗi xảy ra lại*, không phải là cung cấp dữ liệu để phân tích lỗi đã xảy ra.\n\n*   **D: Lặp lại cùng một trường hợp kiểm thử cho các môi trường khác nhau và viết báo cáo lỗi riêng cho từng môi trường.** Việc này giúp xác định phạm vi của lỗi (liệu nó có xảy ra trên các môi trường khác không), nhưng nó không giúp nhà phát triển tái tạo lỗi *nhanh chóng* trong môi trường đã được báo cáo. Nó thực tế còn tạo ra nhiều báo cáo hơn thay vì làm rõ báo cáo hiện có.\n\nDo đó, việc cung cấp dữ liệu cụ thể (người dùng, sách) là cách hiệu quả nhất để giúp nhà phát triển tái tạo lỗi một cách nhanh chóng."
+    },
+    {
+      "id": "D-39",
+      "ground_truth": [
+        "B"
+      ],
+      "ai_picked": [
+        "D"
+      ],
+      "is_correct": false,
+      "full_response": "Đáp án: D\n\nGiải thích:\n*   **ii. DevOps tools:** Các công cụ DevOps (ví dụ: Jenkins, GitLab CI, Azure DevOps) thường tích hợp các bước thực thi kiểm thử tự động vào quy trình CI/CD, giúp tự động hóa việc chạy các bài kiểm thử.\n*   **iii. Management tools (Công cụ quản lý):** Các hệ thống quản lý kiểm thử (Test Management Systems - TMS) như Jira (với các plugin), TestRail, ALM Octane được sử dụng để lập kế hoạch, tổ chức, theo dõi và báo cáo về các hoạt động kiểm thử, bao gồm cả việc ghi lại kết quả thực thi kiểm thử thủ công và tự động. Chúng tạo điều kiện thuận lợi cho việc quản lý và ghi nhận quá trình thực thi.\n*   **iv. Non-functional testing tools (Công cụ kiểm thử phi chức năng):** Các công cụ này (ví dụ: JMeter cho hiệu năng, OWASP ZAP cho bảo mật) được thiết kế đặc biệt để thực thi các loại kiểm thử phi chức năng, đo lường các thuộc tính như hiệu suất, bảo mật, khả năng sử dụng, v.v.\n\nCác lựa chọn khác:\n*   **i. Collaboration tools (Công cụ cộng tác):** Hỗ trợ giao tiếp và chia sẻ thông tin, nhưng không trực tiếp thực thi kiểm thử.\n*   **v. Test design and implementation tools (Công cụ thiết kế và triển khai kiểm thử):** Giúp tạo ra các trường hợp kiểm thử, kịch bản kiểm thử và dữ liệu kiểm thử, nhưng không phải là công cụ để thực thi chúng."
+    },
+    {
+      "id": "D-40",
+      "ground_truth": [
+        "C"
+      ],
+      "ai_picked": [
+        "C"
+      ],
+      "is_correct": true,
+      "full_response": "Đáp án: C"
+    }
+  ]
+}
