@@ -17,6 +17,7 @@ from langchain_text_splitters import (  # noqa: E402
     RecursiveCharacterTextSplitter,
 )
 from supabase import Client, create_client  # noqa: E402
+
 supabase: Client = create_client(settings.SUPABASE_URL, settings.SUPABASE_KEY)
 embeddings = NativeGoogleEmbeddings(
     model="models/gemini-embedding-001",
@@ -99,13 +100,11 @@ async def main():
         )
 
     # 4. Batch Upload (rate limit handling)
-    batch_size = 50
-    delay_seconds = 65
+    batch_size = 500  # Paid API: RPM 2,000 → tối đa 500 chunks/batch
+    delay_seconds = 0  # Không cần delay, paid API không giới hạn RPD
 
     print("🚀 Bắt đầu Push Vector embeddings lên Supabase...")
-    print(
-        f"   (Lưu ý: API Gemini giới hạn 100 requests/phút, hệ thống chia batch={batch_size} và delay={delay_seconds}s)"
-    )
+    print(f"   (Paid API: RPM=2000, batch={batch_size}, không delay)")
 
     total_batches = (len(splits) + batch_size - 1) // batch_size
 
@@ -123,8 +122,9 @@ async def main():
         except Exception as e:
             print(f"      ❌ Lỗi ở batch {batch_num}: {e}")
 
-        if i + batch_size < len(splits):
-            print(f"      ⏳ Nghỉ {delay_seconds} giây để tránh Rate Limit Quota...")
+        # Chỉ delay khi delay_seconds > 0 (Free tier)
+        if delay_seconds > 0 and i + batch_size < len(splits):
+            print(f"      ⏳ Nghỉ {delay_seconds}s giữa các batch...")
             time.sleep(
                 delay_seconds
             )  # using time.sleep instead of asyncio.sleep because add_documents is blocking
