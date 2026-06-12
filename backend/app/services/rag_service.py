@@ -9,6 +9,8 @@ from app.core.config import settings
 from app.core.custom_embeddings import NativeGoogleEmbeddings
 from fastapi import UploadFile
 from langchain_community.vectorstores import SupabaseVectorStore
+from langchain_community.retrievers import BM25Retriever
+
 from langchain_core.documents import Document
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_google_genai import ChatGoogleGenerativeAI
@@ -55,6 +57,8 @@ class RAGService:
         print("[RAGService] Đang tải mô hình CrossEncoder (Re-ranking)...")
         # Load nhỏ, nhanh, ~80MB
         self.reranker = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
+        self.bm25_retriever = None
+
 
     def _clear_all_documents(self):
         """Xóa toàn bộ documents trong vector DB trước khi insert mới"""
@@ -64,6 +68,8 @@ class RAGService:
                 "id", "00000000-0000-0000-0000-000000000000"
             ).execute()
             print("[RAGService] Đã xóa toàn bộ documents cũ.")
+            self.bm25_retriever = None
+
         except Exception as e:
             print(f"[RAGService] Lỗi khi xóa documents: {e}")
             raise
@@ -211,22 +217,56 @@ class RAGService:
         except Exception as e:
             print(f"[RAGService] Lỗi khi dọn dẹp dữ liệu cũ: {e}")
             # Không raise lỗi ở đây vì dữ liệu mới đã vào rồi, chỉ là chưa dọn được cái cũ (có thể dọn sau)
+        finally:
+            self.bm25_retriever = None
+
+
+    async def _init_bm25_retriever(self):
+        """Khởi tạo BM25Retriever từ tất cả tài liệu trong Supabase"""
+        try:
+            print("[RAGService] Đang tải tất cả tài liệu từ Supabase để tạo chỉ mục BM25...")
+            def fetch_docs():
+                return self.supabase.table("documents").select("content, metadata").execute()
+                
+            response = await asyncio.to_thread(fetch_docs)
+            
+            docs = []
+            for item in response.data:
+                docs.append(Document(
+                    page_content=item.get("content"),
+                    metadata=item.get("metadata") or {}
+                ))
+            
+            if docs:
+                self.bm25_retriever = BM25Retriever.from_documents(docs)
+                print(f"[RAGService] Đã tạo xong BM25Retriever với {len(docs)} tài liệu.")
+            else:
+                self.bm25_retriever = None
+                print("[RAGService] Không có tài liệu nào để tạo BM25Retriever.")
+        except Exception as e:
+            print(f"[RAGService] Lỗi khi tạo BM25Retriever: {e}")
+            self.bm25_retriever = None
 
     async def _bm25_search(self, query: str, k: int) -> List[Document]:
-        """Tìm kiếm full-text bằng BM25 qua Supabase"""
-        response = self.supabase.rpc(
-            "match_documents_fulltext", {"search_query": query, "match_count": k}
-        ).execute()
+        """Tìm kiếm full-text bằng BM25 thực tế thông qua BM25Retriever"""
+        if not self.bm25_retriever:
+            await self._init_bm25_retriever()
 
-        documents = []
-        for item in response.data:
-            doc = Document(
-                page_content=item.get("content"), metadata=item.get("metadata")
-            )
-            doc.metadata["bm25_rank"] = item.get("rank")
-            documents.append(doc)
+        if not self.bm25_retriever:
+            return []
 
-        return documents
+        # Đặt k kết quả mong muốn
+        self.bm25_retriever.k = k
+
+        # BM25Retriever.invoke là đồng bộ, chạy trong thread pool để tránh block event loop
+        docs = await asyncio.to_thread(self.bm25_retriever.invoke, query)
+
+        # Gán nhãn rank cho tài liệu
+        for i, doc in enumerate(docs):
+            doc.metadata["bm25_rank"] = float(i + 1)
+
+        return docs
+
 
     def _rrf_merge(
         self, semantic_docs: List[Document], bm25_docs: List[Document], k=60
